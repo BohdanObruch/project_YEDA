@@ -1,18 +1,18 @@
 import requests
 import os
-import pytest
 import json
 
-from dotenv import load_dotenv
 from schemas.yeda import *
 from pytest_voluptuous import S
 from tests.conftest import *
 from yeda_admin_panel_tests.utils.sessions import yeda
-from allure import tag
+from allure import tag, title
 
 
-@tag("Filling out the student's account information")
+@tag('API')
+@title("Filling out the student's account information")
 def test_edit_profile_user(register_user):
+    print(register_user)
 
     user_email = register_user[2]
     user_name = register_user[1]

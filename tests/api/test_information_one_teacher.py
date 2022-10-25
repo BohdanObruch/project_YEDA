@@ -2,24 +2,17 @@ import requests
 import os
 import pytest
 
-from dotenv import load_dotenv
 from schemas.yeda import *
 from pytest_voluptuous import S
 from yeda_admin_panel_tests.utils.sessions import yeda
-from allure import tag
+from allure import tag, title
 
 
-@pytest.fixture(autouse=True, scope='session')
-def environment():
-    load_dotenv()
-
-
-ID_TEACHER = os.getenv('id_teacher')
-ID_COLLEGE = os.getenv('id_college')
-
-
-@tag("Displaying the lecturer and his information on the website")
+@tag('API')
+@title("Displaying the lecturer and his information on the website")
 def test_display_teacher_information():
+    ID_TEACHER = os.getenv('id_teacher')
+    ID_COLLEGE = os.getenv('id_college')
 
     params = f"username={ID_TEACHER}&current_college_id={ID_COLLEGE}"
 

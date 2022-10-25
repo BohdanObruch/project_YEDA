@@ -106,7 +106,8 @@ courses = Schema({
             "begin_date": Any(None, str),
             "has_access": bool,
             "status_purchase": None,
-            "is_ministry_controlled": bool
+            "is_ministry_controlled": bool,
+            "show_video_exam": bool
         }
     ],
     "total": int,
@@ -182,7 +183,8 @@ course = Schema({
         "description": Any(None, str),
         "author": Any(None, str)
     },
-    "is_ministry_controlled": bool
+    "is_ministry_controlled": bool,
+    "show_video_exam": bool
 })
 
 teachers = Schema(
@@ -229,7 +231,9 @@ teachers = Schema(
                         "begin_date": Any(None, str),
                         "has_access": bool,
                         "status_purchase": None,
-                        "is_ministry_controlled": bool
+                        "is_ministry_controlled": bool,
+                        "show_video_exam": bool
+
                     }
                 ],
                 "total": int,
@@ -300,7 +304,8 @@ teacher = Schema(
                     "begin_date": Any(None, str),
                     "has_access": bool,
                     "status_purchase": None,
-                    "is_ministry_controlled": bool
+                    "is_ministry_controlled": bool,
+                    "show_video_exam": bool
                 }
             ],
             "total": int,

@@ -1,25 +1,17 @@
 import requests
 import os
-import pytest
 
-from dotenv import load_dotenv
 from schemas.yeda import *
 from pytest_voluptuous import S
 from yeda_admin_panel_tests.utils.sessions import yeda
-from allure import tag
+from allure import tag, title
 
 
-@pytest.fixture(autouse=True, scope='session')
-def environment():
-    load_dotenv()
-
-
-ID_COLLEGE = os.getenv('id_college')
-NAME_BUNDLE = os.getenv('name_bundle')
-
-
-@tag("Displaying the bundle on the website")
+@tag('API')
+@title("Displaying the bundle on the website")
 def test_display_information_bundle():
+    ID_COLLEGE = os.getenv('id_college')
+    NAME_BUNDLE = os.getenv('name_bundle')
 
     id_college = f'current_college_id={ID_COLLEGE}'
 

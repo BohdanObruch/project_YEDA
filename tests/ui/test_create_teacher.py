@@ -7,18 +7,14 @@ from yeda_admin_panel_tests.pages.authorization_old_admin_panel import authoriza
 from yeda_admin_panel_tests.controls.utils import resource
 
 
-current_GMT = time.gmtime()
-
-ts = calendar.timegm(current_GMT)
-name = ('Pavel'+str(ts))
-
-email = (name+'@gmail.com')
-
-phone = ts
-
-
 def test_add_teacher(setup_browser):
     # browser = setup_browser
+    current_GMT = time.gmtime()
+
+    ts = calendar.timegm(current_GMT)
+    name = ('Pavel' + str(ts))
+    email = (name + '@gmail.com')
+    phone = ts
 
     authorization_on_admin_panel()
 
@@ -30,7 +26,7 @@ def test_add_teacher(setup_browser):
     browser.element('.panel-heading .btn').click()
 
     browser.element('.page-header').with_(timeout=4).should(have.text('Create Teacher'))
-    browser.element('.upload_button #photo').send_keys(resource('Albert_Einstein.png'))
+    browser.element('.upload_button #photo').send_keys(resource('Albert_Einstein.jpg'))
     browser.element('#seo-collapse [name="meta_title"]').type('SEO Title')
     browser.element('#seo-collapse [name="meta_description"]').type('SEO Description')
     browser.element('#name').type(name)

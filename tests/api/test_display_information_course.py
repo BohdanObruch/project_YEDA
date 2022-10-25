@@ -1,30 +1,21 @@
-import requests
 import os
-import pytest
+import requests
 
-from dotenv import load_dotenv
 from schemas.yeda import *
 from pytest_voluptuous import S
 from yeda_admin_panel_tests.utils.sessions import yeda
-from allure import tag
+from allure import tag, title
 
 
-@pytest.fixture(autouse=True, scope='session')
-def environment():
-    load_dotenv()
-
-
-ID_COLLEGE = os.getenv('id_college')
-
-
-@tag("Displaying the course on the website")
+@tag('API')
+@title("Displaying the course on the website")
 def test_display_course():
-
-    name_course = 'test-create-course-new-yeda'
+    ID_COLLEGE = os.getenv('id_college')
+    NAME_COURSE = os.getenv('name_course_api')
 
     response = yeda().get(
-        f'/wl/colleges/{ID_COLLEGE}/courses/' + name_course
+        f'/wl/colleges/{ID_COLLEGE}/courses/' + NAME_COURSE
     )
     assert response.status_code == 200
     assert S(course) == response.json()
-    assert response.json()["slug_id"] == name_course
+    assert response.json()["slug_id"] == NAME_COURSE

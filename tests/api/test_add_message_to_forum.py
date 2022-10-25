@@ -1,27 +1,20 @@
 import requests
-import os
 import lorem
-import pytest
+import os
 
-from dotenv import load_dotenv
 from schemas.yeda import *
 from pytest_voluptuous import S
 from tests.conftest import *
 from yeda_admin_panel_tests.utils.sessions import yeda
-from allure import tag
+from allure import tag, title
 
 
-@pytest.fixture(autouse=True, scope='session')
-def environment():
-    load_dotenv()
-
-
-ID_COLLEGE = os.getenv('id_college')
-ID_COURSE = os.getenv('course_id')
-
-
-@tag("Add a message to the college course")
+@tag('API')
+@title("Add a message to the college course")
 def test_add_message_to_forum(register_user):
+
+    ID_COLLEGE = os.getenv('id_college')
+    ID_COURSE = os.getenv('course_id')
 
     token_value = str("Bearer " + register_user[0])
     token = {"Authorization": token_value}

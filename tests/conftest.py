@@ -6,12 +6,16 @@ import calendar
 import time
 import datetime as DT
 
+from datetime import date
 from selene.support.shared import browser
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from dotenv import load_dotenv
 from yeda_admin_panel_tests.controls import attach
 from yeda_admin_panel_tests.utils.sessions import yeda
+from yeda_admin_panel_tests.controls.utils import resource
+from appium import webdriver
+from yeda_admin_panel_tests.utils import attachment
 
 
 @pytest.fixture(scope='session', autouse=True)
@@ -29,6 +33,8 @@ def setup_browser():
     browser.config.base_url = WEB_URL
     browser.config.window_width = 1920
     browser.config.window_height = 1920
+    yield
+    browser.quit()
 
 
 # @pytest.fixture(scope='function', autouse=True)
@@ -51,11 +57,6 @@ def setup_browser():
 #         '--browser_version',
 #         default='103.0'
 #     )
-
-
-@pytest.fixture(scope='session', autouse=True)
-def load_env():
-    load_dotenv()
 
 
 #
@@ -98,20 +99,18 @@ def opened_page_admin_panel():
     browser.config.driver.maximize_window()
 
 
-now = DT.datetime.now(DT.timezone.utc).astimezone()
-time_format = "%Y-%m-%d %H:%M:%S"
-now_time = f"{now:{time_format}}"
-
-current_GMT = time.gmtime()
-ts = calendar.timegm(current_GMT)
-
-name = ('anna' + str(ts))
-email = (name + '@gmail.com')
-password = ts
-
-
 @pytest.fixture()  # scope='session', autouse=True
 def register_user():
+    now = DT.datetime.now(DT.timezone.utc).astimezone()
+    time_format = "%Y-%m-%d %H:%M:%S"
+    now_time = f"{now:{time_format}}"
+
+    current_GMT = time.gmtime()
+    ts = calendar.timegm(current_GMT)
+
+    name = ('anna' + str(ts))
+    email = (name + '@gmail.com')
+    password = ts
 
     user = {
         "email": f"{email}",
@@ -128,31 +127,40 @@ def register_user():
                            data=user
                            )
 
-    # response = requests.post(
-    #     'https://dev.biflow.co/api/auth/register',
-    #     params=current_college_id,
-    #     data=user
-    # )
-
-    response_parse = json.loads(response.text)
-    # token = response_parse['auth']['access_token']
+    response_parse = json.loads(str(response.text))
 
     token = response_parse['auth']['access_token']
-
     user_name = response_parse["user"]["name"]
     user_email = response_parse["user"]["email"]
     user_pass = ts
     id = response_parse["user"]["id"]
 
-
-    # token_response = response_parse.get("auth")
-    # token = token_response["access_token"]
-    #
-    # user_response = response.json().get("user")
-    # user_name = user_response["name"]
-    # user_email = user_response["email"]
-    # user_pass = ts
-    # id = user_response["id"]
-
     return token, user_name, user_email, user_pass, id
-    # return cookie_value, user_name, user_email, user_pass
+
+
+@pytest.fixture(scope='function')  # (scope='function', autouse=True)
+def setup():
+    desired_capabilities = ({
+        "platformName": "android",
+        "platformVersion": "9.0",
+        "deviceName": "Samsung Galaxy S20",
+        "os_version": "10.0",
+        "app": "bs://c700ce60cf13ae8ed97705a55b8e022f13c5827c",
+        "build": "browserstack-build-" + str(date.today()),
+        'bstack:options': {
+            "sessionName": "Python project test",
+            "projectName": "Python project",
+        }
+    })
+
+    userName = os.getenv('LOGIN')
+    accessKey = os.getenv('KEY')
+    remoteUrl = os.getenv('APPIUM_BROWSERSTACK')
+    browser.config.driver = webdriver.Remote(f"http://{userName}:{accessKey}@{remoteUrl}/wd/hub", desired_capabilities)
+    browser.config.timeout = 4
+    session_id = browser.config.driver.session_id
+
+    yield
+
+    browser.quit()
+    attachment.add_video(session_id, 'Test video')
