@@ -1,12 +1,10 @@
-import time
-import pytest
-
 from selene import have
 from selene.support.shared import browser
-from yeda_admin_panel_tests.pages.authorization_old_admin_panel import authorization_on_admin_panel
 from yeda_admin_panel_tests.controls.utils import resource
-from yeda_admin_panel_tests import command
 from allure import title, tag, step
+from yeda_admin_panel_tests.model.authorization import authorization_on_admin_panel
+from yeda_admin_panel_tests.helpers import app
+from yeda_admin_panel_tests.data.data import *
 
 
 @tag("Web UI")
@@ -18,134 +16,96 @@ def test_add_lesson(setup_browser):
         authorization_on_admin_panel()
 
     with step("Go to the lesson page"):
-        browser.element('.elearning-nav-li').click()
-        browser.element('.lessons-nav-li').click()
-        browser.element('.page-header').with_(timeout=4).should(have.text('Lessons'))
+        app.create_lesson.open_lessons_page('Lessons')
 
     with step("Creating a lesson"):
-        browser.element('.panel-heading .btn').click()
+        app.create_lesson.creat_a_lesson()
 
         with step("Checking the Adding Lesson page display"):
-            browser.element('.page-header').with_(timeout=4).should(have.text('Adding Lesson'))
+            app.create_lesson.checking_adding_lesson_page('Adding Lesson')
 
         with step("Changing the status to active to display on the site"):
-            browser.element('#dropdownMenuButton').click()
-            browser.element('[data-status-id="3"]').click()
+            app.create_lesson.chang_status()
 
         with step("Choose a category"):
-            browser.element('#dropdown-category').click()
-            browser.element('[data-category-id="115"]').click()
+            app.create_lesson.add_category()
 
         with step("Adding price"):
-            browser.element('[name="normal_price"]').type('100')
-            browser.element('[name="discount_price"]').type('75')
+            app.create_lesson.add_price(Lessons.normal_price, Lessons.discount_price)
 
         with step("Filling in the Lesson Details"):
             with step("Filling in the title"):
-                browser.element('.form-group #title').type('Microeconomics - lesson 1')
+                app.create_lesson.add_title(Lessons.title_lesson)
 
             with step("Filling content of lesson"):
-                browser.element('.jodit-workplace .jodit-wysiwyg').type(
-                    'The return curve - first part. The structure of the curve based on the factors of '
-                    'production. Allocation of factors of production according to the principle of '
-                    'comparative advantage.')
+                app.create_lesson.add_description(Lessons.description_text)
 
     with step("Submit the form"):
-        browser.element('#save-lesson').click()
+        app.create_lesson.submit_form()
 
         with step("Specifying the 'Show date edited' checkbox"):
-            browser.element('#show_date_edited').click()
+            app.create_lesson.show_date_edited()
 
         with step("Adding files"):
-            browser.element('.lesson-files-block #lesson_files_input').send_keys(resource('Document_1.pdf'))
-            browser.element('#files-tbody .file-to-speech').click()
-            browser.element('.lesson-files-block #lesson_files_input').send_keys(resource('schedule.xlsx'))
+            app.create_lesson.add_files(Lessons.document, Lessons.table)
 
     with step("Editing lesson"):
         with step("Adding lecturer"):
-            browser.element('.lector-name').type('אולגה מסקרפונה')
-            time.sleep(2)
-            browser.element('.suggestions [data-id="48"]').click()
-            browser.element('.add_lecturer').click()
+            app.create_lesson.add_lecturer(Lessons.name_lecturer)
 
         with step("Adding part of lesson"):
             with step("Adding Part #1"):
-                browser.element('.add-video').click()
-                browser.element('.open-video-collapse .lesson-part-toggle').click()
+                app.create_lesson.add_first_part_of_lesson()
 
                 with step("Filling in the title"):
-                    browser.element('#lesson_part1 .page_video_title').type('Microeconomics lesson 1 - part A')
+                    app.create_lesson.add_title_first_part(Lessons.title_first_part_lesson)
 
                 with step("Adding video"):
-                    browser.element('.lesson_video_file').send_keys(resource('Mathematics.mp4'))
+                    app.create_lesson.add_video_first_part(Lessons.video_first_part_lesson)
 
                 with step("Mark indications 'Speech from a summary'"):
                     with step("Specifying the 'Text to Speech' checkbox"):
-                        browser.element('.checkbox-span .summary_to_speech_input').click()
+                        app.create_lesson.text_to_speech()
 
                     with step("Mark indications 'Don't show the About text'"):
-                        browser.element('.hide_text_if_there_is_speech_input').click()
+                        app.create_lesson.not_show_the_about_text()
 
                 with step("Checking the video upload"):
-                    browser.element('#save-lesson').perform(command.js.scroll_into_view)
-                    browser.element('.vimeo_transcoding_text').with_(timeout=15) \
-                        .should(have.text('Video was uploaded and is '
-                                          'being transcoded by '
-                                          'vimeo.\nThis may take some '
-                                          'time.\nYou can save now and '
-                                          'check for image later.'))
+                    app.create_lesson.checking_the_video_upload_part_one(Lessons.text_message)
 
             with step("Save part lesson #1"):
-                browser.element('#save-lesson').click()
+                app.create_lesson.save_first_part_lesson()
 
             with step("Close the block part of the lesson #1"):
-                browser.element('.open-video-collapse .lesson-part-toggle').click()
+                app.create_lesson.close_first_part_block()
 
             with step("Adding part #2"):
-                browser.element('.add-video').perform(command.js.click)
-                time.sleep(1)
-                browser.element('.lesson-video:nth-child(2) .lesson-part-toggle').click()
+                app.create_lesson.add_second_part_of_lesson()
 
                 with step("Filling in the title"):
-                    browser.element('.lesson-video:nth-child(2) .page_video_title') \
-                        .type('Microeconomics Lesson 1 - Part B')
+                    app.create_lesson.add_title_second_part(Lessons.title_second_part_lesson)
 
                 with step("Adding video"):
-                    browser.element('.lesson-video:nth-child(2) .lesson_video_file') \
-                        .send_keys(resource('Mathematics2.mp4'))
+                    app.create_lesson.add_video_second_part(Lessons.video_second_part_lesson)
 
                 with step("Checking the video upload"):
-                    browser.element('#save-lesson').perform(command.js.scroll_into_view)
-                    browser.element('.lesson-video:nth-child(2) .vimeo_transcoding_text').with_(timeout=15). \
-                        should(have.text('Video was uploaded and is '
-                                         'being transcoded by '
-                                         'vimeo.\nThis may take some '
-                                         'time.\nYou can save now and '
-                                         'check for image later.'))
+                    app.create_lesson.checking_the_video_upload_second_part(Lessons.text_message)
 
             with step("Save part lesson #2"):
-                browser.element('#save-lesson').click()
+                app.create_lesson.save_second_part_lesson()
 
             with step("Close the block part of the lesson #2"):
-                browser.element('.lesson-video:nth-child(2) .lesson-part-toggle').click()
+                app.create_lesson.close_second_part_block()
 
         with step("Moving blocks of parts of lessons between themselves"):
-            time.sleep(1)
-            first_part = browser.element('#lesson_parts_accordion .lesson-video:nth-child(1) .col')
-            second_part = browser.element('#lesson_parts_accordion .lesson-video:nth-child(2) .lesson-video-handle')
-            second_part.perform(command.drag_to(first_part))
-            browser.element('#save-lesson').click()
+            app.create_lesson.moving_blocks_of_parts()
 
         with step("Deleting a created lesson"):
             with step("Go to the Lessons page"):
-                browser.element('.lessons-nav-li').click()
+                app.create_lesson.open_all_lessons_page()
 
             with step("Search for a created lesson and delete it"):
-                browser.element('[data-name="title"').type('Microeconomics - lesson 1')
-                browser.element('.ui-sortable-handle .col').with_(timeout=6).should(have.text('Microeconomics - '
-                                                                                              'lesson 1'))
-                browser.element('.ui-sortable-handle .delete').click()
-                browser.element('.container .btn:nth-child(1)').click()
+                app.create_lesson.search_created_lesson_and_delete(Lessons.title_lesson, Lessons.name_lesson)
 
             with step("Display a push message about successful removal of the lesson"):
-                browser.element('[data-notify="message"]').with_(timeout=5).should(have.text('Lesson has been deleted'))
+                app.create_lesson.push_message_about_successful_removal_lesson('Lesson has been deleted')

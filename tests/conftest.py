@@ -5,6 +5,8 @@ import json
 import calendar
 import time
 import datetime as DT
+import allure_commons
+import config
 
 from datetime import date
 from selene.support.shared import browser
@@ -15,7 +17,7 @@ from yeda_admin_panel_tests.controls import attach
 from yeda_admin_panel_tests.utils.sessions import yeda
 from yeda_admin_panel_tests.controls.utils import resource
 from appium import webdriver
-from yeda_admin_panel_tests.utils import attachment
+from selene import support
 
 
 @pytest.fixture(scope='session', autouse=True)
@@ -99,7 +101,7 @@ def opened_page_admin_panel():
     browser.config.driver.maximize_window()
 
 
-@pytest.fixture()  # scope='session', autouse=True
+@pytest.fixture()
 def register_user():
     now = DT.datetime.now(DT.timezone.utc).astimezone()
     time_format = "%Y-%m-%d %H:%M:%S"
@@ -137,30 +139,26 @@ def register_user():
 
     return token, user_name, user_email, user_pass, id
 
-
-@pytest.fixture(scope='function')  # (scope='function', autouse=True)
-def setup():
-    desired_capabilities = ({
-        "platformName": "android",
-        "platformVersion": "9.0",
-        "deviceName": "Samsung Galaxy S20",
-        "os_version": "10.0",
-        "app": "bs://c700ce60cf13ae8ed97705a55b8e022f13c5827c",
-        "build": "browserstack-build-" + str(date.today()),
-        'bstack:options': {
-            "sessionName": "Python project test",
-            "projectName": "Python project",
-        }
-    })
-
-    userName = os.getenv('LOGIN')
-    accessKey = os.getenv('KEY')
-    remoteUrl = os.getenv('APPIUM_BROWSERSTACK')
-    browser.config.driver = webdriver.Remote(f"http://{userName}:{accessKey}@{remoteUrl}/wd/hub", desired_capabilities)
-    browser.config.timeout = 4
-    session_id = browser.config.driver.session_id
-
-    yield
-
-    browser.quit()
-    attachment.add_video(session_id, 'Test video')
+#
+# @pytest.fixture(scope='function', autouse=True)
+# def create_driver(request):
+#     browser.config.timeout = config.settings.timeout
+#     browser.config._wait_decorator = support._logging.wait_with(
+#         context=allure_commons._allure.StepContext
+#     )
+#
+#     browser.config.driver = webdriver.Remote(
+#         config.settings.remote_url, options=config.settings.driver_options
+#     )
+#
+#     yield
+#
+#     session_id = browser.driver.session_id
+#
+#     if config.settings.run_on_browserstack:
+#         attach.add_video_browserstack(session_id, 'Video test')
+#
+#     attach.screenshot(name='Last screenshot')
+#     attach.screen_xml_dump()
+#
+#     browser.quit()

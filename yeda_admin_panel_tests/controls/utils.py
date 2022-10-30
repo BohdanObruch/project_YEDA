@@ -14,4 +14,3 @@ def resource(relative_path):
         .absolute()
         .__str__()
     )
-
