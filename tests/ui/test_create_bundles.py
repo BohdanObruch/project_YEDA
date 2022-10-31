@@ -35,7 +35,7 @@ def test_create_bundle(setup_browser):
             app.create_bundles.add_video(Bundles.video_link)
 
         with step("Filling a short description"):
-            app.create_bundles.add_short_description(Bundles.short_descriptoin)
+            app.create_bundles.add_short_description(Bundles.short_description)
 
         with step("Filling a description"):
             app.create_bundles.add_description(Bundles.description_line1, Bundles.description_line2)

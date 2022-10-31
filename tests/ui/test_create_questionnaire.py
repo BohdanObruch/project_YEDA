@@ -1,83 +1,57 @@
-import time
-import pytest
-import os
-
-from selene import have
 from selene.support.shared import browser
-from yeda_admin_panel_tests.pages.authorization_old_admin_panel import authorization_on_admin_panel
 from yeda_admin_panel_tests.controls.utils import resource
+from yeda_admin_panel_tests.model.authorization import authorization_on_admin_panel
 from allure import title, tag, step
+from yeda_admin_panel_tests.helpers import app
+from yeda_admin_panel_tests.data.data import *
 
 
 @tag("Web UI")
 @title("Creating an questionnaire")
 def test_create_questionnaire(setup_browser):
     # browser = setup_browser
-    NAME_QUESTIONNAIRE = os.getenv('name_questionnaire')
 
     with step("Authorization on the admin panel"):
         authorization_on_admin_panel()
 
     with step("Go to the Questionnaires page"):
-        browser.element('.elearning-nav-li').click()
-        browser.element('.questionnaires-nav-li').click()
+        app.create_questionnaire.open_questionnaires_page()
 
     with step("Checking the Questionnaires page display"):
-        browser.element('.page-header').with_(timeout=4).should(have.text('Questionnaires'))
+        app.create_questionnaire.checking_questionnaires_page('Questionnaires')
 
     with step("Creating a questionnaire"):
-        browser.element('.panel-heading .btn').click()
+        app.create_questionnaire.creat_questionnaire()
 
         with step("Checking the Adding Questionnaire page display"):
-            browser.element('.page-header').with_(timeout=4).should(have.text('Adding Questionnaire'))
+            app.create_questionnaire.checking_create_questionnaire_page('Adding Questionnaire')
 
         with step("Changing the status to active to display on the site"):
-            browser.element('#dropdownMenuButton').click()
-            browser.element('[data-status-id="3"]').click()
+            app.create_questionnaire.change_status()
 
         with step("Choose a category"):
-            browser.element('#dropdown-category').click()
-            browser.element('[data-category-id="115"]').click()
+            app.create_questionnaire.add_category()
 
         with step("Filling in the title"):
-            browser.element('#title').type(f'{NAME_QUESTIONNAIRE}')
+            app.create_questionnaire.add_title()
+
+        with step("Filling a short description"):
+            app.create_questionnaire.add_short_description(Questionnaire.short_description)
 
         with step("Filling a description"):
-            browser.element('[name="short_descr"]').type('Here is a matriculation in English model E. This '
-                                                         'matriculation is '
-                                                         'for practice only, so you can take your time and solve it '
-                                                         'slowly '
-                                                         'and thoroughly. Successfully!')
+            app.create_questionnaire.add_description(Questionnaire.description)
 
-            browser.element('.jodit-workplace .jodit-wysiwyg').type(' ')
-            browser.element('.jodit-ui-group_group_indent .jodit-toolbar-button__trigger').click()
-            browser.element('.jodit-toolbar-button_center .jodit-toolbar-button__button').click()
-            browser.element('.jodit-workplace .jodit-wysiwyg').type('The above exercises are designed to reset/find '
-                                                                    'theoretical gaps in your study process.') \
-                .press_enter()
-            browser.element('.jodit-ui-group_size_middle .jodit-icon_select_all').click()  # .jodit-xpath__item
-            browser.element('.jodit-toolbar-button_bold').click()
-            browser.element('.jodit-workplace .jodit-wysiwyg').click()
-            browser.element('.jodit-workplace .jodit-wysiwyg').type(' ').press_enter()
+            with step("Adding image"):
+                app.create_questionnaire.add_image(Questionnaire.picture)
 
-        with step("Adding image"):
-            browser.element('.jodit-ui-group__image').click()
-            browser.element('[type="file"]').send_keys(resource('mathematics.jpg'))
-            browser.element('.jodit-wysiwyg img').with_(timeout=15).click()
-
-            with step("Changing the size of an added image"):
-                browser.element('.jodit-toolbar-button_pencil').click()
-                browser.element('.imageHeight').clear().type('400')
-                time.sleep(1)
-                browser.element('.jodit-dialog__footer .jodit-ui-button_ok').click()
+                with step("Changing the size of an added image"):
+                    app.create_questionnaire.change_size_picture(Questionnaire.size_picture)
 
         with step("Mark indications 'Shuffle questions'"):
-            browser.element('.d-inline-block [name="shuffle_questions"]').click()
+            app.create_questionnaire.shuffle_questions()
 
             with step("Specifying the limit to display"):
-                browser.element('.max-q-count [name="questions_count"').clear().type('3')
+                app.create_questionnaire.limit_to_display_count_questions(Questionnaire.count_questions)
 
     with step("Submit the form"):
-        browser.element('[type="submit"]').click()
-        time.sleep(2)
-
+        app.create_questionnaire.submit_form()

@@ -3,7 +3,6 @@ import time
 
 from dotenv import load_dotenv
 from selene import have, by
-from selene.core import command
 from selene.support.shared import browser
 from selene.support.shared.jquery_style import s, ss
 from yeda_admin_panel_tests.controls.utils import resource
@@ -28,20 +27,20 @@ class CreateBundles:
         s('#name').type(f'{NAME_BUNDLE}')
         return self
 
-    def add_duration(self, value):
-        s('[name="duration"]').type(value)
+    def add_duration(self, duration: str):
+        s('[name="duration"]').type(duration)
         return self
 
-    def add_prerequisites(self, value):
-        s('[name="prerequisites"]').type(value)
+    def add_prerequisites(self, prerequisites: str):
+        s('[name="prerequisites"]').type(prerequisites)
         return self
 
     def add_video(self, value):
         s('[name="video_link"]').type(value)
         return self
 
-    def add_short_description(self, value):
-        s('[name="description"]').type(value)
+    def add_short_description(self, video_link: str):
+        s('[name="description"]').type(video_link)
         return self
 
     def add_description(self, description_line1: str, description_line2: str):
@@ -94,7 +93,7 @@ class CreateBundles:
         return self
 
     def check_page_title(self, value):
-        browser.element('.page-header').with_(timeout=20).should(have.text(value))
+        s('.page-header').with_(timeout=20).should(have.text(value))
         return self
 
 
@@ -193,8 +192,9 @@ class FillingBundles:
     def search_created_bundle_and_delete(self):
         NAME_BUNDLE = os.getenv('name_bundle_ui')
 
-        panel = browser.element('.panel-body')
+        panel = s('.panel-body')
         panel.all('.row').element_by_its('.course-link', have.exact_text(f'{NAME_BUNDLE}')).element('.delete').click()
+        time.sleep(1)
         s('.container .btn:nth-child(1)').click()
         return self
 

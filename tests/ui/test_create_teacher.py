@@ -1,51 +1,62 @@
-import time
-import calendar
-
-from selene import have, command
 from selene.support.shared import browser
-from yeda_admin_panel_tests.pages.authorization_old_admin_panel import authorization_on_admin_panel
 from yeda_admin_panel_tests.controls.utils import resource
+from yeda_admin_panel_tests.model.authorization import authorization_on_admin_panel
+from allure import title, tag, step
+from yeda_admin_panel_tests.helpers import app
+from yeda_admin_panel_tests.data.data import *
 
 
 def test_add_teacher(setup_browser):
     # browser = setup_browser
-    current_GMT = time.gmtime()
 
-    ts = calendar.timegm(current_GMT)
-    name = ('Pavel' + str(ts))
-    email = (name + '@gmail.com')
-    phone = ts
+    with step("Authorization on the admin panel"):
+        authorization_on_admin_panel()
 
-    authorization_on_admin_panel()
+    with step("Go to the Teachers page"):
+        app.create_teacher.open_teachers_page()
 
-    browser.element('.elearning-nav-li').click()
-    browser.element('.teachers-nav-li').click()
+    with step("Checking the 'Teachers' page display"):
+        app.create_teacher.checking_teachers_page('Teachers')
 
-    browser.element('.page-header').with_(timeout=4).should(have.text('Teachers'))
+    with step("Creating teacher"):
+        app.create_teacher.creat_teacher()
 
-    browser.element('.panel-heading .btn').click()
+        with step("Checking the Create Teacher page display"):
+            app.create_teacher.checking_create_teacher_page('Create Teacher')
 
-    browser.element('.page-header').with_(timeout=4).should(have.text('Create Teacher'))
-    browser.element('.upload_button #photo').send_keys(resource('Albert_Einstein.jpg'))
-    browser.element('#seo-collapse [name="meta_title"]').type('SEO Title')
-    browser.element('#seo-collapse [name="meta_description"]').type('SEO Description')
-    browser.element('#name').type(name)
+        with step("Adding teaser images"):
+            app.create_teacher.add_teaser_image(Teacher.picture)
 
-    browser.element('[name="positions"]').type('Professor of the highest category')
-    browser.element('[name="short_descr"]').type('Lecturer for the economy')
-    browser.element('[name="about"]').type('Expert in everything related to security, political, family and black '
-                                           'economy')
-    browser.element('[name="email"]').type(email)
-    browser.element('[name="phone"]').type(phone)
-    browser.element('[type="submit"]').click()
-    time.sleep(10)
-    browser.element('.teachers-nav-li').click()
+        with step("Adding SEO"):
+            app.create_teacher.add_seo(Teacher.seo_title, Teacher.seo_description)
 
-    browser.element('.filter #search_text').type(name).press_enter()
-    browser.element(f'//*[text() = "{name}"]').with_(timeout=5).should(have.text(name))
+        with step("Adding name teacher"):
+            app.create_teacher.add_name(Teacher.name_teacher)
 
-    # delete
+        with step("Adding positions teacher"):
+            app.create_teacher.add_positions(Teacher.positions_teacher)
 
-    browser.all('.table').element_by_its('.teacher-name', have.exact_text(name)).element('.delete').click()
-    browser.element('.container .btn:nth-child(1)').click()
-    browser.element('[data-notify="message"]').with_(timeout=5).should(have.text('Teacher has been deleted'))
+        with step("Filling a short description"):
+            app.create_teacher.add_short_description(Teacher.short_description)
+
+        with step("Filling a description"):
+            app.create_teacher.add_description(Teacher.description)
+
+        with step("Filling email"):
+            app.create_teacher.add_email(Teacher.email)
+
+        with step("Filling phone number"):
+            app.create_teacher.add_phone_number(Teacher.phone_number)
+
+    with step("Submit the form"):
+        app.create_teacher.submit_form()
+
+    with step("Deleting a created Teacher"):
+        with step("Go to the Teachers page"):
+            app.create_teacher.open_all_teachers_page()
+
+        with step("Search for a created teacher and delete it"):
+            app.create_teacher.search_created_teacher_and_delete(Teacher.name_teacher)
+
+            with step("Display a push message about successful removal of the teacher"):
+                app.create_teacher.push_message_about_successful_removal_teacher('Teacher has been deleted')
