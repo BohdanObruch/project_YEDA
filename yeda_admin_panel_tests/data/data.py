@@ -77,3 +77,41 @@ class Questionnaire:
     picture = 'mathematics.jpg'
     count_questions = 3
     size_picture = 400
+    first_title_chapters = 'mathematics'
+    first_multiplier = 1
+    first_categories = 'correct answer'
+    subcategories = 'higher mathematics'
+    first_resource = 'questionnaire1.jpeg'
+    second_resource = 'questionnaire2.jpeg'
+    name_first_tag = 'mathematics'
+    third_resource = 'Mathematics.mp4'
+    text_video_transcoding = 'Video was uploaded and is being transcoded by vimeo.\n' \
+                             'This may take some time.\nYou can save now and check for image later.'
+    answer_first = 1
+    answer_second = 2
+    answer_third = 3
+    answer_fourth = 4
+    second_title_chapters = 'English'
+    second_multiplier = 2
+    second_categories = 'Reading passages'
+    fourth_resource = 'english.png'
+    name_second_tag = 'English'
+    first_answer = 'The method used for testing science students.'
+    second_answer = 'The kinds of games that are used in science classes.'
+    third_answer = 'The way that sciences are taught in high school.'
+    fourth_answer = 'The subjects taught in science classes.'
+    third_question = 'Planets closest to the Sun (called terrestrial planets)'
+    name_third_tag = 'Solar System'
+    first_answer_third_question = 'Mercury'
+    second_answer_third_question = 'Jupiter'
+    third_answer_third_question = 'Venus'
+    fourth_answer_third_question = 'Uranus'
+    fifth_answer_third_question = 'Earth'
+    sixth_answer_third_question = 'Neptune'
+    seventh_answer_third_question = 'Mars'
+    eighth_answer_third_question = 'Saturn'
+    first_questionnaire_title = 'Questionnaire Chapter #1'
+    second_questionnaire_title = 'Questionnaire Chapter #2'
+    third_questionnaire_title = 'Questionnaire Chapter #3'
+
+
