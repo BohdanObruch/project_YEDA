@@ -1,4 +1,3 @@
-from selene import have
 from selene.support.shared import browser
 from yeda_admin_panel_tests.controls.utils import resource
 from allure import title, tag, step

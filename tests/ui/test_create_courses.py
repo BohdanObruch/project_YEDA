@@ -1,119 +1,87 @@
-import time
-import pytest
-import os
-
-from selene import have, command
 from selene.support.shared import browser  # убрать если нужен запуск удаленно
 from yeda_admin_panel_tests.controls.utils import resource
-from yeda_admin_panel_tests.pages.authorization_website import authorization_on_the_site
-from yeda_admin_panel_tests.controls.utils import resource
 from allure import title, tag, step
+from yeda_admin_panel_tests.model.authorization import authorization_on_the_site
+from yeda_admin_panel_tests.helpers import app
+from yeda_admin_panel_tests.data.data import *
 
 
 @tag("Web UI")
 @title("Creating an course")
 def test_create_course(setup_browser):
     # browser = setup_browser # розкамитить если нужен запуск удаленно
-    NAME_COURSE = os.getenv('name_course')
-    URL_COURSES = os.getenv('url_courses')
 
     with step("Authorization on the site and go to the admin panel"):
         authorization_on_the_site()
 
     with step("Go to the courses page"):
-        browser.element('[href="/admin/courses"]').click()
+        app.create_course.open_courses_page()
 
     with step("Creating a course"):
-        browser.element('[yedaoldadminhref="elearning/courses/create"]').click()
+        app.create_course.creat_course()
 
         with step("Changing the status to active to display on the site"):
-            browser.element('#dropdownMenuButton').click()
-            browser.element('[data-status-id="3"]').click()
+            app.create_course.change_status()
 
         with step("Choose a category"):
-            browser.element('#dropdown-category').click()
-            browser.element('[data-category-id="115"]').click()
+            app.create_course.add_category()
 
         with step("Filling in the name of the course"):
-            browser.element('#name').type(f'{NAME_COURSE}')
+            app.create_course.add_title()
 
         with step("Generate slug"):
-            browser.element('#generate-slug').click()
-            # browser.element('#slug').should(have.exact_texts('qa-automation-course'))
+            app.create_course.add_slug()
 
         with step("Filling in the short description"):
-            browser.element('[name="short_descr"]').type('This course about how to learn QA Automation')
+            app.create_course.add_short_description(Course.short_description)
 
         with step("Adding a description"):
-            browser.element('[name="descr"]').type('This course about how to learn QA Automation')
+            app.create_course.add_description(Course.description)
 
         with step("Filling in the duration"):
-            browser.element('[name="duration"]').type('12 month')
+            app.create_course.add_duration(Course.duration)
 
         with step("Filling in the prerequisites"):
-            browser.element('[name="prerequisites"]').type('Not have')
+            app.create_course.add_prerequisites(Course.prerequisites)
 
         with step("Adding video to the 'Video or image' block"):
-            browser.element('[name="video_link"]').type('https://vimeo.com/437087249')
+            app.create_course.add_video('https://vimeo.com/437087249')
 
         with step("Adding teaser images"):
-            browser.element('#course_photo').send_keys(resource('circle.png'))
+            app.create_course.add_teaser_image(Course.picture)
 
         with step("Adding description"):
-            browser.element('.jodit-wysiwyg').type('QA Automation').press_enter()
-            browser.element('.jodit-wysiwyg').type('This course about how to learn QA').press_enter()
-            browser.element('.panel-body .jodit-status-bar__item .jodit-toolbar-button__button').click()
-            browser.element('.jodit-toolbar-button.jodit-toolbar-button_size_middle.jodit-toolbar-button_bold').click()
+            app.create_course.add_about_course(Course.description_line1, Course.description_line2)
 
         with step("Associated files"):
-            with step("Displaying files only for students of the course"):
-                browser.element('[name="show_files_to_students"]').click()
-
-            with step("Adding files"):
-                browser.element('#files_input').send_keys(resource('template-courses.xlsx'))
-                browser.element('#files_input').send_keys(resource('lesson_19.pdf'))
-                time.sleep(2)
+            with step("Displaying files only for students of the course and adding"):
+                app.create_course.add_associated_files(Course.file, Course.table)
 
         with step("Adding SEO"):
-            with step("Filling Title"):
-                browser.element('[name="meta_title"]').type('QA Automation')
-
-            with step("Filling Description"):
-                browser.element('[name="meta_description"]').type('This course about how to learn QA Automation')
-
-            with step("Filling Author"):
-                browser.element('[name="meta_author"]').type('QA')
+            with step("Filling Title, Description, Author"):
+                app.create_course.add_seo(Course.seo_title, Course.seo_description, Course.seo_author)
 
         with step("Adding start date"):
-            browser.element('#date_begin_date').type('2023-01-01').press_tab()
+            app.create_course.add_start_date(Course.start_date)
 
         with step("Adding end date"):
-            browser.element('#date_end_date').type('2023-02-28').press_tab()
+            app.create_course.add_end_date(Course.end_date)
 
         with step("Adding price"):
-            browser.element('[name="normal_price"]').type('100')
-            browser.element('[name="discount_price"]').type('60')
+            app.create_course.add_price(Course.normal_price, Course.discount_price)
 
     with step("Submit the form"):
-        browser.element('[type="submit"]').click()
+        app.create_course.submit_form()
 
     with step("Checking page title changes on the Editing Course"):
-        browser.element('.page-header').with_(timeout=10).should(have.text('Editing Course'))
+        app.create_course.check_page_title('Editing Course')
 
     with step("Deleting a created Course"):
         with step("Go to the page with all the courses"):
-            browser.element(f'[href="{URL_COURSES}"]').perform(command.js.click)
-            browser.element('#portal-header-default').with_(timeout=10).should(have.text('Courses'))
+            app.create_course.open_all_courses_page('Courses')
 
         with step("Search for a created course and delete it"):
-            table = browser.element('#cdk-drop-list-0')
-            table.all('.air-list-item').element_by_its('[airtablelikecell="course-name"]',
-                                                       have.exact_text(f'{NAME_COURSE}')) \
-                .element('.color-danger.clear').click()
-            browser.element('// *[text() = "Confirm delete"]').click()
-            time.sleep(2)
+            app.create_course.search_created_course_and_delete()
 
         with step("Checking that the created course has been deleted"):
-            table = browser.element('#cdk-drop-list-0')
-            table.all('.air-list-item').element_by_its('[airtablelikecell="course-name"',
-                                                       not have.exact_text(f'{NAME_COURSE}'))
+            app.create_course.checking_that_the_course_has_been_deleted()

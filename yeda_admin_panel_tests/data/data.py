@@ -115,3 +115,20 @@ class Questionnaire:
     third_questionnaire_title = 'Questionnaire Chapter #3'
 
 
+class Course:
+    short_description = 'This course about how to learn QA Automation'
+    description = 'This course about how to learn QA Automation and Manual'
+    duration = '12 month'
+    prerequisites = 'Not have'
+    picture = 'circle.png'
+    description_line1 = 'QA Automation'
+    description_line2 = 'This course about how to learn QA'
+    table = 'template-courses.xlsx'
+    file = 'lesson_19.pdf'
+    seo_title = 'QA Automation'
+    seo_description = 'This course about how to learn QA Automation'
+    seo_author = 'QA'
+    start_date = '2023-01-01'
+    end_date = '2023-02-28'
+    normal_price = 100
+    discount_price = 60
