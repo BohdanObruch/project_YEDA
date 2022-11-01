@@ -1,5 +1,4 @@
 from selene.support.shared import browser  # убрать если нужен запуск удаленно
-from yeda_admin_panel_tests.controls.utils import resource
 from allure import title, tag, step
 from yeda_admin_panel_tests.model.authorization import authorization_on_the_site
 from yeda_admin_panel_tests.helpers import app

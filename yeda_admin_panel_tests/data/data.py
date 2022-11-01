@@ -132,3 +132,10 @@ class Course:
     end_date = '2023-02-28'
     normal_price = 100
     discount_price = 60
+
+
+class Article:
+    video_link = 'https://vimeo.com/53801675'
+    picture = 'circle.png'
+    seo_author = 'QA'
+    context_text = 'Good luck!'
