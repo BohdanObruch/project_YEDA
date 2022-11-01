@@ -21,10 +21,10 @@ class Bundles:
     file_with_users = 'template-courses.xlsx'
     name_first_course = 'קורס מאקרו כלכלה'
     full_name_first_course = 'קורס מאקרו כלכלה קורס מאקרו כלכלה'
-    date_closed_first_course = '2022-11-15'
+    date_closed_first_course = '2022-12-15'
     name_second_course = 'קורס מאקרו כלכלה'
     full_name_second_course = 'קורס מאקרו כלכלה'
-    date_closed_second_course = '2022-12-10'
+    date_closed_second_course = '2023-01-10'
 
 
 class Lessons:
@@ -139,3 +139,42 @@ class Article:
     picture = 'circle.png'
     seo_author = 'QA'
     context_text = 'Good luck!'
+
+
+class Survey:
+    final_text = 'Thanks!'
+    message_notification = 'question data has been saved'
+    first_question_type = 'Text. Question 1'
+    content_first_question = 'Express your opinion about the lesson.'
+    number_of_characters = 100
+    second_question_type = 'Paragraph. Question 2'
+    content_second_question = 'Did you study all the lessons in the section and still have questions? If so, ' \
+                              'please list them. '
+    third_question_type = 'Single choice. Question 3'
+    content_third_question = 'Was the lecturer clear?'
+    first_answer = 'Very well'
+    second_answer = 'Not so'
+    third_answer = 'I only understood some of the things'
+    fourth_question_type = 'Multiple choice. Question 4'
+    content_fourth_question = 'What device are you accessing the system from right now?'
+    first_answer_option = 'IOS tablet'
+    second_answer_option = 'Android tablet'
+    third_answer_option = 'Android phone'
+    fourth_answer_option = 'IOS phone'
+    fifth_answer_option = 'Windows phone'
+    sixth_answer_option = 'Windows computer'
+    seventh_answer_option = 'Mac computer'
+    fifth_question_type = 'Select from list. Question 5'
+    content_fifth_question = 'Do you feel that you master the material studied?'
+    first_answer_variant = 'Very well'
+    second_answer_variant = 'There is something to refine'
+    third_answer_variant = 'Not so'
+    sixth_question_type = 'Rating. Question 6'
+    content_sixth_question = 'Please rate from 1 to 5 how convenient and intuitive the system is for the student to ' \
+                             'use. '
+    first_answer_version = "Not comfortable at all, it's hard to understand the order of the study process"
+    second_answer_version = 'The system is very understandable and intuitive to use'
+    seventh_question_type = 'Rating. Question 7'
+    import_question_text = 'Choose survey to import questions'
+    name_survey = 'המלצות ומשובים על הקורס'
+

@@ -1,14 +1,7 @@
-import time
-import lorem
-
-from selene import have, command
-from selene.support.shared import browser
-from yeda_admin_panel_tests.pages.authorization_old_admin_panel import authorization_on_admin_panel
-from yeda_admin_panel_tests.controls.utils import resource
 from allure import title, tag, step
-
-title_survey = lorem.sentence()
-content_survey = lorem.paragraph()
+from yeda_admin_panel_tests.model.authorization import authorization_on_admin_panel
+from yeda_admin_panel_tests.helpers import app
+from yeda_admin_panel_tests.data.data import *
 
 
 @tag("Web UI")
@@ -20,249 +13,137 @@ def test_add_survey(setup_browser):
         authorization_on_admin_panel()
 
     with step("Go to the Surveys page"):
-        browser.element('.elearning-nav-li').click()
-        browser.element('.surveys-nav-li').click()
+        app.create_survey.open_surveys_page()
 
     with step("Checking the 'Surveys' page display"):
-        browser.element('.page-header').with_(timeout=4).should(have.text('Surveys'))
+        app.create_survey.checking_the_display_of_the_surveys_page('Surveys')
 
     with step("Creating survey"):
-        browser.element('.panel-heading .btn').click()
+        app.create_survey.creat_survey()
 
         with step("Checking the 'Adding Survey' page display"):
-            browser.element('.page-header').with_(timeout=4).should(have.text('Adding Survey'))
+            app.create_survey.checking_adding_survey_page('Adding Survey')
 
         with step("General block"):
             with step("Filling in the title"):
-                browser.element('#survey-title').type(title_survey)
+                app.create_survey.add_title()
 
             with step("Filling in the opening text"):
-                browser.element('#store_survey_form div:nth-child(4) .jodit-wysiwyg').type(content_survey)
+                app.create_survey.add_opening_text()
 
             with step("Filling in the final text"):
-                browser.element('#store_survey_form div:nth-child(5) .jodit-wysiwyg').type('Thanks!')
+                app.create_survey.add_final_text(Survey.final_text)
 
             with step("Changing the status to active to display on the site"):
-                browser.element('#is_active').click()
+                app.create_survey.change_status()
 
         with step("Submit the form"):
-            browser.element('#store_survey_form .btn-primary').click()
+            app.create_survey.submit_form()
 
     with step("Questions block"):
         with step("Checking the 'Editing Survey' page display"):
-            browser.element('.page-header').with_(timeout=4).should(have.text('Editing Survey'))
+            app.create_survey.checking_editing_survey_page('Editing Survey')
 
         with step("Checking the display of the 'Questions' tab and opening it"):
-            browser.element('.panel:nth-child(2) .panel-heading .panel-title').should(have.text('Questions'))
-            browser.element('.panel:nth-child(2) .panel-heading .open-panel').click()
+            app.create_survey.checking_questions_tab_open('Questions')
 
         with step("Adding questions"):
-            browser.element('#questions-panel #survey-new-question').click()
-
             with step("Adding a question of type - 'Text'"):
-                browser.element('[data-notify="message"]').with_(timeout=3) \
-                    .should(have.text('question data has been saved'))
-                browser.element('.survey-question:nth-child(1) .panel-title').should(have.text('Text. Question 1'))
+                app.create_survey.add_first_questions_type_text(Survey.message_notification, Survey.first_question_type)
 
                 with step("Adding a question"):
-                    browser.element('#survey-questions .jodit-wysiwyg').type('Express your opinion about the lesson.')
+                    app.create_survey.add_first_question_content(Survey.content_first_question)
 
                 with step("Specifying the number of characters to answer"):
-                    browser.element('#survey-question-number-of-characters').clear().type('100')
+                    app.create_survey.add_number_of_characters_to_answer(Survey.number_of_characters)
 
                 with step("Indication as a mandatory question and the next button"):
-                    browser.element('#survey-questions .survey-question-is-mandatory').click()
-                    browser.element('#survey-questions .survey-question-do-show-next').click()
+                    app.create_survey.add_mandatory_first_question_and_add_the_next_button()
 
             with step("Adding a question of type - 'Paragraph'"):
-                browser.element('.panel-body #survey-new-question-type').click()
-                browser.element('#survey-new-question-type [value="paragraph"]').click()
-                browser.element('#questions-panel #survey-new-question').click()
-                browser.element('.survey-question:nth-child(2) .panel-title').should(have.text('Paragraph. Question 2'))
-                browser.element('[data-notify="message"]').with_(timeout=3) \
-                    .should(have.text('question data has been saved'))
+                app.create_survey.add_second_questions_type_paragraph(Survey.message_notification,
+                                                                      Survey.second_question_type)
 
                 with step("Adding a question"):
-                    browser.element('#survey-questions .survey-question:nth-child(2) .jodit-wysiwyg') \
-                        .type('Did you study all the '
-                              'lessons in the section '
-                              'and still have questions? '
-                              'If so, please list them.')
+                    app.create_survey.add_second_question_content(Survey.content_second_question)
 
                 with step("Indication as a mandatory question and the next button"):
-                    browser.element('.survey-question:nth-child(2) .survey-question-is-mandatory').click()
-                    browser.element('.survey-question:nth-child(2) .survey-question-do-show-next').click()
+                    app.create_survey.add_mandatory_second_question_and_add_the_next_button()
 
             with step("Adding a question of type - 'Single choice'"):
-                browser.element('.panel-body #survey-new-question-type').click()
-                browser.element('#survey-new-question-type [value="single-choice"]').click()
-                browser.element('#questions-panel #survey-new-question').click()
-                browser.element('.survey-question:nth-child(3) .panel-title').should(have.text('Single choice. '
-                                                                                               'Question 3'))
-                browser.element('[data-notify="message"]').with_(timeout=3).should(have.text('question data has been '
-                                                                                             'saved'))
+                app.create_survey.add_third_questions_type_single_choice(Survey.message_notification,
+                                                                         Survey.third_question_type)
 
                 with step("Adding a question"):
-                    browser.element('#survey-questions .survey-question:nth-child(3) .jodit-wysiwyg') \
-                        .type('Was the lecturer clear?')
+                    app.create_survey.add_third_question_content(Survey.content_third_question)
 
                     with step("Adding answers to question"):
-                        browser.element('.survey-question:nth-child(3) .input-group:nth-child(1) '
-                                        '.survey-question-choice').click()
-                        time.sleep(0.5)
-                        browser.element('.survey-question:nth-child(3) .input-group:nth-child(1) '
-                                        '.survey-question-choice').type('Very well')
-                        browser.element('.survey-question:nth-child(3) .input-group:nth-child(2) '
-                                        '.survey-question-choice').click()
-                        time.sleep(0.5)
-                        browser.element('.survey-question:nth-child(3) .input-group:nth-child(2) '
-                                        '.survey-question-choice').type('Not so')
-                        browser.element('.survey-question:nth-child(3) .input-group:nth-child(3) '
-                                        '.survey-question-choice').click()
-                        time.sleep(0.5)
-                        browser.element('.survey-question:nth-child(3) .input-group:nth-child(3) '
-                                        '.survey-question-choice').type('I only understood some of the things')
+                        app.create_survey.add_answers_to_third_question(Survey.first_answer, Survey.second_answer,
+                                                                        Survey.third_answer)
 
                 with step("Indication as a mandatory question and the next button"):
-                    browser.element('.survey-question:nth-child(3) .survey-question-is-mandatory').click()
-                    browser.element('.survey-question:nth-child(3) .survey-question-do-show-next').click()
+                    app.create_survey.add_mandatory_third_question_and_add_the_next_button()
 
             with step("Adding a question of type - 'Multiple choice'"):
-                browser.element('.panel-body #survey-new-question-type').click()
-                browser.element('#survey-new-question-type [value="multiple-choice"]').click()
-                browser.element('#questions-panel #survey-new-question').click()
-                browser.element('.survey-question:nth-child(4) .panel-title').should(have.text('Multiple choice. '
-                                                                                               'Question 4'))
-                browser.element('[data-notify="message"]').with_(timeout=3).should(have.text('question data has been '
-                                                                                             'saved'))
+                app.create_survey.add_fourth_questions_type_multiple_choice(Survey.message_notification,
+                                                                            Survey.fourth_question_type)
 
                 with step("Adding a question"):
-                    browser.element('.survey-question:nth-child(4) .jodit-wysiwyg').type('What device are you '
-                                                                                         'accessing the system '
-                                                                                         'from right now?')
+                    app.create_survey.add_fourth_question_content(Survey.content_fourth_question)
 
                     with step("Adding answers to question"):
-                        browser.element('.survey-question:nth-child(4) .input-group:nth-child(1) '
-                                        '.survey-question-choice').click()
-                        time.sleep(0.5)
-                        browser.element('.survey-question:nth-child(4) .input-group:nth-child(1) '
-                                        '.survey-question-choice').type('IOS tablet')
-                        browser.element('.survey-question:nth-child(4) .input-group:nth-child(2) '
-                                        '.survey-question-choice').click()
-                        time.sleep(0.5)
-                        browser.element('.survey-question:nth-child(4) .input-group:nth-child(2) '
-                                        '.survey-question-choice').type('Android tablet')
-                        browser.element('.survey-question:nth-child(4) .input-group:nth-child(3) '
-                                        '.survey-question-choice').click()
-                        time.sleep(0.5)
-                        browser.element('.survey-question:nth-child(4) .input-group:nth-child(3) '
-                                        '.survey-question-choice').type('Android phone')
-                        browser.element('.survey-question:nth-child(4) .input-group:nth-child(4) '
-                                        '.survey-question-choice').click()
-                        time.sleep(0.5)
-                        browser.element('.survey-question:nth-child(4) .input-group:nth-child(4) '
-                                        '.survey-question-choice').type('IOS phone')
-                        browser.element('.survey-question:nth-child(4) .input-group:nth-child(5) '
-                                        '.survey-question-choice').click()
-                        time.sleep(0.5)
-                        browser.element('.survey-question:nth-child(4) .input-group:nth-child(5) '
-                                        '.survey-question-choice').type('Windows phone')
-                        browser.element('.survey-question:nth-child(4) .input-group:nth-child(6) '
-                                        '.survey-question-choice').click()
-                        time.sleep(0.5)
-                        browser.element('.survey-question:nth-child(4) .input-group:nth-child(6) '
-                                        '.survey-question-choice').type('Windows computer')
-                        browser.element('.survey-question:nth-child(4) .input-group:nth-child(7) '
-                                        '.survey-question-choice').click()
-                        time.sleep(0.5)
-                        browser.element('.survey-question:nth-child(4) .input-group:nth-child(7) '
-                                        '.survey-question-choice').type('Mac computer')
+                        app.create_survey.add_answers_to_fourth_question(Survey.first_answer_option,
+                                                                         Survey.second_answer_option,
+                                                                         Survey.third_answer_option,
+                                                                         Survey.fourth_answer_option,
+                                                                         Survey.fifth_answer_option,
+                                                                         Survey.sixth_answer_option,
+                                                                         Survey.seventh_answer_option)
 
                 with step("Indication as a mandatory question and the next button"):
-                    browser.element('.survey-question:nth-child(4) .survey-question-is-mandatory').click()
-                    browser.element('.survey-question:nth-child(4) .survey-question-do-show-next').click()
+                    app.create_survey.add_mandatory_fourth_question_and_add_the_next_button()
 
             with step("Adding a question of type - 'Select from list'"):
-                browser.element('.panel-body #survey-new-question-type').click()
-                browser.element('#survey-new-question-type [value="select-from-list"]').click()
-                browser.element('#questions-panel #survey-new-question').click()
-                browser.element('.survey-question:nth-child(5) .panel-title').should(have.text('Select from list. '
-                                                                                               'Question 5'))
+                app.create_survey.add_fifth_questions_type_select_from_list(Survey.fifth_question_type)
 
                 with step("Adding a question"):
-                    browser.element('.survey-question:nth-child(5) .jodit-wysiwyg').type('Do you feel that you master '
-                                                                                         'the material '
-                                                                                         'studied?')
+                    app.create_survey.add_fifth_question_content(Survey.content_fifth_question)
 
                     with step("Adding answers to question"):
-                        browser.element('.survey-question:nth-child(5) .input-group:nth-child(1) '
-                                        '.survey-question-choice').click()
-                        time.sleep(0.5)
-                        browser.element('.survey-question:nth-child(5) .input-group:nth-child(1) '
-                                        '.survey-question-choice').type('Very well')
-                        browser.element('.survey-question:nth-child(5) .input-group:nth-child(2) '
-                                        '.survey-question-choice').click()
-                        time.sleep(0.5)
-                        browser.element('.survey-question:nth-child(5) .input-group:nth-child(2) '
-                                        '.survey-question-choice').type('There is something to refine')
-                        browser.element('.survey-question:nth-child(5) .input-group:nth-child(3) '
-                                        '.survey-question-choice').click()
-                        time.sleep(0.5)
-                        browser.element('.survey-question:nth-child(5) .input-group:nth-child(3) '
-                                        '.survey-question-choice').type('Not so')
+                        app.create_survey.add_answers_to_fifth_question(Survey.first_answer_variant,
+                                                                        Survey.second_answer_variant,
+                                                                        Survey.third_answer_variant)
 
                     with step("Indication as a mandatory question and the next button"):
-                        browser.element('.survey-question:nth-child(5) .survey-question-is-mandatory').click()
-                        browser.element('.survey-question:nth-child(5) .survey-question-do-show-next').click()
+                        app.create_survey.add_mandatory_fifth_question_and_add_the_next_button()
 
             with step("Adding a question of type - 'Rating'"):
-                browser.element('.panel-body #survey-new-question-type').click()
-                browser.element('#survey-new-question-type [value="rating"]').click()
-                browser.element('#questions-panel #survey-new-question').click()
-                browser.element('.survey-question:nth-child(6) .panel-title').should(have.text('Rating. Question 6'))
+                app.create_survey.add_sixth_questions_type_rating(Survey.sixth_question_type)
 
                 with step("Adding a question"):
-                    browser.element('.survey-question:nth-child(6) .jodit-wysiwyg').type('Please rate from 1 to 5 how '
-                                                                                         'convenient and '
-                                                                                         'intuitive the system is for '
-                                                                                         'the student to '
-                                                                                         'use.')
+                    app.create_survey.add_sixth_question_content(Survey.content_sixth_question)
 
                     with step("Adding answers to question"):
-                        browser.element('.survey-question:nth-child(6) .survey-question-from-input')\
-                            .type("Not comfortable at all, it's hard to understand the order of the study process")
-                        browser.element('.survey-question:nth-child(6) .survey-question-to-input')\
-                            .type('The system is very understandable and intuitive to use')
+                        app.create_survey.add_answers_to_sixth_question(Survey.first_answer_version,
+                                                                        Survey.second_answer_version)
 
                     with step("Indication as a mandatory question and the next button"):
-                        browser.element('.survey-question:nth-child(6) .survey-question-is-mandatory').click()
-                        browser.element('.survey-question:nth-child(6) .survey-question-do-show-next').click()
+                        app.create_survey.add_mandatory_sixth_question_and_add_the_next_button()
 
         with step("Question replication"):
-            browser.element('.survey-question:nth-child(6) .survey-question-copy').click()
-            browser.element('.survey-question:nth-child(7) .panel-title').should(have.text('Rating. Question 7'))
+            app.create_survey.add_question_replication(Survey.seventh_question_type)
 
         with step("Import questions from another survey"):
-            browser.element('.panel-body #survey-import-questions-modal-open').click()
-            browser.element('[for="survey-import-title"]').with_(timeout=3)\
-                .should(have.text('Choose survey to import questions'))
+            app.create_survey.import_first_questions_from_another_survey(Survey.import_question_text)
 
             with step("Choosing a survey with questions"):
-                browser.element('#survey-import-modal #survey-import-questions-input').click()
-                browser.element('[data-id="29"]').click()
-                browser.element('#survey-import-modal #survey-import-questions').click()
+                app.create_survey.search_and_choosing_first_a_survey()
 
         with step("Import questions from another survey"):
-            browser.element('.panel-body #survey-import-questions-modal-open').click()
-            browser.element('[for="survey-import-title"]').with_(timeout=3).should(
-                    have.text('Choose survey to import questions'))
+            app.create_survey.import_second_questions_from_another_survey(Survey.import_question_text)
 
             with step("Choosing a survey with questions"):
-                browser.element('#survey-import-modal #survey-import-questions-input').click().clear().type(
-                        'המלצות ומשובים על הקורס')
-                browser.element('[data-id="99"]').click()
-                browser.element('#survey-import-modal #survey-import-questions').click()
+                app.create_survey.search_and_choosing_second_a_survey(Survey.name_survey)
 
         with step("Delete one question"):
-            browser.element('.survey-question:nth-child(7) .panel-heading .fa-trash').click()
-            browser.element('.container .btn-default:nth-child(1)').click()
+            app.create_survey.delete_one_question()

@@ -2,6 +2,7 @@ import os
 import time
 
 from dotenv import load_dotenv
+from yeda_admin_panel_tests import command
 from selene import have, by
 from selene.support.shared import browser
 from selene.support.shared.jquery_style import s, ss

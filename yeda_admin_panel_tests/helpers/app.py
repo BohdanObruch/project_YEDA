@@ -6,6 +6,7 @@ from yeda_admin_panel_tests.pages.questionnaire_page import CreateQuestionnaire
 from yeda_admin_panel_tests.pages.questionnaire_page import FillingQuestionnaire
 from yeda_admin_panel_tests.pages.course_page import CreateCourse
 from yeda_admin_panel_tests.pages.article_page import CreateArticle
+from yeda_admin_panel_tests.pages.survey_page import CreateSurvey
 
 create_bundles = CreateBundles()
 filling_bundles = FillingBundles()
@@ -22,3 +23,5 @@ filling_questionnaire = FillingQuestionnaire()
 create_course = CreateCourse()
 
 create_article = CreateArticle()
+
+create_survey = CreateSurvey()
