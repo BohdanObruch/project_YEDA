@@ -1,9 +1,9 @@
 from selene.support.shared import browser
-from yeda_admin_panel_tests.controls.utils import resource
-from yeda_admin_panel_tests.model.authorization import authorization_on_admin_panel
+from diploma_project_tests.controls.utils import resource
+from diploma_project_tests.model.authorization import authorization_on_admin_panel
 from allure import title, tag, step
-from yeda_admin_panel_tests.helpers import app
-from yeda_admin_panel_tests.data.data import *
+from diploma_project_tests.helpers import app
+from diploma_project_tests.data.data import *
 
 
 def test_add_teacher(setup_browser):

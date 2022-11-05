@@ -2,10 +2,10 @@ import time
 
 from dotenv import load_dotenv
 from selene import have, by
-from yeda_admin_panel_tests import command
+from diploma_project_tests import command
 from selene.support.shared import browser
 from selene.support.shared.jquery_style import s, ss
-from yeda_admin_panel_tests.controls.utils import resource
+from diploma_project_tests.controls.utils import resource
 
 
 class CreateLesson:

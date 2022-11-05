@@ -5,7 +5,7 @@ import json
 from schemas.yeda import *
 from pytest_voluptuous import S
 from tests.conftest import *
-from yeda_admin_panel_tests.utils.sessions import yeda
+from diploma_project_tests.utils.sessions import yeda
 from allure import tag, title
 
 

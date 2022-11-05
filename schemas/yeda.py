@@ -47,6 +47,7 @@ user = Schema({
             'checkDate': str
         },
         'is_document_checked': bool,
+        'is_new_popup_used': bool,
         'need_verification_popup': bool
     },
     'isDocumentChecked': None
@@ -107,7 +108,8 @@ courses = Schema({
             "has_access": bool,
             "status_purchase": None,
             "is_ministry_controlled": bool,
-            "show_video_exam": bool
+            "show_video_exam": bool,
+            "exam_attempts_count": int
         }
     ],
     "total": int,
@@ -184,7 +186,8 @@ course = Schema({
         "author": Any(None, str)
     },
     "is_ministry_controlled": bool,
-    "show_video_exam": bool
+    "show_video_exam": bool,
+    "exam_attempts_count": int
 })
 
 teachers = Schema(
@@ -232,7 +235,8 @@ teachers = Schema(
                         "has_access": bool,
                         "status_purchase": None,
                         "is_ministry_controlled": bool,
-                        "show_video_exam": bool
+                        "show_video_exam": bool,
+                        "exam_attempts_count": int
 
                     }
                 ],
@@ -305,7 +309,8 @@ teacher = Schema(
                     "has_access": bool,
                     "status_purchase": None,
                     "is_ministry_controlled": bool,
-                    "show_video_exam": bool
+                    "show_video_exam": bool,
+                    "exam_attempts_count": int
                 }
             ],
             "total": int,

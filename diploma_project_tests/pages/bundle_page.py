@@ -2,11 +2,11 @@ import os
 import time
 
 from dotenv import load_dotenv
-from yeda_admin_panel_tests import command
+from diploma_project_tests import command
 from selene import have, by
 from selene.support.shared import browser
 from selene.support.shared.jquery_style import s, ss
-from yeda_admin_panel_tests.controls.utils import resource
+from diploma_project_tests.controls.utils import resource
 
 
 class CreateBundles:
@@ -119,12 +119,13 @@ class FillingBundles:
     def add_students(self, file_with_users: str):
         s('.panel [data-target="#students-collapse"] .fa-plus').click()
         s('#students-collapse #import_users_file').send_keys(resource(file_with_users))
+        time.sleep(1)
         s('.import-student:nth-child(1) .remove-from-import').click()
         s('.jconfirm-buttons .btn-default:nth-child(1)').click()
         s('.import-student:nth-child(3) .remove-from-import').click()
         s('.jconfirm-buttons .btn-default:nth-child(1)').click()
         s('.students-import #import-students').click()
-        time.sleep(4)
+        time.sleep(3)
         return self
 
     def open_courses_block(self):

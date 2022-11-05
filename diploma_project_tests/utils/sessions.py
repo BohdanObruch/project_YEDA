@@ -1,5 +1,5 @@
 import os
-from yeda_admin_panel_tests.utils.requests_helper import BaseSession
+from diploma_project_tests.utils.requests_helper import BaseSession
 from dotenv import load_dotenv
 
 

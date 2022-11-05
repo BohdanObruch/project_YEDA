@@ -3,10 +3,10 @@ from selene.support.shared import browser
 
 
 def resource(relative_path):
-    import yeda_admin_panel_tests
+    import diploma_project_tests
     from pathlib import Path
     return (
-        Path(yeda_admin_panel_tests.__file__)
+        Path(diploma_project_tests.__file__)
         .parent
         .parent
         .joinpath('resources/')
