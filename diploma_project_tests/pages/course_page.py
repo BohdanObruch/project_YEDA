@@ -58,8 +58,8 @@ class CreateCourse:
         s('[name="video_link"]').type(value)
         return self
 
-    def add_teaser_image(self, picture: str):
-        s('#course_photo').send_keys(resource(picture))
+    def add_teaser_image(self, image: str):
+        s('#course_photo').send_keys(resource(image))
         return self
 
     def add_about_course(self, description_line1: str, description_line2: str):

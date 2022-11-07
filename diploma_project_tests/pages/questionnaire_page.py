@@ -199,6 +199,7 @@ class FillingQuestionnaire:
         return self
 
     def add_second_question(self, fourth_resource: str):
+        s('.modal-body .jodit-wysiwyg:nth-child(1)').click()
         s('.col-sm-6:nth-child(1) .jodit-toolbar-button_image .jodit-toolbar-button__button').click()
         s('.jodit-tab [type="file"]').send_keys(resource(fourth_resource))
         time.sleep(2)

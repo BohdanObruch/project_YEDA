@@ -21,7 +21,7 @@ class CreateArticle:
 
     def checking_the_display_of_the_articles_page(self, value):
         s('#portal-header-default').with_(timeout=6).should(have.text(value))  # מאמרים
-        time.sleep(2)
+        time.sleep(4)
         return self
 
     def create_article(self):

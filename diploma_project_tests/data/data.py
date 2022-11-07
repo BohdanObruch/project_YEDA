@@ -176,5 +176,6 @@ class Survey:
     second_answer_version = 'The system is very understandable and intuitive to use'
     seventh_question_type = 'Rating. Question 7'
     import_question_text = 'Choose survey to import questions'
-    name_survey = 'המלצות ומשובים על הקורס'
+    name_second_survey = 'המלצות ומשובים על הקורס'
+    name_first_survey = 'תאוריית האתיקה, שהיה מאוד מפורסם בתקופת הרנסנס'
 

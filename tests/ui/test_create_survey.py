@@ -7,7 +7,7 @@ from diploma_project_tests.data.data import *
 @tag("Web UI")
 @title("Creating a survey and filling it with information")
 def test_add_survey(setup_browser):
-    # browser = setup_browser
+    browser = setup_browser
 
     with step("Authorization on the admin panel"):
         authorization_on_admin_panel()
@@ -85,8 +85,8 @@ def test_add_survey(setup_browser):
                     app.create_survey.add_mandatory_third_question_and_add_the_next_button()
 
             with step("Adding a question of type - 'Multiple choice'"):
-                app.create_survey.add_fourth_questions_type_multiple_choice(Survey.message_notification,
-                                                                            Survey.fourth_question_type)
+                app.create_survey.add_fourth_questions_type_multiple_choice(Survey.fourth_question_type)
+                #Survey.message_notification
 
                 with step("Adding a question"):
                     app.create_survey.add_fourth_question_content(Survey.content_fourth_question)
@@ -136,14 +136,14 @@ def test_add_survey(setup_browser):
         with step("Import questions from another survey"):
             app.create_survey.import_first_questions_from_another_survey(Survey.import_question_text)
 
-            with step("Choosing a survey with questions"):
-                app.create_survey.search_and_choosing_first_a_survey()
+            with step("Choosing a first survey with questions"):
+                app.create_survey.search_and_choosing_first_a_survey(Survey.name_first_survey)
 
         with step("Import questions from another survey"):
             app.create_survey.import_second_questions_from_another_survey(Survey.import_question_text)
 
-            with step("Choosing a survey with questions"):
-                app.create_survey.search_and_choosing_second_a_survey(Survey.name_survey)
+            with step("Choosing a second survey with questions"):
+                app.create_survey.search_and_choosing_second_a_survey(Survey.name_second_survey)
 
         with step("Delete one question"):
             app.create_survey.delete_one_question()

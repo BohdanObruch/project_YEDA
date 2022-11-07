@@ -1,14 +1,14 @@
-from selene.support.shared import browser  # убрать если нужен запуск удаленно
 from allure import title, tag, step
-from diploma_project_tests.model.authorization import authorization_on_the_site
+from diploma_project_tests.model.authorization import *
 from diploma_project_tests.helpers import app
 from diploma_project_tests.data.data import *
+from diploma_project_tests.pages.course_page import *
 
 
 @tag("Web UI")
 @title("Creating an course")
 def test_create_course(setup_browser):
-    # browser = setup_browser # розкамитить если нужен запуск удаленно
+    # browser = setup_browser
 
     with step("Authorization on the site and go to the admin panel"):
         authorization_on_the_site()

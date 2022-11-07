@@ -1,5 +1,3 @@
-from selene import have
-from selene.support.shared import browser
 from diploma_project_tests.model.authorization import authorization_on_admin_panel
 from allure import title, tag, step
 from diploma_project_tests.helpers import app
@@ -9,7 +7,7 @@ from diploma_project_tests.data.data import *
 @tag("Web UI")
 @title("Creating user")
 def test_add_user(setup_browser):
-    # browser = setup_browser
+    browser = setup_browser
 
     with step("Authorization on the admin panel"):
         authorization_on_admin_panel()

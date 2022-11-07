@@ -62,6 +62,7 @@ class CreateLesson:
         return self
 
     def add_lecturer(self, name_lecturer: str):
+        s('#save-lesson').perform(command.js.scroll_into_view)
         s('.lector-name').type(name_lecturer)
         time.sleep(2)
         s('.suggestions [data-id="48"]').click()

@@ -60,7 +60,7 @@ class CreateTeacher:
 
     def submit_form(self):
         s('[type="submit"]').click()
-        time.sleep(10)
+        time.sleep(5)
         return self
 
     def open_all_teachers_page(self):
@@ -68,10 +68,12 @@ class CreateTeacher:
         return self
 
     def search_created_teacher_and_delete(self, name_teacher: str):
+
         s('.filter #search_text').type(name_teacher).press_enter()
         s(f'//*[text() = "{name_teacher}"]').with_(timeout=5).should(have.text(name_teacher))
-        table = s('.table')
-        table.all('.ui-sortable-handle').element_by_its('.teacher-name', have.exact_text(name_teacher))\
+        time.sleep(3)
+        table = browser.element('.table')
+        table.all('tr').element_by_its('.teacher-name', have.exact_text(name_teacher)) \
             .element('.delete').click()
         s('.container .btn:nth-child(1)').click()
         return self

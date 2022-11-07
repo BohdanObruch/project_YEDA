@@ -1,4 +1,3 @@
-import requests
 import os
 import pytest
 import json
@@ -9,14 +8,17 @@ import allure_commons
 import config
 
 from datetime import date
+from diploma_project_tests.utils.sessions import yeda
+from appium import webdriver
 from selene.support.shared import browser
-from selenium import webdriver
+from selenium import webdriver as webdriver_selenium
 from selenium.webdriver.chrome.options import Options
 from dotenv import load_dotenv
 from diploma_project_tests.controls import attach
-from diploma_project_tests.utils.sessions import yeda
+
+import requests
+
 from diploma_project_tests.controls.utils import resource
-from appium import webdriver
 from selene import support
 
 
@@ -30,68 +32,6 @@ ADMIN_PANEL_URL = os.getenv('url_yeda_admin_panel')
 ID_COLLEGE = os.getenv('id_college')
 
 
-@pytest.fixture(scope='function')
-def setup_browser():
-    browser.config.base_url = WEB_URL
-    browser.config.window_width = 1920
-    browser.config.window_height = 1920
-    yield
-    browser.quit()
-
-
-# @pytest.fixture(scope='function', autouse=True)
-# def browser_management():
-#     browser.config.base_url = os.getenv('selene.base_url', WEB_URL)
-#     browser.config.browser_name = os.getenv('selene.browser_name', 'chrome')
-#     browser.config.hold_browser_open = (
-#             os.getenv('selene.hold_browser_open', 'false').lower() == 'true'
-#     )
-#     browser.config.timeout = float(os.getenv('selene.timeout', '3'))
-#     browser.config.window_width = 1920
-#     browser.config.window_height = 1080
-#
-#
-# DEFAULT_BROWSER_VERSION = "103.0"
-#
-#
-# def pytest_addoption(parser):
-#     parser.addoption(
-#         '--browser_version',
-#         default='103.0'
-#     )
-
-
-#
-# @pytest.fixture(scope='function')
-# def setup_browser(request):
-#     browser_version = request.config.getoption('--browser_version')
-#     browser_version = browser_version if browser_version != "" else DEFAULT_BROWSER_VERSION
-#     options = Options()
-#     selenoid_capabilities = {
-#         "browserName": "chrome",
-#         "browserVersion": browser_version,
-#         "selenoid:options": {
-#             "enableVNC": True,
-#             "enableVideo": True
-#         }
-#     }
-#     options.capabilities.update(selenoid_capabilities)
-#
-#     url = os.getenv('URL')
-#
-#     driver = webdriver.Remote(
-#         command_executor=f"{url}/wd/hub",
-#         options=options
-#     )
-#     browser.config.driver = driver
-#     yield browser
-#
-#     attach.add_html(browser)
-#     attach.add_logs(browser)
-#     attach.add_screenshot(browser)
-#     attach.add_video(browser)
-
-
 def opened_page_website():
     browser.open(WEB_URL)
 
@@ -99,6 +39,68 @@ def opened_page_website():
 def opened_page_admin_panel():
     browser.open(ADMIN_PANEL_URL)
     browser.config.driver.maximize_window()
+
+
+# @pytest.fixture(scope='function')
+# def setup_browser():
+#     browser.config.base_url = WEB_URL
+#     browser.config.window_width = 1920
+#     browser.config.window_height = 1920
+#     yield
+#     browser.quit()
+
+
+@pytest.fixture(scope='function', autouse=True)  #autouse=True
+def browser_management():
+    browser.config.base_url = os.getenv('selene.base_url', WEB_URL)
+    browser.config.browser_name = os.getenv('selene.browser_name', 'chrome')
+    browser.config.hold_browser_open = (
+            os.getenv('selene.hold_browser_open', 'false').lower() == 'true'
+    )
+    browser.config.timeout = float(os.getenv('selene.timeout', '3'))
+    browser.config.window_width = 1920
+    browser.config.window_height = 1080
+
+
+DEFAULT_BROWSER_VERSION = "106.0"
+
+
+def pytest_addoption(parser):
+    parser.addoption(
+        '--browser_version',
+        default='106.0'
+    )
+
+
+@pytest.fixture(scope='function')
+def setup_browser(request):
+    browser_version = request.config.getoption('--browser_version')
+    browser_version = browser_version if browser_version != "" else DEFAULT_BROWSER_VERSION
+    options = Options()
+    selenoid_capabilities = {
+        "browserName": "chrome",
+        "browserVersion": browser_version,
+        "selenoid:options": {
+            "enableVNC": True,
+            "enableVideo": True
+        }
+    }
+    options.capabilities.update(selenoid_capabilities)
+
+    url = os.getenv('URL')
+
+    driver = webdriver_selenium.Remote(
+        command_executor=f"{url}/wd/hub",
+        options=options
+    )
+    browser.config.driver = driver
+    yield browser
+
+    attach.add_html(browser)
+    attach.add_screenshot(browser)
+    attach.add_logs(browser)
+    attach.add_video_selenoid(browser)
+    browser.quit()
 
 
 @pytest.fixture()
@@ -145,7 +147,7 @@ def attach_video():
     yield
 
 
-@pytest.fixture(scope='function') #scope='function', autouse=True
+@pytest.fixture(scope='function')
 def setup():
     desired_capabilities = ({
         "platformName": "android",

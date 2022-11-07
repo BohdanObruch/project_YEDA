@@ -1,6 +1,7 @@
 import time
 import lorem
 
+from diploma_project_tests import command
 from selene import have, by
 from selene.support.shared.jquery_style import s, ss
 
@@ -120,12 +121,12 @@ class CreateSurvey:
         s('.survey-question:nth-child(3) .survey-question-do-show-next').click()
         return self
 
-    def add_fourth_questions_type_multiple_choice(self, message_notification: str, fourth_question_type: str):
+    def add_fourth_questions_type_multiple_choice(self, fourth_question_type: str): #message_notification: str,
         s('.panel-body #survey-new-question-type').click()
         s('#survey-new-question-type [value="multiple-choice"]').click()
         s('#questions-panel #survey-new-question').click()
         s('.survey-question:nth-child(4) .panel-title').should(have.text(fourth_question_type))
-        s('[data-notify="message"]').with_(timeout=3).should(have.text(message_notification))
+        # s('[data-notify="message"]').with_(timeout=3).should(have.text(message_notification))
         return self
 
     def add_fourth_question_content(self, content_fourth_question: str):
@@ -176,6 +177,7 @@ class CreateSurvey:
         s('.panel-body #survey-new-question-type').click()
         s('#survey-new-question-type [value="select-from-list"]').click()
         s('#questions-panel #survey-new-question').click()
+        s('.survey-question:nth-child(5) .panel-title').perform(command.js.scroll_into_view)
         s('.survey-question:nth-child(5) .panel-title').should(have.text(fifth_question_type))
         return self
 
@@ -232,8 +234,9 @@ class CreateSurvey:
         s('[for="survey-import-title"]').with_(timeout=3).should(have.text(import_question_text))
         return self
 
-    def search_and_choosing_first_a_survey(self):
-        s('#survey-import-modal #survey-import-questions-input').click()
+    def search_and_choosing_first_a_survey(self, name_first_survey: str):
+        s('#survey-import-modal #survey-import-questions-input').click().type(name_first_survey)
+        time.sleep(1)
         s('[data-id="29"]').click()
         s('#survey-import-modal #survey-import-questions').click()
         return self
@@ -243,8 +246,9 @@ class CreateSurvey:
         s('[for="survey-import-title"]').with_(timeout=3).should(have.text(import_question_text))
         return self
 
-    def search_and_choosing_second_a_survey(self, name_survey: str):
-        s('#survey-import-modal #survey-import-questions-input').click().clear().type(name_survey)
+    def search_and_choosing_second_a_survey(self, name_second_survey: str):
+        s('#survey-import-modal #survey-import-questions-input').click().clear().type(name_second_survey)
+        time.sleep(1)
         s('[data-id="99"]').click()
         s('#survey-import-modal #survey-import-questions').click()
         return self

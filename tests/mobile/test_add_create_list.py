@@ -4,6 +4,7 @@ from diploma_project_tests.model.authorization_booking import *
 from diploma_project_tests.model.verify_booking import *
 from diploma_project_tests.pages.favorite_list_page import *
 from diploma_project_tests.helpers import app
+from tests.conftest import setup
 
 
 @tag('Browserstack mobile')

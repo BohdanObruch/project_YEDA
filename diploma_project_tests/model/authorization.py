@@ -9,7 +9,7 @@ def authorization_on_admin_panel():
     opened_page_admin_panel()
     # time.sleep(5)
     login = browser.element('#username')
-    login.type('Test12')
+    login.type('dimalebid')
 
     password = browser.element('#password')
     password.type('123456')
@@ -22,7 +22,7 @@ def authorization_on_the_site():
     # time.sleep(5)
     browser.element('[href="/auth/login"]').click()
     login = browser.element('#username')
-    login.type('admin12')  #Test12 #123456789
+    login.type('dimalebid')  #Test12 #123456789
 
     password = browser.element('#password')
     password.type('123456')

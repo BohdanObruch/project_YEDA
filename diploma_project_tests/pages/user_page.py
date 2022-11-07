@@ -68,6 +68,7 @@ class CreateUser:
         return self
 
     def search_created_user_and_delete(self, name_user: str):
+        time.sleep(1)
         panel = browser.element('.table')
         panel.all('tr').element_by_its('.username', have.exact_text(name_user)).element('.delete').click()
         s('.container .btn:nth-child(1)').click()
