@@ -1,8 +1,8 @@
 {
   "base": {
     "project": "Diploma Project",
-    "environment": "",
-    "comment": "",
+    "environment": "dev",
+    "comment": "mobile, api, ui tests",
     "reportLink": "",
     "language": "en",
     "allureFolder": "allure-report/",

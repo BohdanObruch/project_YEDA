@@ -142,9 +142,9 @@ def register_user():
     return token, user_name, user_email, user_pass, id
 
 
-@pytest.fixture(scope='function', autouse=True)
-def attach_video():
-    yield
+# @pytest.fixture(scope='function', autouse=True)
+# def attach_video():
+#     yield
 
 
 @pytest.fixture(scope='function')
@@ -154,7 +154,7 @@ def setup():
         "platformVersion": "9.0",
         "deviceName": "Samsung Galaxy S20",
         "os_version": "10.0",
-        "app": "bs://2ac9a1639cb1c716b9536014756353f39adc5c0a",
+        "app": "bs://9e95a824b2180e9c5c6642baee248a2bd1c36f1f",
         "build": "browserstack-build-" + str(date.today()),
         'bstack:options': {
             "sessionName": "Booking test_mobile",
