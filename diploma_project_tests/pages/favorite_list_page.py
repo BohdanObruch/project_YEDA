@@ -56,7 +56,7 @@ class AddingToFavoriteList:
                            '.recyclerview.widget.RecyclerView/android.view.ViewGroup[1]')).click()
         return self
 
-    def adding_date(self, value):
+    def adding_date(self):
         s((AppiumBy.ID, 'com.booking:id/calendar_week_days')).should(be.visible)
         s((AppiumBy.XPATH, '//android.view.View[@content-desc="18 November 2022"]')).click()
         s((AppiumBy.XPATH, '//android.view.View[@content-desc="27 November 2022"]')).click()
