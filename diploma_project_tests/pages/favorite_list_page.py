@@ -60,7 +60,7 @@ class AddingToFavoriteList:
         s((AppiumBy.ID, 'com.booking:id/calendar_week_days')).should(be.visible)
         s((AppiumBy.XPATH, '//android.view.View[@content-desc="18 November 2022"]')).click()
         s((AppiumBy.XPATH, '//android.view.View[@content-desc="27 November 2022"]')).click()
-        s((AppiumBy.ID, 'com.booking:id/facet_date_picker_selection_summary')).should(have.text(value))
+        # s((AppiumBy.ID, 'com.booking:id/facet_date_picker_selection_summary')).should(have.text(value))
         time.sleep(1)
         s((AppiumBy.ID, 'com.booking:id/facet_date_picker_confirm')).click()
         time.sleep(1)

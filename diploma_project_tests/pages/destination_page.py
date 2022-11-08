@@ -37,9 +37,9 @@ class SearchDestination:
         s((AppiumBy.XPATH, '//android.view.View[@content-desc="27 November 2022"]')).click()
         return self
 
-    def check_the_dates(self, value):
-        s((AppiumBy.ID, 'com.booking:id/facet_date_picker_selection_summary')).should(have.text(value))
-        return self
+    # def check_the_dates(self, value):
+    #     s((AppiumBy.ID, 'com.booking:id/facet_date_picker_selection_summary')).should(have.text(value))
+    #     return self
 
     def confirm_the_choice_of_dates(self):
         s((AppiumBy.ID, 'com.booking:id/facet_date_picker_confirm')).click()

@@ -25,7 +25,7 @@ def test_adding_to_favorites_list(setup):
 
     with step('Adding date'):
         with step('Checking the calendar display and add date arrival and check-out'):
-            app.adding_to_favorite_list.adding_date('Nov 18 - Nov 27 (9 nights)')
+            app.adding_to_favorite_list.adding_date()
 
     with step('The number of guests and rooms'):
         with step('Click and open block "Select rooms and guests"'):
