@@ -3,6 +3,8 @@ from selene import have, be
 from diploma_project_tests.model.accept_cookie import *
 from diploma_project_tests.model.authorization_booking import *
 from diploma_project_tests.model.verify_booking import *
+from diploma_project_tests.pages.destination_page import *
+from diploma_project_tests.helpers import app
 
 
 @tag('Browserstack mobile')
@@ -14,90 +16,51 @@ def test_search_destination(setup):
 
     with step('Search point of destination'):
         with step('Enter your destination'):
-            browser.element((AppiumBy.ID, 'com.booking:id/facet_search_box_accommodation_destination')).click()
-        with step('Enter destination'):
-            browser.element((AppiumBy.ID, 'com.booking:id/facet_with_bui_free_search_booking_header_toolbar_content')) \
-                .type('Kyiv')
+            app.search_destination.enter_destination('Kyiv')
 
         with step('Destination options'):
-            browser.element((AppiumBy.XPATH, '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout'
-                                             '/android.widget.FrameLayout/android.widget.LinearLayout/android.widget'
-                                             '.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout'
-                                             '/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup['
-                                             '1]/android.widget.TextView[1]')).should(have.text('Kyiv'))
+            app.search_destination.checking_the_availability_of_results('Kyiv')
 
         with step('Select from the list'):
-            browser.element((AppiumBy.XPATH, '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android'
-                                             '.widget.FrameLayout/android.widget.LinearLayout/android.widget'
-                                             '.FrameLayout '
-                                             '/android.widget.LinearLayout/android.widget.FrameLayout/androidx'
-                                             '.recyclerview.widget.RecyclerView/android.view.ViewGroup[1]')).click()
+            app.search_destination.select_from_list()
 
     with step('Adding date'):
         with step('Checking the calendar display'):
-            browser.element((AppiumBy.ID, 'com.booking:id/calendar_week_days')).should(be.visible)
+            app.search_destination.checking_the_calendar_display()
 
-        with step('Date of arrival'):
-            browser.element((AppiumBy.XPATH, '//android.view.View[@content-desc="09 November 2022"]')).click()
+        with step('Add date of arrival'):
+            app.search_destination.add_date_of_arrival()
 
-        with step('Сheck-out date'):
-            browser.element((AppiumBy.XPATH, '//android.view.View[@content-desc="18 November 2022"]')).click()
+        with step('Add date of departure'):
+            app.search_destination.add_departure_date()
 
         with step('Check the dates'):
-            browser.element((AppiumBy.ID, 'com.booking:id/facet_date_picker_selection_summary')) \
-                .should(have.text('Nov 9 - Nov 18 (9 nights)'))
+            app.search_destination.check_the_dates('18 Nov - 27 Nov (9 nights)')
 
         with step('Confirm the choice of dates'):
-            browser.element((AppiumBy.ID, 'com.booking:id/facet_date_picker_confirm')).click()
+            app.search_destination.confirm_the_choice_of_dates()
 
     with step('The number of guests and rooms'):
         with step('Click and open block "Select rooms and guests"'):
-            browser.element((AppiumBy.ID, 'com.booking:id/facet_search_box_accommodation_occupancy')).click()
+            app.search_destination.open_block_select_rooms_and_guests()
 
         with step('Displaying the block "Select rooms and guests"'):
-            browser.element((AppiumBy.XPATH, '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout'
-                                             '/android.widget.FrameLayout/android.widget.FrameLayout/android.widget'
-                                             '.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android'
-                                             '.widget.FrameLayout/android.widget.LinearLayout/android.widget'
-                                             '.LinearLayout/android.widget.LinearLayout/android.widget.TextView'))\
-                .should(have.text('Select rooms and guests'))
+            app.search_destination.check_block_select_rooms_and_guests('Select rooms and guests')
 
         with step('Change number of guests and rooms'):
-            browser.element((AppiumBy.XPATH, '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout'
-                                             '/android.widget.FrameLayout/android.widget.FrameLayout/android.widget'
-                                             '.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android'
-                                             '.widget.FrameLayout/android.widget.LinearLayout/android.widget'
-                                             '.LinearLayout/android.widget.LinearLayout/android.view.ViewGroup['
-                                             '2]/android.widget.LinearLayout/android.widget.Button[1]')).click()
+            app.search_destination.change_number_of_guests_and_rooms()
+
         with step('Apply changes'):
-            browser.element((AppiumBy.XPATH, '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout'
-                                             '/android.widget.FrameLayout/android.widget.FrameLayout/android.widget'
-                                             '.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android'
-                                             '.widget.FrameLayout/android.widget.LinearLayout/android.widget'
-                                             '.LinearLayout/android.widget.RelativeLayout')).click()
+            app.search_destination.apply_changes()
 
     with step('Search for housing'):
-        browser.element((AppiumBy.ID, 'com.booking:id/facet_search_box_cta')).click()
+        app.search_destination.search_for_housing()
 
     with step('Checking the block title'):
-        browser.element((AppiumBy.XPATH, '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android'
-                                         '.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout'
-                                         '/android.widget.FrameLayout/android.view.ViewGroup/android.widget'
-                                         '.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android'
-                                         '.widget.TextView[1]')).should(have.text('Welcome to Booking.com!'))
+        app.search_destination.checking_the_block_title('Welcome to Booking.com!')
 
     with step('Close welcome block'):
-        browser.element((AppiumBy.XPATH, '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android'
-                                         '.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout'
-                                         '/android.widget.FrameLayout/android.view.ViewGroup/android.widget'
-                                         '.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android'
-                                         '.widget.Button')).click()
+        app.search_destination.close_welcome_block()
 
     with step('Checking the results of a given search'):
-        browser.element((AppiumBy.XPATH, '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android'
-                                         '.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout'
-                                         '/android.view.ViewGroup/android.widget.FrameLayout/android.widget'
-                                         '.LinearLayout/android.view.ViewGroup/android.widget.FrameLayout/androidx'
-                                         '.recyclerview.widget.RecyclerView/android.view.ViewGroup['
-                                         '1]/android.view.ViewGroup/android.widget.TextView[1]'))\
-            .should(have.text('Visiting Ukraine'))
+        app.search_destination.checking_the_results_of_a_given_search('Visiting Ukraine')

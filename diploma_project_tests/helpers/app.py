@@ -13,6 +13,7 @@ from diploma_project_tests.pages.taxi_page import SearchTaxi
 from diploma_project_tests.pages.articles_booking_page import SearchArticles
 from diploma_project_tests.pages.rental_car_page import RentalCar
 from diploma_project_tests.pages.attractions_page import SearchAttractions
+from diploma_project_tests.pages.destination_page import SearchDestination
 
 
 create_bundles = CreateBundles()
@@ -33,3 +34,4 @@ search_taxi = SearchTaxi()
 search_articles = SearchArticles()
 rental_car = RentalCar()
 search_attractions = SearchAttractions()
+search_destination = SearchDestination()
