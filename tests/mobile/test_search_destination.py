@@ -1,5 +1,4 @@
 from allure import step, title, tag
-from selene import have, be
 from diploma_project_tests.model.accept_cookie import *
 from diploma_project_tests.model.authorization_booking import *
 from diploma_project_tests.model.verify_booking import *
