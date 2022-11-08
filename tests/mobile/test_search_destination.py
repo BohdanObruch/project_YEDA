@@ -34,7 +34,7 @@ def test_search_destination(setup):
             app.search_destination.add_departure_date()
 
         with step('Check the dates'):
-            app.search_destination.check_the_dates('18 Nov - 27 Nov (9 nights)')
+            app.search_destination.check_the_dates('Nov 18  - Nov 27 (9 nights)')
 
         with step('Confirm the choice of dates'):
             app.search_destination.confirm_the_choice_of_dates()
