@@ -58,8 +58,8 @@ class AddingToFavoriteList:
 
     def adding_date(self, value):
         s((AppiumBy.ID, 'com.booking:id/calendar_week_days')).should(be.visible)
-        s((AppiumBy.XPATH, '//android.view.View[@content-desc="09 November 2022"]')).click()
-        s((AppiumBy.XPATH, '//android.view.View[@content-desc="18 November 2022"]')).click()
+        s((AppiumBy.XPATH, '//android.view.View[@content-desc="30 November 2022"]')).click()
+        s((AppiumBy.XPATH, '//android.view.View[@content-desc="09 December 2022"]')).click()
         s((AppiumBy.ID, 'com.booking:id/facet_date_picker_selection_summary')).should(have.text(value))
         time.sleep(1)
         s((AppiumBy.ID, 'com.booking:id/facet_date_picker_confirm')).click()
