@@ -8,7 +8,7 @@ from diploma_project_tests.pages.course_page import *
 @tag("Web UI")
 @title("Creating an course")
 def test_create_course(setup_browser):
-    # browser = setup_browser
+    browser = setup_browser
 
     with step("Authorization on the site and go to the admin panel"):
         authorization_on_the_site()
