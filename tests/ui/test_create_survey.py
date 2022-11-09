@@ -67,9 +67,6 @@ def test_add_survey(setup_browser):
                 with step("Adding a question"):
                     app.create_survey.add_second_question_content(Survey.content_second_question)
 
-                with step("Indication as a mandatory question and the next button"):
-                    app.create_survey.add_mandatory_second_question_and_add_the_next_button()
-
             with step("Adding a question of type - 'Single choice'"):
                 app.create_survey.add_third_questions_type_single_choice(Survey.message_notification,
                                                                          Survey.third_question_type)
@@ -80,9 +77,6 @@ def test_add_survey(setup_browser):
                     with step("Adding answers to question"):
                         app.create_survey.add_answers_to_third_question(Survey.first_answer, Survey.second_answer,
                                                                         Survey.third_answer)
-
-                with step("Indication as a mandatory question and the next button"):
-                    app.create_survey.add_mandatory_third_question_and_add_the_next_button()
 
             with step("Adding a question of type - 'Multiple choice'"):
                 app.create_survey.add_fourth_questions_type_multiple_choice(Survey.fourth_question_type)
@@ -100,9 +94,6 @@ def test_add_survey(setup_browser):
                                                                          Survey.sixth_answer_option,
                                                                          Survey.seventh_answer_option)
 
-                with step("Indication as a mandatory question and the next button"):
-                    app.create_survey.add_mandatory_fourth_question_and_add_the_next_button()
-
             with step("Adding a question of type - 'Select from list'"):
                 app.create_survey.add_fifth_questions_type_select_from_list(Survey.fifth_question_type)
 
@@ -114,9 +105,6 @@ def test_add_survey(setup_browser):
                                                                         Survey.second_answer_variant,
                                                                         Survey.third_answer_variant)
 
-                    with step("Indication as a mandatory question and the next button"):
-                        app.create_survey.add_mandatory_fifth_question_and_add_the_next_button()
-
             with step("Adding a question of type - 'Rating'"):
                 app.create_survey.add_sixth_questions_type_rating(Survey.sixth_question_type)
 
@@ -126,9 +114,6 @@ def test_add_survey(setup_browser):
                     with step("Adding answers to question"):
                         app.create_survey.add_answers_to_sixth_question(Survey.first_answer_version,
                                                                         Survey.second_answer_version)
-
-                    with step("Indication as a mandatory question and the next button"):
-                        app.create_survey.add_mandatory_sixth_question_and_add_the_next_button()
 
         with step("Question replication"):
             app.create_survey.add_question_replication(Survey.seventh_question_type)

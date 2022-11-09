@@ -87,11 +87,6 @@ class CreateSurvey:
         s('#survey-questions .survey-question:nth-child(2) .jodit-wysiwyg').type(content_second_question)
         return self
 
-    def add_mandatory_second_question_and_add_the_next_button(self):
-        s('.survey-question:nth-child(2) .survey-question-is-mandatory').click()
-        s('.survey-question:nth-child(2) .survey-question-do-show-next').click()
-        return self
-
     def add_third_questions_type_single_choice(self, message_notification: str, third_question_type: str):
         s('.panel-body #survey-new-question-type').click()
         s('#survey-new-question-type [value="single-choice"]').click()
@@ -106,19 +101,14 @@ class CreateSurvey:
 
     def add_answers_to_third_question(self, first_answer: str, second_answer: str, third_answer: str):
         s('.survey-question:nth-child(3) .input-group:nth-child(1) .survey-question-choice').click()
-        time.sleep(0.5)
+        time.sleep(0.7)
         s('.survey-question:nth-child(3) .input-group:nth-child(1) .survey-question-choice').type(first_answer)
         s('.survey-question:nth-child(3) .input-group:nth-child(2) .survey-question-choice').click()
-        time.sleep(0.5)
+        time.sleep(0.7)
         s('.survey-question:nth-child(3) .input-group:nth-child(2) .survey-question-choice').type(second_answer)
         s('.survey-question:nth-child(3) .input-group:nth-child(3) .survey-question-choice').click()
-        time.sleep(0.5)
+        time.sleep(0.7)
         s('.survey-question:nth-child(3) .input-group:nth-child(3) .survey-question-choice').type(third_answer)
-        return self
-
-    def add_mandatory_third_question_and_add_the_next_button(self):
-        s('.survey-question:nth-child(3) .survey-question-is-mandatory').click()
-        s('.survey-question:nth-child(3) .survey-question-do-show-next').click()
         return self
 
     def add_fourth_questions_type_multiple_choice(self, fourth_question_type: str): #message_notification: str,
@@ -139,38 +129,33 @@ class CreateSurvey:
                                        seventh_answer_option: str):
         s('.survey-question:nth-child(4) .input-group:nth-child(1) '
           '.survey-question-choice').click()
-        time.sleep(0.5)
+        time.sleep(0.7)
         s('.survey-question:nth-child(4) .input-group:nth-child(1) .survey-question-choice') \
             .type(first_answer_option)
         s('.survey-question:nth-child(4) .input-group:nth-child(2) .survey-question-choice').click()
-        time.sleep(0.5)
+        time.sleep(0.7)
         s('.survey-question:nth-child(4) .input-group:nth-child(2) .survey-question-choice') \
             .type(second_answer_option)
         s('.survey-question:nth-child(4) .input-group:nth-child(3) .survey-question-choice').click()
-        time.sleep(0.5)
+        time.sleep(0.7)
         s('.survey-question:nth-child(4) .input-group:nth-child(3) .survey-question-choice') \
             .type(third_answer_option)
         s('.survey-question:nth-child(4) .input-group:nth-child(4) .survey-question-choice').click()
-        time.sleep(0.5)
+        time.sleep(0.7)
         s('.survey-question:nth-child(4) .input-group:nth-child(4) .survey-question-choice') \
             .type(fourth_answer_option)
         s('.survey-question:nth-child(4) .input-group:nth-child(5) .survey-question-choice').click()
-        time.sleep(0.5)
+        time.sleep(0.7)
         s('.survey-question:nth-child(4) .input-group:nth-child(5) .survey-question-choice') \
             .type(fifth_answer_option)
         s('.survey-question:nth-child(4) .input-group:nth-child(6) .survey-question-choice').click()
-        time.sleep(0.5)
+        time.sleep(0.7)
         s('.survey-question:nth-child(4) .input-group:nth-child(6) .survey-question-choice') \
             .type(sixth_answer_option)
         s('.survey-question:nth-child(4) .input-group:nth-child(7) .survey-question-choice').click()
-        time.sleep(0.5)
+        time.sleep(0.7)
         s('.survey-question:nth-child(4) .input-group:nth-child(7) .survey-question-choice') \
             .type(seventh_answer_option)
-        return self
-
-    def add_mandatory_fourth_question_and_add_the_next_button(self):
-        s('.survey-question:nth-child(4) .survey-question-is-mandatory').click()
-        s('.survey-question:nth-child(4) .survey-question-do-show-next').click()
         return self
 
     def add_fifth_questions_type_select_from_list(self, fifth_question_type: str):
@@ -198,11 +183,6 @@ class CreateSurvey:
         s('.survey-question:nth-child(5) .input-group:nth-child(3) .survey-question-choice').type(third_answer_variant)
         return self
 
-    def add_mandatory_fifth_question_and_add_the_next_button(self):
-        s('.survey-question:nth-child(5) .survey-question-is-mandatory').click()
-        s('.survey-question:nth-child(5) .survey-question-do-show-next').click()
-        return self
-
     def add_sixth_questions_type_rating(self, sixth_question_type: str):
         s('.panel-body #survey-new-question-type').click()
         s('#survey-new-question-type [value="rating"]').click()
@@ -217,11 +197,6 @@ class CreateSurvey:
     def add_answers_to_sixth_question(self, first_answer_version: str, second_answer_version: str):
         s('.survey-question:nth-child(6) .survey-question-from-input').type(first_answer_version)
         s('.survey-question:nth-child(6) .survey-question-to-input').type(second_answer_version)
-        return self
-
-    def add_mandatory_sixth_question_and_add_the_next_button(self):
-        s('.survey-question:nth-child(6) .survey-question-is-mandatory').click()
-        s('.survey-question:nth-child(6) .survey-question-do-show-next').click()
         return self
 
     def add_question_replication(self, seventh_question_type: str):
@@ -241,9 +216,10 @@ class CreateSurvey:
         s('#survey-import-modal #survey-import-questions').click()
         return self
 
-    def import_second_questions_from_another_survey(self, import_question_text: str):
-        s('.panel-body #survey-import-questions-modal-open').click()
-        s('[for="survey-import-title"]').with_(timeout=3).should(have.text(import_question_text))
+    def search_and_choosing_second_a_survey(self, name_second_survey: str):
+        s('#survey-import-modal #survey-import-questions-input').click().clear().type(name_second_survey)
+        s('[data-id="99"]').click()
+        s('#survey-import-modal #survey-import-questions').click()
         return self
 
     def search_and_choosing_second_a_survey(self, name_second_survey: str):
