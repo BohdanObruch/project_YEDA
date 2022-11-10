@@ -64,6 +64,7 @@ class CreateSurvey:
 
     def add_first_question_content(self, content_first_question: str):
         s('#survey-questions .jodit-wysiwyg').type(content_first_question)
+        time.sleep(0.7)
         return self
 
     def add_number_of_characters_to_answer(self, number_of_characters: int):
@@ -81,6 +82,7 @@ class CreateSurvey:
         s('#questions-panel #survey-new-question').click()
         s('.survey-question:nth-child(2) .panel-title').should(have.text(second_question_type))
         s('[data-notify="message"]').with_(timeout=3).should(have.text(message_notification))
+        time.sleep(0.7)
         return self
 
     def add_second_question_content(self, content_second_question: str):
@@ -93,6 +95,7 @@ class CreateSurvey:
         s('#questions-panel #survey-new-question').click()
         s('.survey-question:nth-child(3) .panel-title').should(have.text(third_question_type))
         s('[data-notify="message"]').with_(timeout=3).should(have.text(message_notification))
+        time.sleep(0.7)
         return self
 
     def add_third_question_content(self, content_third_question: str):
@@ -111,12 +114,12 @@ class CreateSurvey:
         s('.survey-question:nth-child(3) .input-group:nth-child(3) .survey-question-choice').type(third_answer)
         return self
 
-    def add_fourth_questions_type_multiple_choice(self, fourth_question_type: str): #message_notification: str,
+    def add_fourth_questions_type_multiple_choice(self, fourth_question_type: str):
         s('.panel-body #survey-new-question-type').click()
         s('#survey-new-question-type [value="multiple-choice"]').click()
         s('#questions-panel #survey-new-question').click()
         s('.survey-question:nth-child(4) .panel-title').should(have.text(fourth_question_type))
-        # s('[data-notify="message"]').with_(timeout=3).should(have.text(message_notification))
+        time.sleep(0.7)
         return self
 
     def add_fourth_question_content(self, content_fourth_question: str):
@@ -164,6 +167,7 @@ class CreateSurvey:
         s('#questions-panel #survey-new-question').click()
         s('.survey-question:nth-child(5) .panel-title').perform(command.js.scroll_into_view)
         s('.survey-question:nth-child(5) .panel-title').should(have.text(fifth_question_type))
+        time.sleep(0.7)
         return self
 
     def add_fifth_question_content(self, content_fifth_question: str):
@@ -173,13 +177,13 @@ class CreateSurvey:
     def add_answers_to_fifth_question(self, first_answer_variant: str, second_answer_variant: str,
                                       third_answer_variant: str):
         s('.survey-question:nth-child(5) .input-group:nth-child(1) .survey-question-choice').click()
-        time.sleep(0.5)
+        time.sleep(0.7)
         s('.survey-question:nth-child(5) .input-group:nth-child(1) .survey-question-choice').type(first_answer_variant)
         s('.survey-question:nth-child(5) .input-group:nth-child(2) .survey-question-choice').click()
-        time.sleep(0.5)
+        time.sleep(0.7)
         s('.survey-question:nth-child(5) .input-group:nth-child(2) .survey-question-choice').type(second_answer_variant)
         s('.survey-question:nth-child(5) .input-group:nth-child(3) .survey-question-choice').click()
-        time.sleep(0.5)
+        time.sleep(0.7)
         s('.survey-question:nth-child(5) .input-group:nth-child(3) .survey-question-choice').type(third_answer_variant)
         return self
 
@@ -188,6 +192,7 @@ class CreateSurvey:
         s('#survey-new-question-type [value="rating"]').click()
         s('#questions-panel #survey-new-question').click()
         s('.survey-question:nth-child(6) .panel-title').should(have.text(sixth_question_type))
+        time.sleep(0.7)
         return self
 
     def add_sixth_question_content(self, content_sixth_question: str):
@@ -204,26 +209,27 @@ class CreateSurvey:
         s('.survey-question:nth-child(7) .panel-title').should(have.text(seventh_question_type))
         return self
 
-    def import_first_questions_from_another_survey(self, import_question_text: str):
+    def open_import_first_questions_from_another_survey(self, import_question_text: str):
         s('.panel-body #survey-import-questions-modal-open').click()
         s('[for="survey-import-title"]').with_(timeout=3).should(have.text(import_question_text))
         return self
 
     def search_and_choosing_first_a_survey(self, name_first_survey: str):
         s('#survey-import-modal #survey-import-questions-input').click().type(name_first_survey)
-        time.sleep(1)
+        # time.sleep(1)
         s('[data-id="29"]').click()
         s('#survey-import-modal #survey-import-questions').click()
+        time.sleep(5)
+        return self
+
+    def open_import_second_questions_from_another_survey(self, import_question_text: str):
+        s('.panel-body #survey-import-questions-modal-open').click()
+        s('[for="survey-import-title"]').with_(timeout=3).should(have.text(import_question_text))
+        s('#survey-import-modal #survey-import-questions-input').clear()
         return self
 
     def search_and_choosing_second_a_survey(self, name_second_survey: str):
-        s('#survey-import-modal #survey-import-questions-input').click().clear().type(name_second_survey)
-        s('[data-id="99"]').click()
-        s('#survey-import-modal #survey-import-questions').click()
-        return self
-
-    def search_and_choosing_second_a_survey(self, name_second_survey: str):
-        s('#survey-import-modal #survey-import-questions-input').click().clear().type(name_second_survey)
+        s('#survey-import-modal #survey-import-questions-input').type(name_second_survey).press_enter()
         time.sleep(1)
         s('[data-id="99"]').click()
         s('#survey-import-modal #survey-import-questions').click()

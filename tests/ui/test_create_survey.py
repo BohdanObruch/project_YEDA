@@ -119,15 +119,15 @@ def test_add_survey(setup_browser):
             app.create_survey.add_question_replication(Survey.seventh_question_type)
 
         with step("Import questions from another survey"):
-            app.create_survey.import_first_questions_from_another_survey(Survey.import_question_text)
+            app.create_survey.open_import_first_questions_from_another_survey(Survey.import_question_text)
 
             with step("Choosing a first survey with questions"):
                 app.create_survey.search_and_choosing_first_a_survey(Survey.name_first_survey)
 
         with step("Import questions from another survey"):
-            app.create_survey.import_second_questions_from_another_survey(Survey.import_question_text)
+            app.create_survey.open_import_second_questions_from_another_survey(Survey.import_question_text)
 
-            with step("Choosing a second survey with questions"):
+            with step("Choosing a first survey with questions"):
                 app.create_survey.search_and_choosing_second_a_survey(Survey.name_second_survey)
 
         with step("Delete one question"):
