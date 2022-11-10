@@ -348,8 +348,10 @@ class FillingQuestionnaire:
     def search_created_questionnaires_and_delete(self):
         NAME_QUESTIONNAIRE = os.getenv('name_questionnaire')
         s('.filter #search_text').type(NAME_QUESTIONNAIRE).press_enter()
+        time.sleep(1)
         s('#sortable .questionnaire-link').with_(timeout=4).should(have.text(NAME_QUESTIONNAIRE))
         s('#sortable .questionnaire-delete').click()
+        time.sleep(1)
         s('.jconfirm-box .btn:nth-child(1)').click()
         return self
 
