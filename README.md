@@ -108,10 +108,10 @@ pytest ${TESTS_FOLDER} --browser_version=${BROWSER_VERSION}
 <br>
 
 # <img width="4%" title="Allure" src="resources/images/logo/Allure.svg"> Allure
-> Allure Framework is a flexible lightweight multi-language test report tool that not only shows a very concise representation of what have been tested in a neat web report form, but allows everyone participating in the development process to extract maximum of useful information from everyday execution of tests.
+> Allure Framework is an easy and flexible multi-language test report tool that not only shows a very concise representation of what have been tested in a neat web report form, but it also gives each team member a possibility to extract maximum of useful information from tests execution.
 
 ## Allure overview
-> Different charts, metrics and statistic to easily analyze tests result
+> Different charts, metrics and statistics to analyze tests results easily
 <p  align="left">
 <code>
 <img src="resources/images/allure_report.JPG" alt="Allure Report"/>
@@ -119,7 +119,7 @@ pytest ${TESTS_FOLDER} --browser_version=${BROWSER_VERSION}
 </p>
 
 ## Allure test result
-> Here is a result of test executing.  
+> Here are the results of test execution.  
 <p align="center">
 <img src="resources/images/allure_report_more.JPG" alt="Allure Report"/>
 </p>
@@ -128,7 +128,7 @@ pytest ${TESTS_FOLDER} --browser_version=${BROWSER_VERSION}
 ## <img width="6%" title="Allure TestOps" src="resources/images/logo/Allure_TO.svg"> Allure Testops
 
 ## Dashboard 
-> Dashboard with statuses of testcases on Allure Testops
+> Dashboard with the test cases statuses on Allure TestOps
 <p align="center">
 <img src="resources/images/allure_testops.JPG" alt="Allure Report"/>
 </p>
@@ -142,7 +142,7 @@ pytest ${TESTS_FOLDER} --browser_version=${BROWSER_VERSION}
 
 
 ## Allure video result
-> An example a short video how web tests executes on Selenoid server
+> An example of a short video how web tests are executed on Selenoid server
 <p  align="left">
 <code>
 <img width="100%" title="Allure video web test" src="resources/video/video_web.gif">
@@ -150,7 +150,7 @@ pytest ${TESTS_FOLDER} --browser_version=${BROWSER_VERSION}
 </p>
 <br>
 
-> An example a short video how mobile tests executes on Browserstack
+> An example of a short video how mobile tests are executed on Browserstack
 <p  align="left">
 <code>
 <img width="100%" title="Allure video web test" src="resources/video/video_mobile.gif">
@@ -167,13 +167,13 @@ pytest ${TESTS_FOLDER} --browser_version=${BROWSER_VERSION}
 <br>
 
 # <img width="6%" title="Browserstack" src="resources/images/logo/telegram.svg"> Telegram notification
-> Test results notifications to be sent to the specified telegram channel by the telegram bot
+> Test results notifications to be sent to the specific telegram channel by the telegram bot
 <p align="center">
 <img src="resources/images/telegram.JPG" alt="Telegram"/>
 </p>
 
 # <img width="6%" title="Browserstack" src="resources/images/logo/slack.svg"> Slack notification
-> Test results notifications to be sent to the specified Slack channel by the Slack bot
+> Test results notifications to be sent to the specific Slack channel by the Slack bot
 <p align="center">
 <img src="resources/images/slack.JPG" alt="Slack"/>
 </p>
