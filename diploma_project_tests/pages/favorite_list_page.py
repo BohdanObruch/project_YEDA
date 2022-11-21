@@ -119,7 +119,7 @@ class AddingToFavoriteList:
         return self
 
     def scroll_to_second_hotel(self):
-        browser.driver.swipe(470, 1400, 470, 600, 330)
+        browser.driver.swipe(470, 1400, 470, 400, 330)
         return self
 
     def add_second_hotel_to_favorites(self, value):
