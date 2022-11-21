@@ -15,5 +15,4 @@ def test_display_all_courses():
     response = yeda().get(f'/wl/colleges/{ID_COLLEGE}/courses')
 
     assert response.status_code == 200
-    # print(response.json())
     assert S(courses) == response.json()

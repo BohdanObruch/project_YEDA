@@ -108,8 +108,10 @@ courses = Schema({
             "has_access": bool,
             "status_purchase": None,
             "is_ministry_controlled": bool,
+            "block_video_rewind": bool,
             "show_video_exam": bool,
-            "exam_attempts_count": int
+            "exam_attempts_count": int,
+            "is_disabled_all_successful_exam_notifications": bool
         }
     ],
     "total": int,
@@ -118,6 +120,7 @@ courses = Schema({
     "last_page": int,
     "not_found": bool
 })
+
 
 course = Schema({
     "id": int,
@@ -186,9 +189,12 @@ course = Schema({
         "author": Any(None, str)
     },
     "is_ministry_controlled": bool,
+    "block_video_rewind": bool,
     "show_video_exam": bool,
-    "exam_attempts_count": int
+    "exam_attempts_count": int,
+    "is_disabled_all_successful_exam_notifications": bool
 })
+
 
 teachers = Schema(
     [
@@ -235,8 +241,10 @@ teachers = Schema(
                         "has_access": bool,
                         "status_purchase": None,
                         "is_ministry_controlled": bool,
+                        "block_video_rewind": bool,
                         "show_video_exam": bool,
-                        "exam_attempts_count": int
+                        "exam_attempts_count": int,
+                        "is_disabled_all_successful_exam_notifications": bool
 
                     }
                 ],
@@ -309,8 +317,10 @@ teacher = Schema(
                     "has_access": bool,
                     "status_purchase": None,
                     "is_ministry_controlled": bool,
+                    "block_video_rewind": bool,
                     "show_video_exam": bool,
-                    "exam_attempts_count": int
+                    "exam_attempts_count": int,
+                    "is_disabled_all_successful_exam_notifications": bool
                 }
             ],
             "total": int,
