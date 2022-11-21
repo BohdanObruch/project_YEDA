@@ -37,8 +37,8 @@ def test_adding_to_favorites_list(setup):
     with step('Search for accommodation'):
         app.adding_to_favorite_list.search_for_accommodation()
 
-    with step('Checking the welcome block'):
-        app.adding_to_favorite_list.checking_the_welcome_block_title_and_close_him('Welcome to Booking.com!')
+    # with step('Checking the welcome block'):
+    #     app.adding_to_favorite_list.checking_the_welcome_block_title_and_close_him('Welcome to Booking.com!')
 
     with step('Scroll to another hotel'):
         app.adding_to_favorite_list.scroll_to_first_hotel()
