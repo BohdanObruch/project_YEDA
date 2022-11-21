@@ -11,7 +11,7 @@ from diploma_project_tests.helpers import app
 def test_search_destination(setup):
     accept_cookie_settings()
     authorization()
-    verify_showing_welcome_message()
+    # verify_showing_welcome_message()
 
     with step('Search point of destination'):
         with step('Enter your destination'):
@@ -55,11 +55,11 @@ def test_search_destination(setup):
     with step('Search for housing'):
         app.search_destination.search_for_housing()
 
-    with step('Checking the block title'):
-        app.search_destination.checking_the_block_title('Welcome to Booking.com!')
+    # with step('Checking the block title'):
+    #     app.search_destination.checking_the_block_title('Welcome to Booking.com!')
 
-    with step('Close welcome block'):
-        app.search_destination.close_welcome_block()
+    # with step('Close welcome block'):
+    #     app.search_destination.close_welcome_block()
 
     with step('Checking the results of a given search'):
         app.search_destination.checking_the_results_of_a_given_search('Visiting Ukraine')

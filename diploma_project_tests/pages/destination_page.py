@@ -30,11 +30,11 @@ class SearchDestination:
         return self
 
     def add_date_of_arrival(self):
-        s((AppiumBy.XPATH, '//android.view.View[@content-desc="18 November 2022"]')).click()
+        s((AppiumBy.XPATH, '//android.view.View[@content-desc="27 November 2022"]')).click()
         return self
 
     def add_departure_date(self):
-        s((AppiumBy.XPATH, '//android.view.View[@content-desc="27 November 2022"]')).click()
+        s((AppiumBy.XPATH, '//android.view.View[@content-desc="30 November 2022"]')).click()
         return self
 
     # def check_the_dates(self, value):

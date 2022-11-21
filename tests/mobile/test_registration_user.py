@@ -28,7 +28,7 @@ def test_registration(setup):
                     app.registration_user.click_create_account_and_sign_in()
 
     with step('Checking the display of the notification'):
-        app.registration_user.checking_notification('Welcome to Booking.com!')
+        app.registration_user.checking_notification("You've unlocked Genius Level 1")
 
     with step('Start searching'):
         app.registration_user.start_searching()
