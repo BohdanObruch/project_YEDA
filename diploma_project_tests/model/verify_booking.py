@@ -4,13 +4,13 @@ from selene.support.shared import browser
 from allure import step
 
 
-def verify_showing_welcome_message():
+# def verify_showing_welcome_message():
     # with step('Checking the display of the notification'):
     #     browser.element((AppiumBy.ID, 'com.booking:id/bui_empty_state_title')).should(
     #         have.text("You've unlocked Genius Level 1"))
 
-    with step('Start searching'):
-        browser.element((AppiumBy.ID, 'com.booking:id/bui_empty_state_primary_action')).click()
+    # with step('Start searching'):
+    #     browser.element((AppiumBy.ID, 'com.booking:id/bui_empty_state_primary_action')).click()
 
 
 def verify_search_capability():

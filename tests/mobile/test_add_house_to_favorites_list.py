@@ -11,7 +11,7 @@ from diploma_project_tests.helpers import app
 def test_adding_to_favorites_list(setup):
     accept_cookie_settings()
     authorization()
-    verify_showing_welcome_message()
+    # verify_showing_welcome_message()
 
     with step('Search point of destination'):
         with step('Enter your destination'):

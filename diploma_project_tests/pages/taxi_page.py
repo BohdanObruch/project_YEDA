@@ -106,7 +106,7 @@ class SearchTaxi:
                            '.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget'
                            '.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup'
                            '/android.widget.RelativeLayout/androidx.viewpager.widget.ViewPager/android.widget'
-                           '.LinearLayout/android.widget.GridView/android.widget.TextView[27]')).click()
+                           '.LinearLayout/android.widget.GridView/android.widget.TextView[39]')).click()
 
         s((AppiumBy.ID, 'com.booking:id/confirm_button')).click()
         s((AppiumBy.ID, 'com.booking:id/search_return_taxis_button')).click()
