@@ -6,6 +6,7 @@ import time
 import datetime as DT
 import allure_commons
 import config
+import requests
 
 from datetime import date
 from diploma_project_tests.utils.sessions import yeda
@@ -15,9 +16,6 @@ from selenium import webdriver as webdriver_selenium
 from selenium.webdriver.chrome.options import Options
 from dotenv import load_dotenv
 from diploma_project_tests.controls import attach
-
-import requests
-
 from diploma_project_tests.controls.utils import resource
 from selene import support
 
@@ -41,16 +39,7 @@ def opened_page_admin_panel():
     browser.config.driver.maximize_window()
 
 
-# @pytest.fixture(scope='function')
-# def setup_browser():
-#     browser.config.base_url = WEB_URL
-#     browser.config.window_width = 1920
-#     browser.config.window_height = 1920
-#     yield
-#     browser.quit()
-
-
-@pytest.fixture(scope='function', autouse=True)  #autouse=True
+@pytest.fixture(scope='function', autouse=True)
 def browser_management():
     browser.config.base_url = os.getenv('selene.base_url', WEB_URL)
     browser.config.browser_name = os.getenv('selene.browser_name', 'chrome')
@@ -142,11 +131,6 @@ def register_user():
     return token, user_name, user_email, user_pass, id
 
 
-# @pytest.fixture(scope='function', autouse=True)
-# def attach_video():
-#     yield
-
-
 @pytest.fixture(scope='function')
 def setup():
     desired_capabilities = ({
@@ -154,7 +138,7 @@ def setup():
         "platformVersion": "9.0",
         "deviceName": "Samsung Galaxy S20",
         "os_version": "10.0",
-        "app": "bs://642d3bdc9f733506dee73e57e857a12220e418e2",
+        "app": "bs://74c5272fd5d929374f58f67d24cc446c7a6e8350",
         "build": "browserstack-build-" + str(date.today()),
         'bstack:options': {
             "sessionName": "Booking test_mobile",
