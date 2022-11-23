@@ -69,6 +69,7 @@
   <img src="resources/images/logo/slack.svg" width="50" height="50"  alt="Slack"/>
   <img src="resources/images/logo/telegram.svg" width="50" height="50"  alt="Telegram"/>
   <img src="resources/images/logo/postman.png" width="50" height="50"  alt="Postman"/>
+  <img src="resources/images/logo/jira.svg" width="50" height="50"  alt="Jira"/>
 </code>
 </p>
 
@@ -162,6 +163,21 @@ pytest ${TESTS_FOLDER} --browser_version=${BROWSER_VERSION}
 <p  align="left">
 <code>
 <img width="100%" title="Browserstack" src="resources/images/browserstack.JPG">
+</code>
+</p>
+<br>
+
+## <img width="6%" title="Jira" src="resources/images/logo/jira.svg"> Integration with Jira
+> All tests integrated with Jira to check statuses and activity
+<p  align="left">
+<code>
+<img width="100%" title="Mobile tests" src="resources/images/Mobile.png">
+</code>
+<code>
+<img width="100%" title="WEB UI tests" src="resources/images/Ui.png">
+</code>
+<code>
+<img width="100%" title="API tests" src="resources/images/API.png">
 </code>
 </p>
 <br>
