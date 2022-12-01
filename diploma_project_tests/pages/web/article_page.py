@@ -1,9 +1,8 @@
-import time
 import lorem
 import os
 
 from dotenv import load_dotenv
-from selene import have, by
+from selene import have, by, be
 from selene.support.shared import browser
 from selene.support.shared.jquery_style import s, ss
 from diploma_project_tests.controls.utils import resource
@@ -13,26 +12,25 @@ name_article = os.getenv('NAME_ARTICLE')
 
 class CreateArticlePage:
 
-    def open_settings_page(self, value):
+    def opening_settings_page_and_checking_title(self, value):
         s('#portal-header-default').with_(timeout=5).should(have.text(value))
         return self
 
-    def open_articles_page(self):
+    def going_to_articles_page(self):
         s('[href="/admin/articles/main"').click()
         return self
 
     def checking_the_display_of_the_articles_page(self, value):
         s('#portal-header-default').with_(timeout=6).should(have.text(value))
-        time.sleep(4)
         return self
 
     def create_article(self):
+        s('.cdk-table .cdk-row .cdk-column-delete').with_(timeout=5).should(be.visible)
         s('//button[text() = "Add New Article"]').click()
-        time.sleep(2)
         return self
 
     def checking_new_article_page(self, value):
-        s('//div[text() = "New Article"]').with_(timeout=7).should(have.text(value))
+        s('//div[text() = "New Article"]').with_(timeout=10).should(have.text(value))
         s('.air-h1.center.title').click()
         return self
 
@@ -63,10 +61,10 @@ class CreateArticlePage:
 
     def add_image(self, picture: str):
         s('.avatar-wrapper [type="file"]').send_keys(resource(picture))
-        time.sleep(4)
         return self
 
     def publish_article(self):
+        s('.avatar-wrapper .button-close').with_(timeout=5).should(be.visible)
         s('#publish').click()
         return self
 
@@ -82,7 +80,6 @@ class CreateArticlePage:
         s('#description').type(seo_description)
         s('#keywords').type(seo_keywords).press_enter()
         s('#author').type(seo_author).press_enter()
-        time.sleep(2)
         return self
 
     def go_to_settings_page(self, value):
@@ -97,12 +94,10 @@ class CreateArticlePage:
 
     def refreshing_the_page(self):
         browser.driver().refresh()
-        time.sleep(5)
         return self
 
     def search_created_article_and_delete(self):
-        table = browser.element('.cdk-table')
+        table = browser.element('.cdk-table').with_(timeout=7).should(be.visible)
         table.all('.cdk-row').element_by_its('.cdk-column-menu_name', have.exact_text(f'{name_article}'))\
             .element('.cdk-column-delete').click()
-        time.sleep(1)
         return self

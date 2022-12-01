@@ -140,7 +140,7 @@ def setup():
         "platformVersion": "9.0",
         "deviceName": "Samsung Galaxy S20",
         "os_version": "10.0",
-        "app": {linkApp},
+        "app": f'{linkApp}',
         "build": "browserstack-build-" + str(date.today()),
         'bstack:options': {
             "sessionName": "Booking test_mobile",

@@ -2,20 +2,20 @@ from appium.webdriver.common.appiumby import AppiumBy
 from selene import have
 from selene.support.shared import browser
 from allure import step
+from selene.support.shared.jquery_style import s, ss
 
 
 def verify_showing_welcome_message():
     with step('Checking the display of the notification'):
-        browser.element((AppiumBy.ID, 'com.booking:id/bui_empty_state_title')).should(
-            have.text('Welcome to Booking.com!'))
+        s((AppiumBy.ID, 'com.booking:id/bui_empty_state_title')).should(have.text('Welcome to Booking.com!'))
 
     with step('Start searching'):
-        browser.element((AppiumBy.ID, 'com.booking:id/bui_empty_state_primary_action')).click()
+        s((AppiumBy.ID, 'com.booking:id/bui_empty_state_primary_action')).click()
 
 
 def verify_search_capability():
     with step('Displaying the main page and the ability to search'):
-        browser.element((AppiumBy.XPATH, '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android'
+        s((AppiumBy.XPATH, '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android'
                                          '.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout'
                                          '/android.widget.LinearLayout/android.widget.LinearLayout['
                                          '2]/android.widget.FrameLayout['

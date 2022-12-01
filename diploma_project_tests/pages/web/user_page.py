@@ -1,5 +1,3 @@
-import time
-
 from dotenv import load_dotenv
 from selene import have, by
 from diploma_project_tests import command
@@ -39,7 +37,7 @@ class CreateUserPage:
         return self
 
     def add_phone_number(self, phone_number: int):
-        browser.element('#app-user-form #edit_phone').type(phone_number)
+        s('#app-user-form #edit_phone').type(phone_number)
         return self
 
     def add_living_area(self, city: str):
@@ -60,16 +58,14 @@ class CreateUserPage:
 
     def push_message_about_successful_create_user(self, value):
         s('[data-notify="message"]').with_(timeout=20).should(have.text(value))
-        time.sleep(3)
         return self
 
     def delete_created_user(self, name_user: str):
-        s('.filter #search_text').type(name_user)
+        s('.filter #search_text').with_(timeout=5).type(name_user)
         return self
 
     def search_created_user_and_delete(self, name_user: str):
-        time.sleep(1)
-        panel = browser.element('.table')
+        panel = s('.table').with_(timeout=5)
         panel.all('tr').element_by_its('.username', have.exact_text(name_user)).element('.delete').click()
         s('.container .btn:nth-child(1)').click()
         return self

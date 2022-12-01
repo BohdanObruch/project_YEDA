@@ -21,58 +21,28 @@ class SearchAttractionsPage:
     def scroll_and_go_to_the_attractions_page(self, value):
         browser.driver.swipe(913, 319, 141, 319, 400)
         time.sleep(1)
-        s((AppiumBy.XPATH, '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android'
-                           '.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout'
-                           '/android.widget.LinearLayout/android.widget.LinearLayout['
-                           '2]/android.widget.FrameLayout['
-                           '1]/android.widget.LinearLayout/androidx.recyclerview.widget.RecyclerView'
-                           '/android.widget.LinearLayout[3]/android.widget.TextView')).should(have.text(value)).click()
+        s((AppiumBy.XPATH, '//*[@text="Attractions"]')).should(have.text(value)).click()
         return self
 
     def checking_the_title_of_the_search_attractions(self, value):
-        s((AppiumBy.XPATH, '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout'
-                           '/android.widget.FrameLayout/android.widget.LinearLayout/android.widget'
-                           '.FrameLayout/android.widget.FrameLayout/android.widget.LinearLayout'
-                           '/android.widget.LinearLayout[2]/android.widget.TextView')).should(have.text(value)).click()
+        s((AppiumBy.XPATH, '//*[@text="Find and book a great experience"]')).should(have.text(value)).click()
         return self
 
     def add_locating(self, value):
-        s((AppiumBy.XPATH, '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout'
-                           '/android.widget.FrameLayout/android.widget.LinearLayout/android.widget'
-                           '.FrameLayout/android.widget.FrameLayout/android.widget.LinearLayout'
-                           '/android.widget.LinearLayout['
-                           '2]/android.view.ViewGroup/android.widget.LinearLayout/android.widget'
-                           '.LinearLayout[1]/android.widget.TextView')).click()
-        s((AppiumBy.XPATH, '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget'
-                           '.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget'
-                           '.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/androidx.compose.ui'
-                           '.platform.ComposeView/android.view.View/android.view.View/android.widget.EditText'
-                           '')).type(value)
-        s((AppiumBy.XPATH, '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout'
-                           '/android.widget.FrameLayout/android.widget.FrameLayout/android.widget'
-                           '.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android'
-                           '.widget.FrameLayout/androidx.compose.ui.platform.ComposeView/android'
-                           '.view.View/android.view.View/android.view.View/android.view.View['
-                           '1]')).click()
+        s((AppiumBy.ID, 'com.booking:id/facet_search_box_basic_field_label')).click()
+        s((AppiumBy.CLASS_NAME, 'android.widget.EditText')).type(value)
+        s((AppiumBy.XPATH, '//*[@text="Kyiv, Ukraine"]')).click()
         return self
 
     def add_date(self):
-        s((AppiumBy.XPATH, '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout'
-                           '/android.widget.FrameLayout/android.widget.LinearLayout/android.widget'
-                           '.FrameLayout/android.widget.FrameLayout/android.widget.LinearLayout'
-                           '/android.widget.LinearLayout['
-                           '2]/android.view.ViewGroup/android.widget.LinearLayout/android.widget'
-                           '.LinearLayout[2]/android.widget.TextView')).click()
+        s((AppiumBy.XPATH, '//*[@text="Any dates"]')).click()
 
-        s((AppiumBy.XPATH, '//android.view.View[@content-desc="09 November 2022"]')).click()
-        s((AppiumBy.XPATH, '//android.view.View[@content-desc="18 November 2022"]')).click()
+        s((AppiumBy.XPATH, '//*[contains(@content-desc, "09")]')).click()
+        s((AppiumBy.XPATH, '//*[contains(@content-desc, "18")]')).click()
         s((AppiumBy.ID, 'com.booking:id/facet_date_picker_confirm')).click()
         return self
 
     def search_attractions(self):
         s((AppiumBy.ID, 'com.booking:id/facet_search_box_cta')).click()
-        s((AppiumBy.XPATH, '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget'
-                           '.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget'
-                           '.FrameLayout/android.widget.LinearLayout/androidx.recyclerview.widget.RecyclerView'
-                           '/android.widget.LinearLayout/android.widget.TextView')).should(be.visible)
+        s((AppiumBy.XPATH, '//*[contains(@text, "things to do")]')).should(be.visible)
         return self

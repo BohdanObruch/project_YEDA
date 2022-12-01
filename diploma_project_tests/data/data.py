@@ -24,7 +24,7 @@ class Bundles:
     date_closed_first_course = '2023-01-15'
     name_second_course = 'קורס מאקרו כלכלה'
     full_name_second_course = 'קורס מאקרו כלכלה'
-    date_closed_second_course = '2023-01-10'
+    date_closed_second_course = '2023-02-10'
 
 
 class Lessons:

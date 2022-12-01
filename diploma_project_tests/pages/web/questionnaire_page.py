@@ -1,4 +1,3 @@
-import time
 import os
 
 from diploma_project_tests import command
@@ -68,8 +67,7 @@ class CreateQuestionnairePage:
     def change_size_picture(self, size_picture: int):
         s('.jodit-toolbar-button_pencil').click()
         s('.imageHeight').clear().type(size_picture)
-        time.sleep(1)
-        s('.jodit-dialog__footer .jodit-ui-button_ok').click()
+        s('.jodit-dialog__footer .jodit-ui-button_ok').with_(timeout=5).click()
         return self
 
     def shuffle_questions(self):
@@ -82,7 +80,10 @@ class CreateQuestionnairePage:
 
     def submit_form(self):
         s('[type="submit"]').click()
-        time.sleep(2)
+        return self
+
+    def checking_editing_page(self, value):
+        s('.page-header').with_(timeout=5).should(have.text(value))
         return self
 
 
@@ -202,11 +203,10 @@ class FillingQuestionnairePage:
         s('.modal-body .jodit-wysiwyg:nth-child(1)').click()
         s('.col-sm-6:nth-child(1) .jodit-toolbar-button_image .jodit-toolbar-button__button').click()
         s('.jodit-tab [type="file"]').send_keys(resource(fourth_resource))
-        time.sleep(2)
         return self
 
     def add_second_tag(self, name_second_tag: str):
-        s('.tags-input-wrapper .bootstrap-tagsinput [type="text"]').type(name_second_tag).press_enter()
+        s('.tags-input-wrapper .bootstrap-tagsinput [type="text"]').with_(timeout=5).type(name_second_tag).press_enter()
         return self
 
     def selected_second_chapters(self):
@@ -215,7 +215,7 @@ class FillingQuestionnairePage:
         return self
 
     def selected_second_category(self):
-        s('#questions_category_dropdown .dropdown-toggle').click()
+        s('#questions_category_dropdown .dropdown-toggle').perform(command.js.scroll_into_view).click()
         s('#questions_category_dropdown .dropdown-menu li:nth-child(2)').click()
         return self
 
@@ -347,11 +347,9 @@ class FillingQuestionnairePage:
 
     def search_created_questionnaires_and_delete(self):
         s('.filter #search_text').type(name_questionnaire).press_enter()
-        time.sleep(1)
-        s('#sortable .questionnaire-link').with_(timeout=4).should(have.text(name_questionnaire))
+        s('#sortable .questionnaire-link').with_(timeout=5).should(have.text(name_questionnaire))
         s('#sortable .questionnaire-delete').click()
-        time.sleep(1)
-        s('.jconfirm-box .btn:nth-child(1)').click()
+        s('.jconfirm-box .btn:nth-child(1)').with_(timeout=5).click()
         return self
 
     def push_message_about_successful_removal_questionnaire(self, value):

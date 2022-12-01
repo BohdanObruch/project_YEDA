@@ -9,3 +9,5 @@ def drag_to(destination: selene.Element):
         ActionChains(source.config.driver).drag_and_drop(source(), destination()).perform()
 
     return Command(f'drag to {destination}', action)
+
+

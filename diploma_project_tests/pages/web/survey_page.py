@@ -104,13 +104,13 @@ class CreateSurveyPage:
 
     def add_answers_to_third_question(self, first_answer: str, second_answer: str, third_answer: str):
         s('.survey-question:nth-child(3) .input-group:nth-child(1) .survey-question-choice').click()
-        time.sleep(0.7)
+        time.sleep(0.9)
         s('.survey-question:nth-child(3) .input-group:nth-child(1) .survey-question-choice').type(first_answer)
         s('.survey-question:nth-child(3) .input-group:nth-child(2) .survey-question-choice').click()
-        time.sleep(0.7)
+        time.sleep(0.9)
         s('.survey-question:nth-child(3) .input-group:nth-child(2) .survey-question-choice').type(second_answer)
         s('.survey-question:nth-child(3) .input-group:nth-child(3) .survey-question-choice').click()
-        time.sleep(0.7)
+        time.sleep(0.9)
         s('.survey-question:nth-child(3) .input-group:nth-child(3) .survey-question-choice').type(third_answer)
         return self
 

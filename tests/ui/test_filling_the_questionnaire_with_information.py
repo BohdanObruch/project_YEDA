@@ -22,7 +22,7 @@ def test_filling_the_questionnaire(setup_browser):
         app.filling_questionnaire.open_create_questionnaire()
 
         with step("Checking the 'Editing Questionnaire' page display"):
-            app.filling_questionnaire.checking_editing_questionnaire_page(' Editing Questionnaire')
+            app.filling_questionnaire.checking_editing_questionnaire_page('Editing Questionnaire')
 
         with step("Added Chapters"):
             with step("Added Chapters Title"):

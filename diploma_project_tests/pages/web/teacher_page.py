@@ -60,7 +60,10 @@ class CreateTeacherPage:
 
     def submit_form(self):
         s('[type="submit"]').click()
-        time.sleep(5)
+        return self
+
+    def checking_title_page(self, value):
+        s('.page-header').with_(timeout=5).should(have.text(value))
         return self
 
     def open_all_teachers_page(self):

@@ -53,3 +53,4 @@ def test_create_questionnaire(setup_browser):
 
     with step("Submit the form"):
         app.create_questionnaire.submit_form()
+        app.create_questionnaire.checking_editing_page('Editing Questionnaire')

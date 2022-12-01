@@ -1,4 +1,3 @@
-import time
 import os
 
 from diploma_project_tests import command
@@ -75,11 +74,10 @@ class CreateCoursePage:
         s('[name="show_files_to_students"]').click()
         s('#files_input').send_keys(resource(table))
         s('#files_input').send_keys(resource(file))
-        time.sleep(2)
         return self
 
     def add_seo(self, seo_title: str, seo_description: str, seo_author: str):
-        s('[name="meta_title"]').type(seo_title)
+        s('[name="meta_title"]').with_(timeout=5).type(seo_title)
         s('[name="meta_description"]').type(seo_description)
         s('[name="meta_author"]').type(seo_author)
         return self
@@ -116,11 +114,10 @@ class CreateCoursePage:
                                                    have.exact_text(f'{name_course}')) \
             .element('.color-danger.clear').click()
         s('// *[text() = "Confirm delete"]').click()
-        time.sleep(2)
         return self
 
     def checking_that_the_course_has_been_deleted(self):
-        table = browser.element('#cdk-drop-list-0')
+        table = browser.element('#cdk-drop-list-0').with_(timeout=5)
         table.all('.air-list-item').element_by_its('[airtablelikecell="course-name"',
                                                    not have.exact_text(f'{name_course}'))
         return self

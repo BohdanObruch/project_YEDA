@@ -49,6 +49,9 @@ def test_add_teacher(setup_browser):
     with step("Submit the form"):
         app.create_teacher.submit_form()
 
+    with step("Checking_title_page"):
+        app.create_teacher.checking_title_page('Edit Teacher')
+
     with step("Deleting a created Teacher"):
         with step("Go to the Teachers page"):
             app.create_teacher.open_all_teachers_page()

@@ -1,5 +1,3 @@
-import time
-
 from dotenv import load_dotenv
 from selene import have, by
 from diploma_project_tests import command
@@ -52,7 +50,7 @@ class CreateLessonPage:
         return self
 
     def show_date_edited(self):
-        browser.element('#show_date_edited').click()
+        s('#show_date_edited').click()
         return self
 
     def add_files(self, document: str, table: str):
@@ -64,8 +62,7 @@ class CreateLessonPage:
     def add_lecturer(self, name_lecturer: str):
         s('#save-lesson').perform(command.js.scroll_into_view)
         s('.lector-name').type(name_lecturer)
-        time.sleep(2)
-        s('.suggestions [data-id="48"]').click()
+        s('.suggestions [data-id="48"]').with_(timeout=5).click()
         s('.add_lecturer').click()
         return self
 
@@ -105,8 +102,7 @@ class CreateLessonPage:
 
     def add_second_part_of_lesson(self):
         s('.add-video').perform(command.js.click)
-        time.sleep(1)
-        s('.lesson-video:nth-child(2) .lesson-part-toggle').click()
+        s('.lesson-video:nth-child(2) .lesson-part-toggle').with_(timeout=5).click()
         return self
 
     def add_title_second_part(self, title_second_part_lesson: str):
@@ -131,8 +127,7 @@ class CreateLessonPage:
         return self
 
     def moving_blocks_of_parts(self):
-        time.sleep(1)
-        first_part = browser.element('#lesson_parts_accordion .lesson-video:nth-child(1) .col')
+        first_part = browser.element('#lesson_parts_accordion .lesson-video:nth-child(1) .col').with_(timeout=5)
         second_part = browser.element('#lesson_parts_accordion .lesson-video:nth-child(2) .lesson-video-handle')
         second_part.perform(command.drag_to(first_part))
         s('#save-lesson').click()
@@ -146,8 +141,7 @@ class CreateLessonPage:
         s('[data-name="title"').type(name_lesson)
         s('.ui-sortable-handle .col').with_(timeout=6).should(have.text(title_lesson))
         s('.ui-sortable-handle .delete').click()
-        time.sleep(1)
-        s('.container .btn:nth-child(1)').click()
+        s('.container .btn:nth-child(1)').with_(timeout=5).click()
         return self
 
     def push_message_about_successful_removal_lesson(self, value):

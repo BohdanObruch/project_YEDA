@@ -1,5 +1,4 @@
 import os
-import time
 
 from dotenv import load_dotenv
 from diploma_project_tests import command
@@ -115,17 +114,15 @@ class FillingBundlesPage:
     def add_students(self, file_with_users: str):
         s('.panel [data-target="#students-collapse"] .fa-plus').click()
         s('#students-collapse #import_users_file').send_keys(resource(file_with_users))
-        time.sleep(1)
-        s('.import-student:nth-child(1) .remove-from-import').click()
+        s('.import-student:nth-child(1) .remove-from-import').with_(timeout=2).click()
         s('.jconfirm-buttons .btn-default:nth-child(1)').click()
         s('.import-student:nth-child(3) .remove-from-import').click()
         s('.jconfirm-buttons .btn-default:nth-child(1)').click()
         s('.students-import #import-students').click()
-        time.sleep(3)
         return self
 
     def open_courses_block(self):
-        s('.panel [data-target="#courses-collapse"] .fa-plus').click()
+        s('.panel [data-target="#courses-collapse"] .fa-plus').with_(timeout=5).click()
         return self
 
     def add_first_course(self, name_first_course: str, full_name_first_course: str):
@@ -190,8 +187,7 @@ class FillingBundlesPage:
 
         panel = s('.panel-body')
         panel.all('.row').element_by_its('.course-link', have.exact_text(f'{name_bundle_ui}')).element('.delete').click()
-        time.sleep(1)
-        s('.container .btn:nth-child(1)').click()
+        s('.container .btn:nth-child(1)').with_(timeout=2).click()
         return self
 
     def push_message_about_successful_removal_bundle(self, value):

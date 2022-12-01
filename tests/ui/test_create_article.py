@@ -13,10 +13,10 @@ def test_add_article(setup_browser):
         authorization_on_the_site()
 
     with step("Checking that the Settings page has opened"):
-        app.create_article.open_settings_page('Settings')
+        app.create_article.opening_settings_page_and_checking_title('Settings')
 
     with step("Go to articles page"):
-        app.create_article.open_articles_page()
+        app.create_article.going_to_articles_page()
 
     with step("Checking that the Articles page has opened"):
         app.create_article.checking_the_display_of_the_articles_page('Articles')
