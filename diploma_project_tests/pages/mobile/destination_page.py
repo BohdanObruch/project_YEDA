@@ -3,7 +3,7 @@ from selene import have, be
 from selene.support.shared.jquery_style import s, ss
 
 
-class SearchDestination:
+class SearchDestinationPage:
     def enter_destination(self, value):
         s((AppiumBy.ID, 'com.booking:id/facet_search_box_accommodation_destination')).click()
         s((AppiumBy.ID, 'com.booking:id/facet_with_bui_free_search_booking_header_toolbar_content')).type(value)

@@ -1,10 +1,9 @@
-from allure import step, title, tag
+from allure import title, tag
 from diploma_project_tests.model.accept_cookie import *
 from diploma_project_tests.model.authorization_booking import *
 from diploma_project_tests.model.verify_booking import *
-from diploma_project_tests.pages.favorite_list_page import *
+from diploma_project_tests.pages.mobile.favorite_list_page import *
 from diploma_project_tests.helpers import app
-from tests.conftest import setup
 
 
 @tag('Browserstack mobile')

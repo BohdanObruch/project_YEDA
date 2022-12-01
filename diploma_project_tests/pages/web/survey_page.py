@@ -6,7 +6,7 @@ from selene import have, by
 from selene.support.shared.jquery_style import s, ss
 
 
-class CreateSurvey:
+class CreateSurveyPage:
 
     def open_surveys_page(self):
         s('.elearning-nav-li').click()

@@ -1,37 +1,37 @@
-from diploma_project_tests.pages.bundle_page import CreateBundles, FillingBundles
-from diploma_project_tests.pages.lesson_page import CreateLesson
-from diploma_project_tests.pages.user_page import CreateUser
-from diploma_project_tests.pages.teacher_page import CreateTeacher
-from diploma_project_tests.pages.questionnaire_page import CreateQuestionnaire
-from diploma_project_tests.pages.questionnaire_page import FillingQuestionnaire
-from diploma_project_tests.pages.course_page import CreateCourse
-from diploma_project_tests.pages.article_page import CreateArticle
-from diploma_project_tests.pages.survey_page import CreateSurvey
-from diploma_project_tests.pages.favorite_list_page import *
-from diploma_project_tests.pages.registration_user_page import RegistrationUser
-from diploma_project_tests.pages.taxi_page import SearchTaxi
-from diploma_project_tests.pages.articles_booking_page import SearchArticles
-from diploma_project_tests.pages.rental_car_page import RentalCar
-from diploma_project_tests.pages.attractions_page import SearchAttractions
-from diploma_project_tests.pages.destination_page import SearchDestination
+from diploma_project_tests.pages.web.bundle_page import CreateBundlesPage, FillingBundlesPage
+from diploma_project_tests.pages.web.lesson_page import CreateLessonPage
+from diploma_project_tests.pages.web.user_page import CreateUserPage
+from diploma_project_tests.pages.web.teacher_page import CreateTeacherPage
+from diploma_project_tests.pages.web.questionnaire_page import CreateQuestionnairePage
+from diploma_project_tests.pages.web.questionnaire_page import FillingQuestionnairePage
+from diploma_project_tests.pages.web.course_page import CreateCoursePage
+from diploma_project_tests.pages.web.article_page import CreateArticlePage
+from diploma_project_tests.pages.web.survey_page import CreateSurveyPage
+from diploma_project_tests.pages.mobile.favorite_list_page import *
+from diploma_project_tests.pages.mobile.registration_user_page import RegistrationUserPage
+from diploma_project_tests.pages.mobile.taxi_page import SearchTaxiPage
+from diploma_project_tests.pages.mobile.articles_booking_page import SearchArticlesPage
+from diploma_project_tests.pages.mobile.rental_car_page import RentalCarPage
+from diploma_project_tests.pages.mobile.attractions_page import SearchAttractionsPage
+from diploma_project_tests.pages.mobile.destination_page import SearchDestinationPage
 
 
-create_bundles = CreateBundles()
-filling_bundles = FillingBundles()
-create_lesson = CreateLesson()
-create_user = CreateUser()
-create_teacher = CreateTeacher()
-create_questionnaire = CreateQuestionnaire()
-filling_questionnaire = FillingQuestionnaire()
-create_course = CreateCourse()
-create_article = CreateArticle()
-create_survey = CreateSurvey()
-create_list = CreateList()
-adding_to_favorite_list = AddingToFavoriteList()
-deleting_from_favorite_list = DeletingFromFavoriteList()
-registration_user = RegistrationUser()
-search_taxi = SearchTaxi()
-search_articles = SearchArticles()
-rental_car = RentalCar()
-search_attractions = SearchAttractions()
-search_destination = SearchDestination()
+create_bundles = CreateBundlesPage()
+filling_bundles = FillingBundlesPage()
+create_lesson = CreateLessonPage()
+create_user = CreateUserPage()
+create_teacher = CreateTeacherPage()
+create_questionnaire = CreateQuestionnairePage()
+filling_questionnaire = FillingQuestionnairePage()
+create_course = CreateCoursePage()
+create_article = CreateArticlePage()
+create_survey = CreateSurveyPage()
+create_list = CreateListPage()
+adding_to_favorite_list = AddingToFavoriteListPage()
+deleting_from_favorite_list = DeletingFromFavoriteListPage()
+registration_user = RegistrationUserPage()
+search_taxi = SearchTaxiPage()
+search_articles = SearchArticlesPage()
+rental_car = RentalCarPage()
+search_attractions = SearchAttractionsPage()
+search_destination = SearchDestinationPage()

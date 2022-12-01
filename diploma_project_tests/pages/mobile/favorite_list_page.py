@@ -6,7 +6,7 @@ from selene.support.shared import browser
 from selene.support.shared.jquery_style import s, ss
 
 
-class CreateList:
+class CreateListPage:
     def checking_the_availability_of_the_icon(self, value):
         s((AppiumBy.XPATH, '//android.widget.FrameLayout['
                            '@content-desc="Saved"]/android.widget.FrameLayout/android.widget.TextView'
@@ -33,7 +33,7 @@ class CreateList:
         return self
 
 
-class AddingToFavoriteList:
+class AddingToFavoriteListPage:
     def search_point_of_destination(self, value):
         s((AppiumBy.ID, 'com.booking:id/facet_search_box_accommodation_destination')).click()
         s((AppiumBy.ID, 'com.booking:id/facet_with_bui_free_search_booking_header_toolbar_content')) \
@@ -134,7 +134,7 @@ class AddingToFavoriteList:
         return self
 
 
-class DeletingFromFavoriteList:
+class DeletingFromFavoriteListPage:
     def go_to_saved_tab(self):
         s((AppiumBy.XPATH, '//android.widget.FrameLayout[@content-desc="Saved"]')).click()
         return self

@@ -21,7 +21,7 @@ class Bundles:
     file_with_users = 'template-courses.xlsx'
     name_first_course = 'קורס מאקרו כלכלה'
     full_name_first_course = 'קורס מאקרו כלכלה קורס מאקרו כלכלה'
-    date_closed_first_course = '2022-12-15'
+    date_closed_first_course = '2023-01-15'
     name_second_course = 'קורס מאקרו כלכלה'
     full_name_second_course = 'קורס מאקרו כלכלה'
     date_closed_second_course = '2023-01-10'

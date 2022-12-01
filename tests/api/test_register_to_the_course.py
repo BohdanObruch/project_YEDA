@@ -12,18 +12,18 @@ from allure import tag, title
 @tag('API')
 @title("Student registration for the course")
 def test_register_to_the_course(register_user):
-    ID_COLLEGE = os.getenv('id_college')
-    ID_COURSE = os.getenv('course_id')
+    id_college = os.getenv('ID_COLLEGE')
+    id_course = os.getenv('COURSE_ID')
 
     token_value = str("Bearer " + register_user[0])
     token = {"Authorization": token_value}
 
-    current_college_id = f'current_college_id={ID_COLLEGE}'
+    current_college_id = f'current_college_id={id_college}'
 
     id_user = register_user[4]
 
     response = yeda().post(
-        f'/courses/{ID_COURSE}/enroll',
+        f'/courses/{id_course}/enroll',
         headers=token,
         params=current_college_id
     )

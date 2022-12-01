@@ -8,8 +8,10 @@ from selene.support.shared import browser
 from selene.support.shared.jquery_style import s, ss
 from diploma_project_tests.controls.utils import resource
 
+name_questionnaire = os.getenv('NAME_QUESTIONNAIRE')
 
-class CreateQuestionnaire:
+
+class CreateQuestionnairePage:
 
     def open_questionnaires_page(self):
         s('.elearning-nav-li').click()
@@ -39,8 +41,7 @@ class CreateQuestionnaire:
         return self
 
     def add_title(self):
-        NAME_QUESTIONNAIRE = os.getenv('name_questionnaire')
-        s('#title').type(f'{NAME_QUESTIONNAIRE}')
+        s('#title').type(f'{name_questionnaire}')
         return self
 
     def add_short_description(self, short_description: str):
@@ -85,7 +86,7 @@ class CreateQuestionnaire:
         return self
 
 
-class FillingQuestionnaire:
+class FillingQuestionnairePage:
 
     def open_questionnaires_page(self):
         s('.elearning-nav-li').click()
@@ -97,8 +98,7 @@ class FillingQuestionnaire:
         return self
 
     def open_create_questionnaire(self):
-        NAME_QUESTIONNAIRE = os.getenv('name_questionnaire')
-        s(f'//*[text() = "{NAME_QUESTIONNAIRE}"]').click()
+        s(f'//*[text() = "{name_questionnaire}"]').click()
         return self
 
     def checking_editing_questionnaire_page(self, value):
@@ -346,10 +346,9 @@ class FillingQuestionnaire:
         return self
 
     def search_created_questionnaires_and_delete(self):
-        NAME_QUESTIONNAIRE = os.getenv('name_questionnaire')
-        s('.filter #search_text').type(NAME_QUESTIONNAIRE).press_enter()
+        s('.filter #search_text').type(name_questionnaire).press_enter()
         time.sleep(1)
-        s('#sortable .questionnaire-link').with_(timeout=4).should(have.text(NAME_QUESTIONNAIRE))
+        s('#sortable .questionnaire-link').with_(timeout=4).should(have.text(name_questionnaire))
         s('#sortable .questionnaire-delete').click()
         time.sleep(1)
         s('.jconfirm-box .btn:nth-child(1)').click()

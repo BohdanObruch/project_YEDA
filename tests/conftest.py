@@ -25,23 +25,23 @@ def env():
     load_dotenv()
 
 
-WEB_URL = os.getenv('url_yeda_website')
-ADMIN_PANEL_URL = os.getenv('url_yeda_admin_panel')
-ID_COLLEGE = os.getenv('id_college')
+web_url = os.getenv('WEB_URL')
+admin_panel_url = os.getenv('ADMIN_PANEL_URL')
+id_college = os.getenv('ID_COLLEGE')
 
 
 def opened_page_website():
-    browser.open(WEB_URL)
+    browser.open(web_url)
 
 
 def opened_page_admin_panel():
-    browser.open(ADMIN_PANEL_URL)
+    browser.open(admin_panel_url)
     browser.config.driver.maximize_window()
 
 
 @pytest.fixture(scope='function', autouse=True)
 def browser_management():
-    browser.config.base_url = os.getenv('selene.base_url', WEB_URL)
+    browser.config.base_url = os.getenv('selene.base_url', web_url)
     browser.config.browser_name = os.getenv('selene.browser_name', 'chrome')
     browser.config.hold_browser_open = (
             os.getenv('selene.hold_browser_open', 'false').lower() == 'true'
@@ -109,11 +109,11 @@ def register_user():
         "email": f"{email}",
         "password": f"{password}",
         "lang": "en",
-        "college_id": ID_COLLEGE,
+        "college_id": id_college,
         "signed": f"{now_time}"
     }
 
-    current_college_id = f'current_college_id={ID_COLLEGE}'
+    current_college_id = f'current_college_id={id_college}'
 
     response = yeda().post('/auth/register',
                            params=current_college_id,
@@ -133,12 +133,14 @@ def register_user():
 
 @pytest.fixture(scope='function')
 def setup():
+    linkApp = os.getenv('LINK_APP')
+
     desired_capabilities = ({
         "platformName": "android",
         "platformVersion": "9.0",
         "deviceName": "Samsung Galaxy S20",
         "os_version": "10.0",
-        "app": "bs://74c5272fd5d929374f58f67d24cc446c7a6e8350",
+        "app": {linkApp},
         "build": "browserstack-build-" + str(date.today()),
         'bstack:options': {
             "sessionName": "Booking test_mobile",

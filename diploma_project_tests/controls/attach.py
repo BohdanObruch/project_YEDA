@@ -6,6 +6,7 @@ from selene.support.shared import browser
 from dotenv import load_dotenv
 
 
+
 def add_screenshot(browser):
     png = browser.driver.get_screenshot_as_png()
     allure.attach(body=png, name='screenshot', attachment_type=AttachmentType.PNG, extension='.png')
@@ -38,7 +39,8 @@ def add_video(session_id: str, name: str):
 
 
 def add_video_selenoid(browser):
-    video_url = "http://92.118.149.155:8080/video/" + browser.driver.session_id + ".mp4"
+    url_selenoid = os.getenv('URL_SELENOID')
+    video_url = f'{url_selenoid}' + browser.driver.session_id + ".mp4"
     html = "<html><body><video width='100%' height='100%' controls autoplay><source src='" \
            + video_url \
            + "' type='video/mp4'></video></body></html>"

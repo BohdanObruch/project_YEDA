@@ -11,10 +11,10 @@ from allure import tag, title
 @tag('API')
 @title("Displaying the lecturer and his information on the website")
 def test_display_teacher_information():
-    ID_TEACHER = os.getenv('id_teacher')
-    ID_COLLEGE = os.getenv('id_college')
+    id_teacher = os.getenv('ID_TEACHER')
+    id_college = os.getenv('ID_COLLEGE')
 
-    params = f"username={ID_TEACHER}&current_college_id={ID_COLLEGE}"
+    params = f"username={id_teacher}&current_college_id={id_college}"
 
     response = yeda().get(
         '/website/college/teacher',
@@ -23,4 +23,4 @@ def test_display_teacher_information():
     assert response.status_code == 200
     assert S(teacher) == response.json()
     assert response.json()["access_level"] == 3
-    assert response.json()["id"] == int(ID_TEACHER)
+    assert response.json()["id"] == int(id_teacher)

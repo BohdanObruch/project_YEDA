@@ -7,8 +7,8 @@ from selene import have
 from selene.support.shared import browser
 
 
-EMAIL = os.getenv('email_booking')
-PASSWORD = os.getenv('password_booking')
+email_booking = os.getenv('EMAIL_BOOKING')
+password_booking = os.getenv('PASSWORD_BOOKING')
 
 
 def authorization():
@@ -28,7 +28,7 @@ def authorization():
         with step('Filling email address'):
             browser.element((AppiumBy.ID, 'com.booking:id/identity_header_title')) \
                 .should(have.text('Enter your email address'))
-            browser.element((AppiumBy.ID, 'com.booking:id/identity_text_input_edit_text')).type(EMAIL)
+            browser.element((AppiumBy.ID, 'com.booking:id/identity_text_input_edit_text')).type(email_booking)
 
         with step('Click button "Continue"'):
             browser.element((AppiumBy.XPATH, '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout'
@@ -43,7 +43,7 @@ def authorization():
             browser.element((AppiumBy.ID, 'com.booking:id/identity_header_title')) \
                 .should(have.text('Enter your password'))
         with step('Filling password'):
-            browser.element((AppiumBy.ID, 'com.booking:id/identity_text_input_edit_text')).type(PASSWORD)
+            browser.element((AppiumBy.ID, 'com.booking:id/identity_text_input_edit_text')).type(password_booking)
 
         with step('Sign in'):
             browser.element((AppiumBy.XPATH, '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout'

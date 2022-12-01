@@ -10,9 +10,9 @@ from allure import tag, title
 @tag('API')
 @title("Display of all teachers on the college website")
 def test_display_all_teachers():
-    ID_COLLEGE = os.getenv('id_college')
+    id_college = os.getenv('ID_COLLEGE')
 
-    number_college = f'id={ID_COLLEGE}'
+    number_college = f'id={id_college}'
 
     response = yeda().get(
         '/website/college/teachers', params=number_college

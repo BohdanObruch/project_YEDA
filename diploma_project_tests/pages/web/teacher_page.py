@@ -6,7 +6,7 @@ from selene.support.shared.jquery_style import s, ss
 from diploma_project_tests.controls.utils import resource
 
 
-class CreateTeacher:
+class CreateTeacherPage:
 
     def open_teachers_page(self):
         s('.elearning-nav-li').click()

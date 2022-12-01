@@ -10,14 +10,14 @@ from allure import tag, title
 @tag('API')
 @title("Displaying the bundle on the website")
 def test_display_information_bundle():
-    ID_COLLEGE = os.getenv('id_college')
-    NAME_BUNDLE = os.getenv('name_bundle')
+    id_college = os.getenv('ID_COLLEGE')
+    name_bundle = os.getenv('name_bundle_ui')
 
-    id_college = f'current_college_id={ID_COLLEGE}'
+    id_college = f'current_college_id={id_college}'
 
     response = yeda().get(
-        f'/wl/colleges/{ID_COLLEGE}/bundle/{NAME_BUNDLE}', params=id_college
+        f'/wl/colleges/{id_college}/bundle/{name_bundle}', params=id_college
     )
     assert response.status_code == 200
     assert S(bundle) == response.json()
-    assert response.json()["slug"] == NAME_BUNDLE
+    assert response.json()["slug"] == name_bundle

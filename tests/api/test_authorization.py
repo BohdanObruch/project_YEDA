@@ -7,12 +7,13 @@ from pytest_voluptuous import S
 from tests.conftest import *
 from diploma_project_tests.utils.sessions import yeda
 from allure import tag, title
+from dotenv import load_dotenv
 
 
 @tag('API')
 @title("User authorization on the website")
 def test_authorization_user(register_user):
-    ID_COLLEGE = os.getenv('id_college')
+    id_college = os.getenv('ID_COLLEGE')
 
     user_name = register_user[1]
     user_email = register_user[2]
@@ -22,7 +23,7 @@ def test_authorization_user(register_user):
         "username": f"{user_name}",
         "password": f"{user_password}",
         "fieldname": "username",
-        "college_id": ID_COLLEGE
+        "college_id": id_college
     }
     response = yeda().post('/auth/login',
                            data=registered_user

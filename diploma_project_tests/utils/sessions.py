@@ -4,7 +4,7 @@ from dotenv import load_dotenv
 
 
 def yeda() -> BaseSession:
-    yeda_url = os.getenv('api_url_yeda')
-    return BaseSession(base_url=yeda_url)
+    api_url = os.getenv('API_URL')
+    return BaseSession(base_url=api_url)
 
 

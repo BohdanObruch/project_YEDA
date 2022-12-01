@@ -18,7 +18,7 @@ login_name = (name + str(ts))
 email = (login_name + '@gmail.com')
 
 
-class RegistrationUser:
+class RegistrationUserPage:
     def checking_sign_in_page(self, value):
         s((AppiumBy.ID, 'com.booking:id/identity_header_title')).should(have.text(value))
         return self

@@ -8,7 +8,7 @@ from selene.support.shared.jquery_style import s, ss
 from diploma_project_tests.controls.utils import resource
 
 
-class CreateUser:
+class CreateUserPage:
 
     def open_users_page(self):
         s('.users-nav-li').click()

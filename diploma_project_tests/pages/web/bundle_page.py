@@ -8,13 +8,14 @@ from selene.support.shared import browser
 from selene.support.shared.jquery_style import s, ss
 from diploma_project_tests.controls.utils import resource
 
+name_bundle_ui = os.getenv('NAME_BUNDLE_UI')
+url_bundles = os.getenv('url_bundles')
 
-class CreateBundles:
+
+class CreateBundlesPage:
 
     def open_bundles_page(self, value):
-        URL_BUNDLES = os.getenv('url_bundles')
-
-        s(f'[href="{URL_BUNDLES}"]').click()
+        s(f'[href="{url_bundles}"]').click()
         s('.page-header').should(have.text(value))
         s('.btn.btn-primary').click()
         return self
@@ -24,8 +25,7 @@ class CreateBundles:
         return self
 
     def add_title(self):
-        NAME_BUNDLE = os.getenv('name_bundle_ui')
-        s('#name').type(f'{NAME_BUNDLE}')
+        s('#name').type(f'{name_bundle_ui}')
         return self
 
     def add_duration(self, duration: str):
@@ -98,18 +98,14 @@ class CreateBundles:
         return self
 
 
-class FillingBundles:
+class FillingBundlesPage:
     def open_bundles_page(self, value):
-        URL_BUNDLES = os.getenv('url_bundles')
-
-        s(f'[href="{URL_BUNDLES}"]').click()
+        s(f'[href="{url_bundles}"]').click()
         s('.page-header').should(have.text(value))
         return self
 
     def open_create_bundle(self):
-        NAME_BUNDLE = os.getenv('name_bundle_ui')
-
-        s(f'//*[text() = "{NAME_BUNDLE}"]').click()
+        s(f'//*[text() = "{name_bundle_ui}"]').click()
         return self
 
     def checking_editing_bundle_page(self, value):
@@ -185,17 +181,15 @@ class FillingBundles:
         return self
 
     def open_all_bundles_page(self, value):
-        URL_BUNDLES = os.getenv('url_bundles')
 
-        s(f'[href="{URL_BUNDLES}"]').perform(command.js.click)
+        s(f'[href="{url_bundles}"]').perform(command.js.click)
         s('.page-header').with_(timeout=7).should(have.text(value))
         return self
 
     def search_created_bundle_and_delete(self):
-        NAME_BUNDLE = os.getenv('name_bundle_ui')
 
         panel = s('.panel-body')
-        panel.all('.row').element_by_its('.course-link', have.exact_text(f'{NAME_BUNDLE}')).element('.delete').click()
+        panel.all('.row').element_by_its('.course-link', have.exact_text(f'{name_bundle_ui}')).element('.delete').click()
         time.sleep(1)
         s('.container .btn:nth-child(1)').click()
         return self

@@ -6,7 +6,7 @@ from selene.support.shared import browser
 from selene.support.shared.jquery_style import s, ss
 
 
-class RentalCar:
+class RentalCarPage:
 
     def close_authorization_and_registration_page(self, value):
         s((AppiumBy.ID, 'com.booking:id/identity_header_title')).should(have.text(value))

@@ -8,11 +8,13 @@ from selene.support.shared import browser
 from selene.support.shared.jquery_style import s, ss
 from diploma_project_tests.controls.utils import resource
 
+name_article = os.getenv('NAME_ARTICLE')
 
-class CreateArticle:
+
+class CreateArticlePage:
 
     def open_settings_page(self, value):
-        s('#portal-header-default').with_(timeout=5).should(have.text(value))  # הגדרות
+        s('#portal-header-default').with_(timeout=5).should(have.text(value))
         return self
 
     def open_articles_page(self):
@@ -20,12 +22,12 @@ class CreateArticle:
         return self
 
     def checking_the_display_of_the_articles_page(self, value):
-        s('#portal-header-default').with_(timeout=6).should(have.text(value))  # מאמרים
+        s('#portal-header-default').with_(timeout=6).should(have.text(value))
         time.sleep(4)
         return self
 
     def create_article(self):
-        s('//button[text() = "Add New Article"]').click()  # מאמר חדש
+        s('//button[text() = "Add New Article"]').click()
         time.sleep(2)
         return self
 
@@ -35,14 +37,13 @@ class CreateArticle:
         return self
 
     def add_title(self):
-        NAME_ARTICLE = os.getenv('name_article')
-        s('.title-editable.air-input').clear().type(f'{NAME_ARTICLE}')
+        s('.title-editable.air-input').clear().type(f'{name_article}')
         return self
 
     def deleting_default_text(self):
         s('#text-content').click()
         s('.ck-editor__main .ck-editor__editable').click()
-        s('[data-placeholder="Enter text here"]').clear()  # הכנס טקסט
+        s('[data-placeholder="Enter text here"]').clear()
         s('.ck-alignment-dropdown > button').click()
         s('.ck-toolbar_vertical.ck-toolbar .ck-toolbar__items button:nth-child(3)').click()
         s('.ck-sticky-panel__content > div > div > button:nth-child(3)').click()
@@ -86,12 +87,12 @@ class CreateArticle:
 
     def go_to_settings_page(self, value):
         s('#to-admin-button').with_(timeout=8).click()
-        s('#portal-header-default').with_(timeout=5).should(have.text(value))  # הגדרות Settings
+        s('#portal-header-default').with_(timeout=5).should(have.text(value))
         s('[href="/admin/articles/main"').click()
         return self
 
     def go_to_articles_page(self, value):
-        s('#portal-header-default').with_(timeout=6).should(have.text(value))  # Articles מאמרים
+        s('#portal-header-default').with_(timeout=6).should(have.text(value))
         return self
 
     def refreshing_the_page(self):
@@ -100,9 +101,8 @@ class CreateArticle:
         return self
 
     def search_created_article_and_delete(self):
-        NAME_ARTICLE = os.getenv('name_article')
         table = browser.element('.cdk-table')
-        table.all('.cdk-row').element_by_its('.cdk-column-menu_name', have.exact_text(f'{NAME_ARTICLE}'))\
+        table.all('.cdk-row').element_by_its('.cdk-column-menu_name', have.exact_text(f'{name_article}'))\
             .element('.cdk-column-delete').click()
         time.sleep(1)
         return self

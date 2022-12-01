@@ -2,7 +2,6 @@ from allure import title, tag, step
 from diploma_project_tests.model.authorization import *
 from diploma_project_tests.helpers import app
 from diploma_project_tests.data.data import *
-from diploma_project_tests.pages.course_page import *
 
 
 @tag("Web UI")

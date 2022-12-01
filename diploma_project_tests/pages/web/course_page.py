@@ -8,8 +8,11 @@ from selene.support.shared import browser
 from selene.support.shared.jquery_style import s, ss
 from diploma_project_tests.controls.utils import resource
 
+name_course = os.getenv('NAME_COURSE')
+url_courses = os.getenv('URL_COURSES')
 
-class CreateCourse:
+
+class CreateCoursePage:
 
     def open_courses_page(self):
         s('[href="/admin/courses"]').click()
@@ -30,8 +33,7 @@ class CreateCourse:
         return self
 
     def add_title(self):
-        NAME_COURSE = os.getenv('name_course')
-        s('#name').type(f'{NAME_COURSE}')
+        s('#name').type(f'{name_course}')
         return self
 
     def add_slug(self):
@@ -104,26 +106,21 @@ class CreateCourse:
         return self
 
     def open_all_courses_page(self, value):
-        URL_COURSES = os.getenv('url_courses')
-
-        s(f'[href="{URL_COURSES}"]').perform(command.js.click)
+        s(f'[href="{url_courses}"]').perform(command.js.click)
         s('#portal-header-default').with_(timeout=10).should(have.text(value))
         return self
 
     def search_created_course_and_delete(self):
-        NAME_COURSE = os.getenv('name_course')
-
         table = browser.element('#cdk-drop-list-0')
         table.all('.air-list-item').element_by_its('[airtablelikecell="course-name"]',
-                                                   have.exact_text(f'{NAME_COURSE}')) \
+                                                   have.exact_text(f'{name_course}')) \
             .element('.color-danger.clear').click()
         s('// *[text() = "Confirm delete"]').click()
         time.sleep(2)
         return self
 
     def checking_that_the_course_has_been_deleted(self):
-        NAME_COURSE = os.getenv('name_course')
         table = browser.element('#cdk-drop-list-0')
         table.all('.air-list-item').element_by_its('[airtablelikecell="course-name"',
-                                                   not have.exact_text(f'{NAME_COURSE}'))
+                                                   not have.exact_text(f'{name_course}'))
         return self

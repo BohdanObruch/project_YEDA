@@ -10,9 +10,9 @@ from allure import tag, title
 @tag('API')
 @title("Display of all courses on the college website")
 def test_display_all_courses():
-    ID_COLLEGE = os.getenv('id_college')
+    id_college = os.getenv('ID_COLLEGE')
 
-    response = yeda().get(f'/wl/colleges/{ID_COLLEGE}/courses')
+    response = yeda().get(f'/wl/colleges/{id_college}/courses')
 
     assert response.status_code == 200
     assert S(courses) == response.json()

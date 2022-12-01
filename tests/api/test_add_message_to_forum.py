@@ -13,8 +13,8 @@ from allure import tag, title
 @title("Add a message to the college course")
 def test_add_message_to_forum(register_user):
 
-    ID_COLLEGE = os.getenv('id_college')
-    ID_COURSE = os.getenv('course_id')
+    id_college = os.getenv('ID_COLLEGE')
+    id_course = os.getenv('COURSE_ID')
 
     token_value = str("Bearer " + register_user[0])
     token = {"Authorization": token_value}
@@ -22,7 +22,7 @@ def test_add_message_to_forum(register_user):
     id_user = register_user[4]
     user_name = register_user[1]
 
-    current_college_id = f'current_college_id={ID_COLLEGE}'
+    current_college_id = f'current_college_id={id_college}'
 
     subject = lorem.sentence()
     text_message = lorem.paragraph()
@@ -31,7 +31,7 @@ def test_add_message_to_forum(register_user):
         "subject": subject,
         "text": text_message,
         "receive_notifications": False,
-        "course_id": ID_COURSE
+        "course_id": id_course
     }
 
     response = yeda().post('/wl/forum/threads',
