@@ -6,10 +6,5 @@ from allure import step
 
 def accept_cookie_settings():
     with step('Checking the display Cookie settings page'):
-        browser.element((AppiumBy.XPATH, '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android'
-                                         '.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout'
-                                         '/android.view.ViewGroup/android.widget.TextView')).should(have.text('Cookie '
-                                                                                                              'settings'))
-        browser.element((AppiumBy.XPATH, '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android'
-                                         '.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout'
-                                         '/android.view.ViewGroup/android.widget.Button[1]')).click()
+        browser.element((AppiumBy.XPATH, '//*[@text="Cookie settings"]')).should(have.text('Cookie settings'))
+        browser.element((AppiumBy.XPATH, '//*[@text="Accept"]')).click()

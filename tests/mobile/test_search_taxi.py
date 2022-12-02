@@ -29,15 +29,15 @@ def test_search_taxi(setup):
             app.search_taxi.book_taxi()
 
             with step('Checking the title Route planner page'):
-                app.search_taxi.checking_the_title_route_planner_page()
+                app.search_taxi.checking_the_title_route_planner_page('Route planner')
 
             with step('Entering the initial location'):
                 with step('Selecting a location from the list'):
-                    app.search_taxi.input_start_location_and_select_from_the_list('Kyiv')
+                    app.search_taxi.input_start_location_and_select_from_the_list('Kyiv International Airport')
 
             with step('Entering the final location'):
                 with step('Selecting a location from the list'):
-                    app.search_taxi.input_final_location_and_select_from_the_list('Kyiv')
+                    app.search_taxi.input_final_location_and_select_from_the_list('DREAM Kyiv')
 
             with step('Select date and time'):
                 app.search_taxi.select_date_and_time()
@@ -46,4 +46,4 @@ def test_search_taxi(setup):
                     app.search_taxi.change_the_default_day()
 
         with step('Search taxi and view the results of the taxi order'):
-            app.search_taxi.search_taxi("We'll confirm your ride provider before you book")
+            app.search_taxi.search_taxi("Visiting Ukraine")
