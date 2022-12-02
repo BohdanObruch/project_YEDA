@@ -26,7 +26,7 @@ def test_search_rental_car(setup):
             app.rental_car.input_pickup_location_and_select_from_list('Kyiv')
 
         with step('Add date reservation'):
-            app.rental_car.add_date_reservation('Nov 30 - Dec 9')
+            app.rental_car.add_date_reservation()
 
         with step('Add time reservation'):
             app.rental_car.add_time_reservation()

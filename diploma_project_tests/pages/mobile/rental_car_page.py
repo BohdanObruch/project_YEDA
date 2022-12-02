@@ -1,5 +1,3 @@
-import time
-
 from appium.webdriver.common.appiumby import AppiumBy
 from selene import have
 from selene.support.shared import browser
@@ -19,22 +17,11 @@ class RentalCarPage:
         return self
 
     def checking_the_availability_of_car_rental_tab(self, value):
-        s((AppiumBy.XPATH, '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout'
-                           '/android.widget.FrameLayout/android.widget.LinearLayout/android.widget'
-                           '.FrameLayout/android.widget.LinearLayout/android.widget.LinearLayout['
-                           '2]/android.widget.FrameLayout['
-                           '1]/android.widget.LinearLayout/androidx.recyclerview.widget'
-                           '.RecyclerView/android.widget.LinearLayout[3]/android.widget.TextView')) \
-            .should(have.text(value))
+        s((AppiumBy.XPATH, '//*[@text="Car rental"]')).should(have.text(value))
         return self
 
     def open_page_rental_car(self, value):
-        s((AppiumBy.XPATH, '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout'
-                           '/android.widget.FrameLayout/android.widget.LinearLayout/android.widget'
-                           '.FrameLayout/android.widget.LinearLayout/android.widget.LinearLayout['
-                           '2]/android.widget.FrameLayout['
-                           '1]/android.widget.LinearLayout/androidx.recyclerview.widget'
-                           '.RecyclerView/android.widget.LinearLayout[3]')).click()
+        s((AppiumBy.XPATH, '//*[@text="Car rental"]')).click()
 
         s((AppiumBy.ID, 'com.booking:id/banner_description')).should(have.text(value))
         return self
@@ -42,30 +29,19 @@ class RentalCarPage:
     def input_pickup_location_and_select_from_list(self, value):
         s((AppiumBy.ID, 'com.booking:id/search_box_edit_pick_up_location')).click()
         s((AppiumBy.ID, 'com.booking:id/search_query_edittext')).type(value)
-        s((AppiumBy.XPATH, '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout'
-                           '/android.widget.FrameLayout/android.widget.LinearLayout/android.widget'
-                           '.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/androidx'
-                           '.recyclerview.widget.RecyclerView/android.widget.LinearLayout['
-                           '1]/android.widget.LinearLayout')).click()
-
+        s((AppiumBy.ID, 'com.booking:id/ape_rc_view_location_name')).click()
         return self
 
-    def add_date_reservation(self, value):
+    def add_date_reservation(self):
         s((AppiumBy.ID, 'com.booking:id/bgoc_search_box_date_pick_up')).click()
-        s((AppiumBy.XPATH, '//android.view.View[@content-desc="30 November 2022"]')).click()
-        s((AppiumBy.XPATH, '//android.view.View[@content-desc="09 December 2022"]')).click()
-        s((AppiumBy.ID, 'com.booking:id/selected_dates')).should(have.text(value))
+        s((AppiumBy.XPATH, '//*[contains(@content-desc, "10")]')).click()
+        s((AppiumBy.XPATH, '//*[contains(@content-desc, "15")]')).click()
         s((AppiumBy.ID, 'com.booking:id/calendar_confirm')).click()
         return self
 
     def add_time_reservation(self):
         s((AppiumBy.ID, 'com.booking:id/search_box_time_pick_up')).click()
-        s((AppiumBy.XPATH, '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout'
-                           '/android.widget.FrameLayout/android.widget.FrameLayout/android.widget'
-                           '.FrameLayout/androidx.appcompat.widget.LinearLayoutCompat/android'
-                           '.widget.FrameLayout/android.widget.FrameLayout/android.widget'
-                           '.LinearLayout/android.widget.FrameLayout/android.widget.ListView'
-                           '/android.widget.CheckedTextView[9]')).click()
+        s((AppiumBy.XPATH, '//*[contains(@text,"12:00")]')).click()
         return self
 
     def search_car_in_the_specified_dates(self):
@@ -81,41 +57,19 @@ class RentalCarPage:
         return self
 
     def switching_to_the_first_car_card(self):
-        s((AppiumBy.XPATH, '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout'
-                           '/android.widget.FrameLayout/android.widget.LinearLayout/android.widget'
-                           '.FrameLayout/android.widget.LinearLayout/android.view.ViewGroup/android'
-                           '.widget.LinearLayout/androidx.recyclerview.widget.RecyclerView/android'
-                           '.view.ViewGroup['
-                           '1]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup')).click()
+        s((AppiumBy.ID, 'com.booking:id/or_similar')).click()
         return self
 
     def click_next_button_reservation_car(self, button_next: str, summary_page: str):
-        s((AppiumBy.XPATH, '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout'
-                           '/android.widget.FrameLayout/android.widget.LinearLayout/android'
-                           '.widget.FrameLayout/android.view.ViewGroup/androidx.compose.ui'
-                           '.platform.ComposeView/android.view.View/android.view.View/android'
-                           '.view.View[3]/android.widget.TextView')) \
-            .should(have.text(button_next)).click()
+        s((AppiumBy.XPATH, '//*[@text="Next step"]')).should(have.text(button_next)).click()
 
-        s((AppiumBy.XPATH, '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout'
-                           '/android.widget.FrameLayout/android.widget.LinearLayout/android'
-                           '.widget.FrameLayout/android.widget.FrameLayout/android.view'
-                           '.ViewGroup/android.widget.ScrollView/android.widget.LinearLayout'
-                           '/android.widget.TextView')).should(have.text(summary_page))
+        s((AppiumBy.XPATH, '//*[@text="Booking Summary"]')).should(have.text(summary_page))
         return self
 
     def next_step_booking(self):
-        s((AppiumBy.XPATH, '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout'
-                           '/android.widget.FrameLayout/android.widget.LinearLayout/android'
-                           '.widget.FrameLayout/android.widget.FrameLayout/android.view'
-                           '.ViewGroup/android.widget.LinearLayout/android.widget.Button')).click()
+        s((AppiumBy.XPATH, '//*[@text="Next step"]')).click()
         return self
 
     def checking_the_main_driver_details_page(self, value):
-        s((AppiumBy.XPATH, '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout'
-                           '/android.widget.FrameLayout/android.widget.LinearLayout/android'
-                           '.widget.FrameLayout/android.widget.FrameLayout/android.widget'
-                           '.FrameLayout/android.widget.LinearLayout/android.widget.ScrollView'
-                           '/android.widget.LinearLayout/android.view.ViewGroup/android.widget'
-                           '.TextView[1]')).should(have.text(value))
+        s((AppiumBy.XPATH, '//*[@text="Main driver details"]')).should(have.text(value))
         return self
