@@ -10,14 +10,14 @@ from diploma_project_tests.helpers import app
 def test_search_destination(setup):
     accept_cookie_settings()
     authorization()
-    verify_showing_welcome_message()
+    # verify_showing_welcome_message()
 
     with step('Search point of destination'):
         with step('Enter your destination'):
             app.search_destination.enter_destination('Kyiv')
 
         with step('Destination options'):
-            app.search_destination.checking_the_availability_of_results('Kyiv')
+            app.search_destination.checking_the_availability_of_results('City in Ukraine')
 
         with step('Select from the list'):
             app.search_destination.select_from_list()
@@ -31,9 +31,6 @@ def test_search_destination(setup):
 
         with step('Add date of departure'):
             app.search_destination.add_departure_date()
-
-        # with step('Check the dates'):
-        #     app.search_destination.check_the_dates('18 Nov - 27 Nov (9 nights)')
 
         with step('Confirm the choice of dates'):
             app.search_destination.confirm_the_choice_of_dates()
@@ -54,11 +51,11 @@ def test_search_destination(setup):
     with step('Search for housing'):
         app.search_destination.search_for_housing()
 
-    with step('Checking the block title'):
-        app.search_destination.checking_the_block_title('Welcome to Booking.com!')
-
-    with step('Close welcome block'):
-        app.search_destination.close_welcome_block()
+    # with step('Checking the block title'):
+    #     app.search_destination.checking_the_block_title('Welcome to Booking.com!')
+    #
+    # with step('Close welcome block'):
+    #     app.search_destination.close_welcome_block()
 
     with step('Checking the results of a given search'):
         app.search_destination.checking_the_results_of_a_given_search('Visiting Ukraine')
