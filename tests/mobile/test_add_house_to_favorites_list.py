@@ -11,14 +11,14 @@ from diploma_project_tests.helpers import app
 def test_adding_to_favorites_list(setup):
     accept_cookie_settings()
     authorization()
-    verify_showing_welcome_message()
+    # verify_showing_welcome_message()
 
     with step('Search point of destination'):
         with step('Enter your destination'):
             app.adding_to_favorite_list.search_point_of_destination('Kyiv')
 
         with step('Destination options'):
-            app.adding_to_favorite_list.destination_options('Kyiv')
+            app.adding_to_favorite_list.destination_options('City in Ukraine')
 
         with step('Select from the list'):
             app.adding_to_favorite_list.select_from_list()
@@ -37,8 +37,8 @@ def test_adding_to_favorites_list(setup):
     with step('Search for accommodation'):
         app.adding_to_favorite_list.search_for_accommodation()
 
-    with step('Checking the welcome block'):
-        app.adding_to_favorite_list.checking_the_welcome_block_title_and_close_him('Welcome to Booking.com!')
+    # with step('Checking the welcome block'):
+    #     app.adding_to_favorite_list.checking_the_welcome_block_title_and_close_him('Welcome to Booking.com!')
 
     with step('Scroll to another hotel'):
         app.adding_to_favorite_list.scroll_to_first_hotel()

@@ -27,7 +27,7 @@ class SwipeHelper:
         return self
 
     def swipe_to_down_one_block(self):
-        browser.driver.swipe(470, 1400, 470, 600, 330)
+        browser.driver.swipe(470, 1400, 470, 500, 330)
         return self
 
 

@@ -3,7 +3,6 @@ import os
 
 from appium.webdriver.common.appiumby import AppiumBy
 from selene import have, be
-from selene.support.shared import browser
 from selene.support.shared.jquery_style import s, ss
 from diploma_project_tests.command import swipe_helper
 from dotenv import load_dotenv

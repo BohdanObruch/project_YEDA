@@ -1,6 +1,5 @@
 from appium.webdriver.common.appiumby import AppiumBy
 from selene import have, be
-from selene.support.shared import browser
 from selene.support.shared.jquery_style import s, ss
 from diploma_project_tests.command import swipe_helper
 
@@ -46,7 +45,6 @@ class SearchTaxiPage:
 
     def input_final_location_and_select_from_the_list(self, value):
         s((AppiumBy.XPATH, '//*[@text="Enter destination"]')).type(value)
-
         s((AppiumBy.XPATH, '//*[@text="DREAM Hostel Kyiv"]')).with_(timeout=5).click()
         return self
 

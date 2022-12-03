@@ -1,17 +1,20 @@
 import time
+import os
 from allure import step
 from appium.webdriver.common.appiumby import AppiumBy
 from selene import have, be
 from selene.support.shared import browser
 from selene.support.shared.jquery_style import s, ss
 from diploma_project_tests.command import swipe_helper
+from dotenv import load_dotenv
+
+first_date = os.getenv('FIRST_DATE_BOOKING')
+last_date = os.getenv('LAST_DATE_BOOKING')
 
 
 class CreateListPage:
     def checking_the_availability_of_the_icon(self, value):
-        s((AppiumBy.XPATH, '//android.widget.FrameLayout['
-                           '@content-desc="Saved"]/android.widget.FrameLayout/android.widget.TextView'
-                           '')).should(have.text(value))
+        s((AppiumBy.XPATH, '//*[@text="Saved"]')).with_(timeout=3).should(have.text(value))
         return self
 
     def click_on_the_icon(self):
@@ -36,54 +39,37 @@ class CreateListPage:
 
 class AddingToFavoriteListPage:
     def search_point_of_destination(self, value):
-        s((AppiumBy.ID, 'com.booking:id/facet_search_box_accommodation_destination')).click()
-        s((AppiumBy.ID, 'com.booking:id/facet_with_bui_free_search_booking_header_toolbar_content')) \
-            .type(value)
+        s((AppiumBy.ID, 'facet_search_box_accommodation_destination')).click()
+        s((AppiumBy.ID, 'facet_with_bui_free_search_booking_header_toolbar_content')).type(value)
         return self
 
     def destination_options(self, value):
-        s((AppiumBy.XPATH, '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout'
-                           '/android.widget.FrameLayout/android.widget.LinearLayout/android.widget'
-                           '.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout'
-                           '/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup['
-                           '1]/android.widget.TextView[1]')).should(have.text(value))
+        list_search_result = s((AppiumBy.ID, 'facet_with_bui_free_search_booking_header_content'))
+        list_search_result.element((AppiumBy.CLASS_NAME, 'android.view.ViewGroup'))\
+            .element((AppiumBy.ID, 'com.booking:id/view_disambiguation_destination_subtitle')).should(have.text(value))
         return self
 
     def select_from_list(self):
-        s((AppiumBy.XPATH, '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android'
-                           '.widget.FrameLayout/android.widget.LinearLayout/android.widget'
-                           '.FrameLayout '
-                           '/android.widget.LinearLayout/android.widget.FrameLayout/androidx'
-                           '.recyclerview.widget.RecyclerView/android.view.ViewGroup[1]')).click()
+        s((AppiumBy.ID, 'com.booking:id/view_disambiguation_destination_title')).click()
         return self
 
     def adding_date(self):
         s((AppiumBy.ID, 'com.booking:id/calendar_week_days')).should(be.visible)
-        s((AppiumBy.XPATH, '//android.view.View[@content-desc="18 November 2022"]')).click()
-        s((AppiumBy.XPATH, '//android.view.View[@content-desc="27 November 2022"]')).click()
-        # s((AppiumBy.ID, 'com.booking:id/facet_date_picker_selection_summary')).should(have.text(value))
-        time.sleep(1)
-        s((AppiumBy.ID, 'com.booking:id/facet_date_picker_confirm')).click()
-        time.sleep(1)
+        s((AppiumBy.XPATH, f'{first_date}')).click()
+        s((AppiumBy.XPATH, f'{last_date}')).click()
+        #time.sleep(1)
+        s((AppiumBy.ID, 'com.booking:id/facet_date_picker_confirm')).with_(timeout=3).click()
+        #time.sleep(1)
         return self
 
     def the_number_of_guests_and_rooms(self, value):
-        s((AppiumBy.ID, 'com.booking:id/facet_search_box_accommodation_occupancy')).click()
-        s((AppiumBy.XPATH, '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget'
-                           '.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget'
-                           '.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget'
-                           '.LinearLayout/android.widget.LinearLayout/android.widget.LinearLayout/android.widget'
-                           '.TextView')) \
-            .should(have.text(value))
+        s((AppiumBy.ID, 'com.booking:id/facet_search_box_accommodation_occupancy')).with_(timeout=3).click()
+        s((AppiumBy.XPATH, '//*[@text="Select rooms and guests"]')).should(have.text(value))
         return self
 
     def change_number_of_guests_and_rooms(self):
-        s((AppiumBy.XPATH, '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout'
-                           '/android.widget.FrameLayout/android.widget.FrameLayout/android.widget'
-                           '.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android'
-                           '.widget.FrameLayout/android.widget.LinearLayout/android.widget'
-                           '.LinearLayout/android.widget.LinearLayout/android.view.ViewGroup['
-                           '2]/android.widget.LinearLayout/android.widget.Button[1]')).click()
+        adult_count = s((AppiumBy.ID, 'com.booking:id/group_config_adults_count'))
+        adult_count.element((AppiumBy.ID, 'com.booking:id/bui_input_stepper_remove_button')).click()
         s((AppiumBy.ID, 'com.booking:id/group_config_apply_button')).click()
         return self
 
@@ -91,48 +77,29 @@ class AddingToFavoriteListPage:
         s((AppiumBy.ID, 'com.booking:id/facet_search_box_cta')).click()
         return self
 
-    def checking_the_welcome_block_title_and_close_him(self, value):
-        s((AppiumBy.XPATH, '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android'
-                           '.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout'
-                           '/android.widget.FrameLayout/android.view.ViewGroup/android.widget'
-                           '.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android'
-                           '.widget.TextView[1]')).should(have.text(value))
-
-        s((AppiumBy.XPATH, '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android'
-                           '.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout'
-                           '/android.widget.FrameLayout/android.view.ViewGroup/android.widget'
-                           '.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android'
-                           '.widget.Button')).click()
-        return self
+    # def checking_the_welcome_block_title_and_close_him(self, value):
+    #     s((AppiumBy.XPATH, '//*[@text="Welcome to Booking.com!"]')).should(have.text(value))
+    #
+    #     s((AppiumBy.XPATH, '//android.view.ViewGroup/android.widget.Button')).click()
+    #     return self
 
     def scroll_to_first_hotel(self):
         swipe_helper.swipe_to_down_one_block()
-        #browser.driver.swipe(470, 1400, 470, 600, 330)
         return self
 
     def add_first_hotel_to_favorites(self, value):
-        s((AppiumBy.XPATH, '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget'
-                           '.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view'
-                           '.ViewGroup/android.widget.FrameLayout/android.widget.LinearLayout/android.view.ViewGroup'
-                           '/android.widget.FrameLayout/androidx.recyclerview.widget.RecyclerView/android.view'
-                           '.ViewGroup[4]/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup['
-                           '1]/android.view.ViewGroup/android.widget.ImageView')).click()
+        s((AppiumBy.XPATH, '//android.view.ViewGroup[4]/android.view.ViewGroup/android.view.ViewGroup['
+                           '2]/android.view.ViewGroup[1]/android.view.ViewGroup/android.widget.ImageView')).click()
         s((AppiumBy.ID, 'com.booking:id/snackbar_text')).should(have.text(value))
         return self
 
     def scroll_to_second_hotel(self):
         swipe_helper.swipe_to_down_one_block()
-        #browser.driver.swipe(470, 1400, 470, 500, 330)
         return self
 
     def add_second_hotel_to_favorites(self, value):
-        s((AppiumBy.XPATH, '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget'
-                           '.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view'
-                           '.ViewGroup/android.widget.FrameLayout/android.widget.LinearLayout/android.view.ViewGroup'
-                           '/android.widget.FrameLayout/androidx.recyclerview.widget.RecyclerView/android.view'
-                           '.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup['
-                           '1]/android.view.ViewGroup/android.widget.ImageView')).click()
-
+        s((AppiumBy.XPATH, '//android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup['
+                           '2]/android.view.ViewGroup[1]/android.view.ViewGroup/android.widget.ImageView')).click()
         s((AppiumBy.ID, 'com.booking:id/snackbar_text')).should(have.text(value))
         return self
 

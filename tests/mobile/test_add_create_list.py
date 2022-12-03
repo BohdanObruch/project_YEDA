@@ -11,7 +11,7 @@ from diploma_project_tests.helpers import app
 def test_create_favorite_list(setup):
     accept_cookie_settings()
     authorization()
-    verify_showing_welcome_message()
+    # verify_showing_welcome_message()
 
     with step('Create list favorite rooms and apartment'):
         with step('Checking the availability of the icon "Saved"'):
