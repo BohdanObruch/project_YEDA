@@ -4,6 +4,7 @@ from appium.webdriver.common.appiumby import AppiumBy
 from selene import have, be
 from selene.support.shared import browser
 from selene.support.shared.jquery_style import s, ss
+from diploma_project_tests.command import swipe_helper
 
 
 class SearchArticlesPage:
@@ -15,11 +16,13 @@ class SearchArticlesPage:
 
     def close_rewards_and_wallet_message(self, value):
         s((AppiumBy.ID, 'com.booking:id/bui_empty_state_title')).should(have.text(value))
-        browser.driver.swipe(720, 683, 720, 2070, 400)
+        swipe_helper.swipe_to_close_wallet_message()
+        #browser.driver.swipe(720, 683, 720, 2070, 400)
         return self
 
     def scroll_and_go_to_the_articles_page(self):
-        browser.driver.swipe(470, 1400, 470, -500, 330)
+        swipe_helper.swipe_to_down()
+        #browser.driver.swipe(470, 1400, 470, -500, 330)
         s((AppiumBy.XPATH, '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout'
                            '/android.widget.FrameLayout/android.widget.LinearLayout/android.widget'
                            '.FrameLayout/android.widget.LinearLayout/android.widget.LinearLayout['

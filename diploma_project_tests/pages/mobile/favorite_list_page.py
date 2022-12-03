@@ -4,6 +4,7 @@ from appium.webdriver.common.appiumby import AppiumBy
 from selene import have, be
 from selene.support.shared import browser
 from selene.support.shared.jquery_style import s, ss
+from diploma_project_tests.command import swipe_helper
 
 
 class CreateListPage:
@@ -105,7 +106,8 @@ class AddingToFavoriteListPage:
         return self
 
     def scroll_to_first_hotel(self):
-        browser.driver.swipe(470, 1400, 470, 600, 330)
+        swipe_helper.swipe_to_down_one_block()
+        #browser.driver.swipe(470, 1400, 470, 600, 330)
         return self
 
     def add_first_hotel_to_favorites(self, value):
@@ -119,7 +121,8 @@ class AddingToFavoriteListPage:
         return self
 
     def scroll_to_second_hotel(self):
-        browser.driver.swipe(470, 1400, 470, 500, 330)
+        swipe_helper.swipe_to_down_one_block()
+        #browser.driver.swipe(470, 1400, 470, 500, 330)
         return self
 
     def add_second_hotel_to_favorites(self, value):

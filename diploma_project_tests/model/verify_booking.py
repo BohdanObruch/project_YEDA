@@ -1,5 +1,5 @@
 from appium.webdriver.common.appiumby import AppiumBy
-from selene import have
+from selene import have, be
 from selene.support.shared import browser
 from allure import step
 from selene.support.shared.jquery_style import s, ss
@@ -15,15 +15,7 @@ def verify_showing_welcome_message():
 
 def verify_search_capability():
     with step('Displaying the main page and the ability to search'):
-        s((AppiumBy.XPATH, '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android'
-                                         '.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout'
-                                         '/android.widget.LinearLayout/android.widget.LinearLayout['
-                                         '2]/android.widget.FrameLayout['
-                                         '1]/android.widget.LinearLayout/androidx.compose.ui.platform.ComposeView'
-                                         '/android.view.View/android.view.ViewGroup/android.widget.FrameLayout'
-                                         '/androidx.compose.ui.platform.ComposeView/android.view.View/android.widget'
-                                         '.ScrollView/android.view.ViewGroup['
-                                         '1]/android.widget.FrameLayout/android.widget.FrameLayout/android.widget'
-                                         '.LinearLayout/android.view.ViewGroup/android.widget.LinearLayout/android'
-                                         '.widget.LinearLayout[1]/android.widget.TextView')) \
+        input_destination = s((AppiumBy.ID, 'com.booking:id/facet_search_box_accommodation_destination'))\
+            .with_(timeout=5).should(be.visible)
+        input_destination.element((AppiumBy.ID, 'com.booking:id/facet_search_box_basic_field_label'))\
             .should(have.text('Enter your destination'))

@@ -1,9 +1,15 @@
 import time
+import os
 
 from appium.webdriver.common.appiumby import AppiumBy
 from selene import have, be
 from selene.support.shared import browser
 from selene.support.shared.jquery_style import s, ss
+from diploma_project_tests.command import swipe_helper
+from dotenv import load_dotenv
+
+first_date = os.getenv('FIRST_DATE_BOOKING')
+last_date = os.getenv('LAST_DATE_BOOKING')
 
 
 class SearchAttractionsPage:
@@ -14,12 +20,12 @@ class SearchAttractionsPage:
 
     def close_rewards_and_wallet_message(self, value):
         s((AppiumBy.ID, 'com.booking:id/bui_empty_state_title')).should(have.text(value))
-        browser.driver.swipe(720, 683, 720, 2070, 400)
+        swipe_helper.swipe_to_close_wallet_message()
         time.sleep(1)
         return self
 
     def scroll_and_go_to_the_attractions_page(self, value):
-        browser.driver.swipe(913, 319, 141, 319, 400)
+        swipe_helper.swipe_to_right()
         time.sleep(1)
         s((AppiumBy.XPATH, '//*[@text="Attractions"]')).should(have.text(value)).click()
         return self
@@ -36,9 +42,8 @@ class SearchAttractionsPage:
 
     def add_date(self):
         s((AppiumBy.XPATH, '//*[@text="Any dates"]')).click()
-
-        s((AppiumBy.XPATH, '//*[contains(@content-desc, "09")]')).click()
-        s((AppiumBy.XPATH, '//*[contains(@content-desc, "18")]')).click()
+        s((AppiumBy.XPATH, f'{first_date}')).click()
+        s((AppiumBy.XPATH, f'{last_date}')).click()
         s((AppiumBy.ID, 'com.booking:id/facet_date_picker_confirm')).click()
         return self
 

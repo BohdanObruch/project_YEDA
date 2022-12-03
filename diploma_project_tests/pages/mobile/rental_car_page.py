@@ -1,7 +1,13 @@
+import os
 from appium.webdriver.common.appiumby import AppiumBy
 from selene import have
 from selene.support.shared import browser
 from selene.support.shared.jquery_style import s, ss
+from diploma_project_tests.command import swipe_helper
+from dotenv import load_dotenv
+
+first_date = os.getenv('FIRST_DATE_BOOKING')
+last_date = os.getenv('LAST_DATE_BOOKING')
 
 
 class RentalCarPage:
@@ -13,7 +19,7 @@ class RentalCarPage:
 
     def close_rewards_and_wallet_message(self, value):
         s((AppiumBy.ID, 'com.booking:id/bui_empty_state_title')).should(have.text(value))
-        browser.driver.swipe(720, 683, 720, 2070, 400)
+        swipe_helper.swipe_to_close_wallet_message()
         return self
 
     def checking_the_availability_of_car_rental_tab(self, value):
@@ -22,7 +28,6 @@ class RentalCarPage:
 
     def open_page_rental_car(self, value):
         s((AppiumBy.XPATH, '//*[@text="Car rental"]')).click()
-
         s((AppiumBy.ID, 'com.booking:id/banner_description')).should(have.text(value))
         return self
 
@@ -34,8 +39,8 @@ class RentalCarPage:
 
     def add_date_reservation(self):
         s((AppiumBy.ID, 'com.booking:id/bgoc_search_box_date_pick_up')).click()
-        s((AppiumBy.XPATH, '//*[contains(@content-desc, "10")]')).click()
-        s((AppiumBy.XPATH, '//*[contains(@content-desc, "15")]')).click()
+        s((AppiumBy.XPATH, f'{first_date}')).click()
+        s((AppiumBy.XPATH, f'{last_date}')).click()
         s((AppiumBy.ID, 'com.booking:id/calendar_confirm')).click()
         return self
 
@@ -62,7 +67,6 @@ class RentalCarPage:
 
     def click_next_button_reservation_car(self, button_next: str, summary_page: str):
         s((AppiumBy.XPATH, '//*[@text="Next step"]')).should(have.text(button_next)).click()
-
         s((AppiumBy.XPATH, '//*[@text="Booking Summary"]')).should(have.text(summary_page))
         return self
 

@@ -2,6 +2,7 @@ from appium.webdriver.common.appiumby import AppiumBy
 from selene import have, be
 from selene.support.shared import browser
 from selene.support.shared.jquery_style import s, ss
+from diploma_project_tests.command import swipe_helper
 
 
 class SearchTaxiPage:
@@ -13,11 +14,11 @@ class SearchTaxiPage:
 
     def close_rewards_and_wallet_message(self, value):
         s((AppiumBy.ID, 'com.booking:id/bui_empty_state_title')).should(have.text(value))
-        browser.driver.swipe(720, 683, 720, 2070, 400)
+        swipe_helper.swipe_to_close_wallet_message()
         return self
 
     def scroll_and_go_to_the_taxi_page(self, value):
-        browser.driver.swipe(975, 319, 141, 319, 400)
+        swipe_helper.swipe_to_right()
         s((AppiumBy.XPATH, '//*[@text="Taxi"]')).with_(timeout=2).should(have.text(value)).click()
         return self
 
