@@ -127,8 +127,8 @@ class CreateLessonPage:
         return self
 
     def moving_blocks_of_parts(self):
-        first_part = browser.element('#lesson_parts_accordion .lesson-video:nth-child(1) .col').with_(timeout=5)
-        second_part = browser.element('#lesson_parts_accordion .lesson-video:nth-child(2) .lesson-video-handle')
+        first_part = s('#lesson_parts_accordion .lesson-video:nth-child(1) .col').with_(timeout=5)
+        second_part = s('#lesson_parts_accordion .lesson-video:nth-child(2) .lesson-video-handle')
         second_part.perform(command.drag_to(first_part))
         s('#save-lesson').click()
         return self

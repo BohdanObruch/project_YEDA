@@ -1,4 +1,3 @@
-import time
 from appium.webdriver.common.appiumby import AppiumBy
 from selene import have, be
 from selene.support.shared import browser
@@ -58,7 +57,6 @@ class SearchTaxiPage:
         s((AppiumBy.ID, 'com.booking:id/current_date')).click()
         s((AppiumBy.ID, 'com.booking:id/calendar_view_right_arrow')).click()
         s((AppiumBy.XPATH, '//*[@text="16"]')).click()
-
         s((AppiumBy.ID, 'com.booking:id/confirm_button')).click()
         s((AppiumBy.ID, 'com.booking:id/search_return_taxis_button')).click()
         return self

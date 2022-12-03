@@ -24,44 +24,21 @@ class RegistrationUserPage:
         return self
 
     def click_create_account(self):
-        s((AppiumBy.XPATH, '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout'
-                           '/android.widget.FrameLayout/android.view.ViewGroup/android.widget'
-                           '.FrameLayout['
-                           '2]/android.widget.LinearLayout/android.widget.FrameLayout/android'
-                           '.widget.LinearLayout/android.widget.LinearLayout/android.widget'
-                           '.ScrollView/android.widget.LinearLayout/android.widget.FrameLayout['
-                           '2]/android.widget.FrameLayout/android.widget.Button')).click()
+        s((AppiumBy.XPATH, '//*[@text="Create your account"]')).click()
         return self
 
     def input_email(self, value):
         s((AppiumBy.ID, 'com.booking:id/identity_header_title')).should(have.text(value))
         s((AppiumBy.ID, 'com.booking:id/identity_text_input_edit_text')).type(email)
-        s((AppiumBy.XPATH, '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout'
-                           '/android.widget.FrameLayout/android.view.ViewGroup/android.widget'
-                           '.FrameLayout['
-                           '2]/android.widget.LinearLayout/android.widget.FrameLayout/android'
-                           '.widget.LinearLayout/android.widget.LinearLayout/android.widget'
-                           '.FrameLayout/android.widget.FrameLayout/android.widget.Button')).click()
+        s((AppiumBy.ID, 'com.booking:id/identity_landing_social_button_text')).click()
         return self
 
     def input_password(self, value):
         s((AppiumBy.ID, 'com.booking:id/identity_header_title')).should(have.text(value))
-        s((AppiumBy.XPATH, '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout'
-                           '/android.widget.FrameLayout/android.view.ViewGroup/android.widget'
-                           '.FrameLayout['
-                           '2]/android.widget.LinearLayout/android.widget.FrameLayout/android'
-                           '.widget.LinearLayout/android.widget.LinearLayout/android.widget'
-                           '.LinearLayout['
-                           '2]/android.widget.LinearLayout/android.widget.FrameLayout/android'
-                           '.widget.EditText')).type(password)
-        s((AppiumBy.XPATH, '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout'
-                           '/android.widget.FrameLayout/android.view.ViewGroup/android.widget'
-                           '.FrameLayout['
-                           '2]/android.widget.LinearLayout/android.widget.FrameLayout/android'
-                           '.widget.LinearLayout/android.widget.LinearLayout/android.widget'
-                           '.LinearLayout['
-                           '4]/android.widget.LinearLayout/android.widget.FrameLayout/android'
-                           '.widget.EditText')).type(password)
+        first_password = s((AppiumBy.ID, 'com.booking:id/identity_password'))
+        first_password.element((AppiumBy.ID, 'com.booking:id/identity_text_input_edit_text')).type(password)
+        second_password = s((AppiumBy.ID, 'com.booking:id/identity_confirm_password'))
+        second_password.element((AppiumBy.ID, 'com.booking:id/identity_text_input_edit_text')).type(password)
         return self
 
     def click_create_account_and_sign_in(self):
@@ -79,13 +56,5 @@ class RegistrationUserPage:
         return self
 
     def checking_displaying_main_page(self, value):
-        s((AppiumBy.XPATH, '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget'
-                           '.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget'
-                           '.LinearLayout/android.widget.LinearLayout[2]/android.widget.FrameLayout['
-                           '1]/android.widget.LinearLayout/androidx.compose.ui.platform.ComposeView/android.view.View'
-                           '/android.view.ViewGroup/android.widget.FrameLayout/androidx.compose.ui.platform'
-                           '.ComposeView/android.view.View/android.widget.ScrollView/android.view.ViewGroup['
-                           '1]/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.LinearLayout'
-                           '/android.view.ViewGroup/android.widget.LinearLayout/android.widget.LinearLayout['
-                           '1]/android.widget.TextView')).should(have.text(value))
+        s((AppiumBy.XPATH, '//*[@text="Enter your destination"]')).should(have.text(value))
         return self
