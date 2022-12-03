@@ -22,16 +22,16 @@ class SearchArticlesPage:
         return self
 
     def manage_cookie_preferences(self, value):
-        s((AppiumBy.XPATH, '//*[@text="Manage cookie preferences"]')).with_(timeout=4).should(have.text(value))
+        s((AppiumBy.XPATH, '//*[@text="Manage cookie preferences"]')).with_(timeout=10).should(have.text(value))
         s((AppiumBy.XPATH, '//*[@text="Accept"]')).click()
         return self
 
     def checking_the_display_on_the_article_page(self, value):
-        s((AppiumBy.XPATH, '//*[@content-desc="Travel articles"]/android.widget.TextView')).with_(timeout=3)\
+        s((AppiumBy.XPATH, '//*[@content-desc="Travel articles"]/android.widget.TextView')).with_(timeout=5)\
             .should(have.text(value))
         return self
 
     def checking_the_availability_of_the_article_and_opening_it(self):
-        s((AppiumBy.XPATH, '//android.view.View[2]/android.view.View[2]/android.view.View[1]')).with_(timeout=1).click()
+        s((AppiumBy.XPATH, '//android.view.View[2]/android.view.View[2]/android.view.View[1]')).with_(timeout=2).click()
         s((AppiumBy.XPATH, '//*[@content-desc="Articles"]/android.widget.TextView')).with_(timeout=2).should(be.visible)
         return self

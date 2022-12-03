@@ -1,9 +1,7 @@
-import time
 import os
 from allure import step
 from appium.webdriver.common.appiumby import AppiumBy
 from selene import have, be
-from selene.support.shared import browser
 from selene.support.shared.jquery_style import s, ss
 from diploma_project_tests.command import swipe_helper
 from dotenv import load_dotenv
@@ -57,9 +55,7 @@ class AddingToFavoriteListPage:
         s((AppiumBy.ID, 'com.booking:id/calendar_week_days')).should(be.visible)
         s((AppiumBy.XPATH, f'{first_date}')).click()
         s((AppiumBy.XPATH, f'{last_date}')).click()
-        #time.sleep(1)
         s((AppiumBy.ID, 'com.booking:id/facet_date_picker_confirm')).with_(timeout=3).click()
-        #time.sleep(1)
         return self
 
     def the_number_of_guests_and_rooms(self, value):
@@ -118,17 +114,11 @@ class DeletingFromFavoriteListPage:
         return self
 
     def uncheck_the_box_you_like_house(self):
-        s((AppiumBy.XPATH, '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget'
-                           '.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout['
-                           '2]/android.view.ViewGroup/android.widget.ScrollView/android.widget.LinearLayout/androidx'
-                           '.recyclerview.widget.RecyclerView/android.widget.FrameLayout['
-                           '1]/android.widget.LinearLayout/android.widget.LinearLayout/android.widget.LinearLayout'
-                           '/android.view.ViewGroup[1]/android.widget.ImageView')).click()
+        s((AppiumBy.ID, 'com.booking:id/sr_property_card_wishlist')).click()
         return self
 
     def checking_what_is_displayed_in_the_favorites_list(self, value):
-        time.sleep(2)
-        s((AppiumBy.ID, 'com.booking:id/wishlist_properties_number')).should(have.text(value))
+        s((AppiumBy.ID, 'com.booking:id/wishlist_properties_number')).with_(timeout=5).should(have.text(value))
         return self
 
     def checking_that_the_deletion_message_is_displayed(self, value):
