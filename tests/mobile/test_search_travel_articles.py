@@ -19,11 +19,11 @@ def test_search_travel_articles(setup):
         with step('Scroll to travel articles block and open him'):
             app.search_articles.scroll_and_go_to_the_articles_page()
 
-        with step('Checking the display on the page article'):
-            app.search_articles.checking_the_display_on_the_article_page('Travel articles')
-
         with step('Manage cookie preferences'):
             app.search_articles.manage_cookie_preferences('Manage cookie preferences')
+
+        with step('Checking the display on the page article'):
+            app.search_articles.checking_the_display_on_the_article_page('Travel articles')
 
         with step('Checking the availability of the article and opening it'):
             app.search_articles.checking_the_availability_of_the_article_and_opening_it()
