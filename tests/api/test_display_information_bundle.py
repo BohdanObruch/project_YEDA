@@ -11,7 +11,7 @@ from allure import tag, title
 @title("Displaying the bundle on the website")
 def test_display_information_bundle():
     id_college = os.getenv('ID_COLLEGE')
-    name_bundle = os.getenv('NAME_BUNDLE_UI')
+    name_bundle = os.getenv('NAME_BUNDLE')
 
     id_college = f'current_college_id={id_college}'
 
