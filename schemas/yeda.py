@@ -255,7 +255,7 @@ teachers = Schema(
                 "not_found": bool
             },
             "rating": {
-                "rate": Any(None, int),
+                "rate": Any(None, int, float),
                 "reviews_count": int
             }
         }
