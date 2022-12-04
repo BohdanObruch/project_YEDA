@@ -2,11 +2,14 @@ import time
 import lorem
 
 from diploma_project_tests import command
-from selene import have, by
+from selene import have, by, be
 from selene.support.shared.jquery_style import s, ss
 
+name_survey = lorem.sentence()
+content_survey = lorem.paragraph()
 
-class CreateSurveyPage:
+
+class SurveyPage:
 
     def open_surveys_page(self):
         s('.elearning-nav-li').click()
@@ -21,17 +24,15 @@ class CreateSurveyPage:
         s('.panel-heading .btn').click()
         return self
 
-    def checking_adding_survey_page(self, value):
+    def checking_title_survey_page(self, value):
         s('.page-header').with_(timeout=4).should(have.text(value))
         return self
 
     def add_title(self):
-        title_survey = lorem.sentence()
-        s('#survey-title').type(title_survey)
+        s('#survey-title').type(name_survey)
         return self
 
     def add_opening_text(self):
-        content_survey = lorem.paragraph()
         s('#store_survey_form div:nth-child(4) .jodit-wysiwyg').type(content_survey)
         return self
 
@@ -53,7 +54,6 @@ class CreateSurveyPage:
 
     def checking_questions_tab_open(self, value):
         s('.panel:nth-child(2) .panel-heading .panel-title').should(have.text(value))
-        s('.panel:nth-child(2) .panel-heading .open-panel').click()
         return self
 
     def add_first_questions_type_text(self, message_notification: str, first_question_type: str):
@@ -204,38 +204,51 @@ class CreateSurveyPage:
         s('.survey-question:nth-child(6) .survey-question-to-input').type(second_answer_version)
         return self
 
-    def add_question_replication(self, seventh_question_type: str):
+    def checking_question_type_and_sequence_number(self, value):
+        list_question = s('#survey-questions').with_(timeout=3)
+        list_question.all('.panel-heading').element_by_its('.panel-title', have.exact_text(value))
+        return self
+
+    def adding_question_replication(self, seventh_question_type: str):
         s('.survey-question:nth-child(6) .survey-question-copy').click()
         s('.survey-question:nth-child(7) .panel-title').should(have.text(seventh_question_type))
         return self
 
-    def open_import_first_questions_from_another_survey(self, import_question_text: str):
+    def import_first_questions_from_another_survey(self, import_question_text: str):
         s('.panel-body #survey-import-questions-modal-open').click()
         s('[for="survey-import-title"]').with_(timeout=3).should(have.text(import_question_text))
         return self
 
     def search_and_choosing_first_a_survey(self, name_first_survey: str):
         s('#survey-import-modal #survey-import-questions-input').click().type(name_first_survey)
-        # time.sleep(1)
         s('[data-id="29"]').click()
         s('#survey-import-modal #survey-import-questions').click()
-        time.sleep(5)
         return self
 
-    def open_import_second_questions_from_another_survey(self, import_question_text: str):
-        s('.panel-body #survey-import-questions-modal-open').click()
+    def import_second_questions_from_another_survey(self, import_question_text: str):
+        s('.panel-body #survey-import-questions-modal-open').with_(timeout=10).click()
         s('[for="survey-import-title"]').with_(timeout=3).should(have.text(import_question_text))
         s('#survey-import-modal #survey-import-questions-input').clear()
         return self
 
     def search_and_choosing_second_a_survey(self, name_second_survey: str):
         s('#survey-import-modal #survey-import-questions-input').type(name_second_survey).press_enter()
-        time.sleep(1)
-        s('[data-id="99"]').click()
+        s('[data-id="99"]').with_(timeout=5).click()
         s('#survey-import-modal #survey-import-questions').click()
         return self
 
+    def open_created_survey(self):
+        s('#survey-filter-title').type(name_survey).press_enter()
+        s('.admin-list .survey_title').with_(timeout=10).should(have.text(name_survey))
+        s('.admin-list .survey_edit').click()
+        s('[data-target="#questions-panel"] .fa-plus').with_(timeout=5).click()
+        return self
+
     def delete_one_question(self):
-        s('.survey-question:nth-child(7) .panel-heading .fa-trash').click()
+        s('.survey-question:nth-child(7) .panel-heading .fa-trash').perform(command.js.scroll_into_view).click()
         s('.container .btn-default:nth-child(1)').click()
+        return self
+
+    def checking_the_display_push_message(self, value):
+        s('[data-notify="message"]').with_(timeout=3).should(have.text(value))
         return self
