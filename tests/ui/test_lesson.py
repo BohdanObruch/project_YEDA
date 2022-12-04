@@ -5,20 +5,19 @@ from diploma_project_tests.data.data import *
 
 
 @tag("Web UI")
-@title("Creating an lesson and filling it with information")
+@title("Creating a lesson")
 def test_add_lesson(setup_browser):
-
     with step("Authorization on the admin panel"):
         authorization_on_admin_panel()
 
-    with step("Go to the lesson page"):
+    with step("Go to the lessons page"):
         app.create_lesson.open_lessons_page('Lessons')
 
     with step("Creating a lesson"):
         app.create_lesson.creat_a_lesson()
 
         with step("Checking the Adding Lesson page display"):
-            app.create_lesson.checking_adding_lesson_page('Adding Lesson')
+            app.create_lesson.checking_lesson_page_title('Adding Lesson')
 
         with step("Changing the status to active to display on the site"):
             app.create_lesson.chang_status()
@@ -39,13 +38,28 @@ def test_add_lesson(setup_browser):
     with step("Submit the form"):
         app.create_lesson.submit_form()
 
+
+@tag("Web UI")
+@title("Filling the lesson with information")
+def test_filling_the_lesson(setup_browser):
+    with step("Authorization on the admin panel"):
+        authorization_on_admin_panel()
+
+    with step("Go to the lessons page"):
+        app.create_lesson.open_lessons_page('Lessons')
+
+    with step("Search for the created lesson and open it"):
+        app.create_lesson.search_created_lesson(Lessons.title_lesson, Lessons.name_lesson)
+
+    with step("Checking the Adding Lesson page display"):
+        app.create_lesson.checking_lesson_page_title('Editing Lesson')
+
         with step("Specifying the 'Show date edited' checkbox"):
             app.create_lesson.show_date_edited()
 
         with step("Adding files"):
             app.create_lesson.add_files(Lessons.document, Lessons.table)
 
-    with step("Editing lesson"):
         with step("Adding lecturer"):
             app.create_lesson.add_lecturer(Lessons.name_lecturer)
 
@@ -96,12 +110,19 @@ def test_add_lesson(setup_browser):
         with step("Moving blocks of parts of lessons between themselves"):
             app.create_lesson.moving_blocks_of_parts()
 
-        with step("Deleting a created lesson"):
-            with step("Go to the Lessons page"):
-                app.create_lesson.open_all_lessons_page()
 
-            with step("Search for a created lesson and delete it"):
-                app.create_lesson.search_created_lesson_and_delete(Lessons.title_lesson, Lessons.name_lesson)
+@tag("Web UI")
+@title("Deleting the lesson")
+def test_deleting_the_lesson(setup_browser):
+    with step("Authorization on the admin panel"):
+        authorization_on_admin_panel()
 
-            with step("Display a push message about successful removal of the lesson"):
-                app.create_lesson.push_message_about_successful_removal_lesson('Lesson has been deleted')
+    with step("Go to the lesson page"):
+        app.create_lesson.open_lessons_page('Lessons')
+
+    with step("Deleting a created lesson"):
+        with step("Search for a created lesson and delete it"):
+            app.create_lesson.delete_created_lesson(Lessons.title_lesson, Lessons.name_lesson)
+
+        with step("Display a push message about successful removal of the lesson"):
+            app.create_lesson.push_message_about_successful_removal_lesson('Lesson has been deleted')

@@ -18,7 +18,7 @@ class CreateLessonPage:
         s('.panel-heading .btn').click()
         return self
 
-    def checking_adding_lesson_page(self, value):
+    def checking_lesson_page_title(self, value):
         s('.page-header').with_(timeout=4).should(have.text(value))
         return self
 
@@ -133,11 +133,12 @@ class CreateLessonPage:
         s('#save-lesson').click()
         return self
 
-    def open_all_lessons_page(self):
-        s('.lessons-nav-li').click()
+    def search_created_lesson(self, name_lesson: str, title_lesson: str):
+        s('[data-name="title"').type(name_lesson)
+        s('.ui-sortable-handle .col').with_(timeout=6).should(have.text(title_lesson)).click()
         return self
 
-    def search_created_lesson_and_delete(self, name_lesson: str, title_lesson: str):
+    def delete_created_lesson(self, name_lesson: str, title_lesson: str):
         s('[data-name="title"').type(name_lesson)
         s('.ui-sortable-handle .col').with_(timeout=6).should(have.text(title_lesson))
         s('.ui-sortable-handle .delete').click()
