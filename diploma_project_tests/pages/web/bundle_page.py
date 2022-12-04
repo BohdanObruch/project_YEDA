@@ -8,7 +8,7 @@ from selene.support.shared.jquery_style import s, ss
 from diploma_project_tests.controls.utils import resource
 
 name_bundle_ui = os.getenv('NAME_BUNDLE_UI')
-url_bundles = os.getenv('url_bundles')
+url_bundles = os.getenv('URL_BUNDLES')
 
 
 class CreateBundlesPage:
@@ -186,7 +186,8 @@ class FillingBundlesPage:
     def search_created_bundle_and_delete(self):
 
         panel = s('.panel-body')
-        panel.all('.row').element_by_its('.course-link', have.exact_text(f'{name_bundle_ui}')).element('.delete').click()
+        panel.all('.row').element_by_its('.course-link', have.exact_text(f'{name_bundle_ui}'))\
+            .element('.delete').click()
         s('.container .btn:nth-child(1)').with_(timeout=2).click()
         return self
 
