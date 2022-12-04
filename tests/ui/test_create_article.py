@@ -7,7 +7,6 @@ from diploma_project_tests.data.data import *
 @tag("Web UI")
 @title("Creating an article and filling it with information")
 def test_add_article(setup_browser):
-    browser = setup_browser
 
     with step("Authorization on the site and go to the admin panel"):
         authorization_on_the_site()

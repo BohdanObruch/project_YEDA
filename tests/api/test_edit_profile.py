@@ -12,7 +12,7 @@ from allure import tag, title
 @tag('API')
 @title("Filling out the student's account information")
 def test_edit_profile_user(register_user):
-    print(register_user)
+    print(type(register_user))
 
     user_email = register_user[2]
     user_name = register_user[1]

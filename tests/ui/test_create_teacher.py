@@ -5,7 +5,6 @@ from diploma_project_tests.data.data import *
 
 
 def test_add_teacher(setup_browser):
-    browser = setup_browser
 
     with step("Authorization on the admin panel"):
         authorization_on_admin_panel()

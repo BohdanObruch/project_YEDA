@@ -7,7 +7,6 @@ from diploma_project_tests.data.data import *
 @tag("Web UI")
 @title("Creating user")
 def test_add_user(setup_browser):
-    browser = setup_browser
 
     with step("Authorization on the admin panel"):
         authorization_on_admin_panel()

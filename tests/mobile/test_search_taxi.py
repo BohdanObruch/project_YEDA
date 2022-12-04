@@ -1,4 +1,4 @@
-from allure import title, tag
+from allure import title, tag, step
 from diploma_project_tests.model.accept_cookie import *
 from diploma_project_tests.helpers import app
 
