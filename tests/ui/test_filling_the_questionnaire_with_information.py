@@ -178,7 +178,14 @@ def test_filling_the_questionnaire(setup_browser):
 @tag("Web UI")
 @title("Filling in the created questionnaire")
 def test_filling_the_questionnaire(setup_browser):
+    with step("Authorization on the admin panel"):
+        authorization_on_admin_panel()
+
+    with step("Go to the Questionnaires page"):
+        app.filling_questionnaire.open_questionnaires_page()
+
     with step("Deleting a created questionnaires"):
+
         with step("Go to the page with all the questionnaires"):
             app.filling_questionnaire.open_all_questionnaires_page('Questionnaires')
 
