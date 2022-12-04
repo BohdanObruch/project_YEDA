@@ -1,8 +1,9 @@
 import os
+import time
 
 from diploma_project_tests import command
 from dotenv import load_dotenv
-from selene import have, by
+from selene import have, by, be
 from selene.support.shared import browser
 from selene.support.shared.jquery_style import s, ss
 from diploma_project_tests.controls.utils import resource
@@ -330,13 +331,18 @@ class FillingQuestionnairePage:
 
     def delete_first_chapters(self):
         s('.col-md-9 #edit-chapters').click()
-        s('#chapters .chapter .delete').click()
+        s('#chapters .chapter .delete').with_(timeout=4).click()
         s('.container .btn:nth-child(1)').click()
         return self
 
     def delete_second_chapters(self):
-        s('#chapters .chapter .delete').click()
+        s('#chapters .chapter:nth-child(2)').with_(timeout=4).should(be.not_.visible)
+        s('#chapters .chapter .delete').with_(timeout=4).click()
         s('.container .btn:nth-child(1)').click()
+        return self
+
+    def checking_the_removal_of_chapters(self):
+        s('#chapters').should(be.not_.visible)
         s('#question_partition_modal .modal-footer .btn').click()
         return self
 

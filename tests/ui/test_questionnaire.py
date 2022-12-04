@@ -5,13 +5,64 @@ from diploma_project_tests.data.data import *
 
 
 @tag("Web UI")
-@title("Filling in the created questionnaire")
-def test_filling_the_questionnaire(setup_browser):
+@title("Creating an questionnaire")
+def test_create_questionnaire(setup_browser):
 
     with step("Authorization on the admin panel"):
         authorization_on_admin_panel()
 
     with step("Go to the Questionnaires page"):
+        app.create_questionnaire.open_questionnaires_page()
+
+    with step("Checking the Questionnaires page display"):
+        app.create_questionnaire.checking_questionnaires_page('Questionnaires')
+
+    with step("Creating a questionnaire"):
+        app.create_questionnaire.creat_questionnaire()
+
+        with step("Checking the Adding Questionnaire page display"):
+            app.create_questionnaire.checking_create_questionnaire_page('Adding Questionnaire')
+
+        with step("Changing the status to active to display on the site"):
+            app.create_questionnaire.change_status()
+
+        with step("Choose a category"):
+            app.create_questionnaire.add_category()
+
+        with step("Filling in the title"):
+            app.create_questionnaire.add_title()
+
+        with step("Filling a short description"):
+            app.create_questionnaire.add_short_description(Questionnaire.short_description)
+
+        with step("Filling a description"):
+            app.create_questionnaire.add_description(Questionnaire.description)
+
+            with step("Adding image"):
+                app.create_questionnaire.add_image(Questionnaire.picture)
+
+                with step("Changing the size of an added image"):
+                    app.create_questionnaire.change_size_picture(Questionnaire.size_picture)
+
+        with step("Mark indications 'Shuffle questions'"):
+            app.create_questionnaire.shuffle_questions()
+
+            with step("Specifying the limit to display"):
+                app.create_questionnaire.limit_to_display_count_questions(Questionnaire.count_questions)
+
+    with step("Submit the form"):
+        app.create_questionnaire.submit_form()
+        app.create_questionnaire.checking_editing_page('Editing Questionnaire')
+
+
+@tag("Web UI")
+@title("Adding_first_question_for_questionnaire")
+def test_adding_first_question_for_questionnaire(setup_browser):
+
+    with step("Authorization on the admin panel"):
+        authorization_on_admin_panel()
+
+    with step("Going to the Questionnaires page"):
         app.filling_questionnaire.open_questionnaires_page()
 
     with step("Checking the Questionnaires page display"):
@@ -23,28 +74,28 @@ def test_filling_the_questionnaire(setup_browser):
         with step("Checking the 'Editing Questionnaire' page display"):
             app.filling_questionnaire.checking_editing_questionnaire_page('Editing Questionnaire')
 
-        with step("Added Chapters"):
+        with step("Adding Chapters"):
             with step("Added Chapters Title"):
                 app.filling_questionnaire.add_first_chapters_title(Questionnaire.first_title_chapters,
                                                                    Questionnaire.first_multiplier)
 
-            with step("Added Category"):
+            with step("Adding Category"):
                 app.filling_questionnaire.add_first_categories(Questionnaire.first_categories)
 
-            with step("Added Subcategories"):
+            with step("Adding Subcategories"):
                 app.filling_questionnaire.add_first_subcategories(Questionnaire.subcategories)
 
         with step("List of Questionnaire Chapters"):
             with step("Create a New Practice(Question 1)"):
                 app.filling_questionnaire.create_new_practice_first_question('List of Questionnaire Chapters')
 
-                with step("Added a Question"):
+                with step("Adding a Question"):
                     app.filling_questionnaire.add_first_question(Questionnaire.first_resource)
 
-                with step("Added a Solution explanation"):
+                with step("Adding a Solution explanation"):
                     app.filling_questionnaire.add_solution_explanation(Questionnaire.second_resource)
 
-                with step("Added a Tags"):
+                with step("Adding a Tags"):
                     app.filling_questionnaire.add_first_tag(Questionnaire.name_first_tag)
 
                 with step("Added Difficulty level"):
@@ -70,6 +121,20 @@ def test_filling_the_questionnaire(setup_browser):
                 with step("Saving a Question and checking that the push notification is displayed"):
                     app.filling_questionnaire.push_message_about_saving_first_question('Data has been successfully '
                                                                                        'saved')
+
+
+@tag("Web UI")
+@title("Adding_second_question_for_questionnaire")
+def test_adding_second_question_for_questionnaire(setup_browser):
+
+    with step("Authorization on the admin panel"):
+        authorization_on_admin_panel()
+
+    with step("Going to the Questionnaires page"):
+        app.filling_questionnaire.open_questionnaires_page()
+
+    with step("Open the created questionnaire"):
+        app.filling_questionnaire.open_create_questionnaire()
 
         with step("Added Chapter"):
             with step("Added Chapter Title"):
@@ -105,6 +170,20 @@ def test_filling_the_questionnaire(setup_browser):
 
             with step("Checking the number of created questions"):
                 app.filling_questionnaire.checking_the_number_of_created_questions_first_block('Questions count - 2')
+
+
+@tag("Web UI")
+@title("Adding_third_question_for_questionnaire")
+def test_adding_third_question_for_questionnaire(setup_browser):
+
+    with step("Authorization on the admin panel"):
+        authorization_on_admin_panel()
+
+    with step("Going to the Questionnaires page"):
+        app.filling_questionnaire.open_questionnaires_page()
+
+    with step("Open the created questionnaire"):
+        app.filling_questionnaire.open_create_questionnaire()
 
         with step("List of Questionnaire Chapters"):
             with step("Create a New Practice(Question 3)"):
@@ -143,6 +222,20 @@ def test_filling_the_questionnaire(setup_browser):
                     app.filling_questionnaire.checking_the_number_of_created_questions_second_block('Questions count '
                                                                                                     '- 1')
 
+
+@tag("Web UI")
+@title("Adding_fourth_question_for_questionnaire")
+def test_adding_fourth_question_for_questionnaire(setup_browser):
+
+    with step("Authorization on the admin panel"):
+        authorization_on_admin_panel()
+
+    with step("Going to the Questionnaires page"):
+        app.filling_questionnaire.open_questionnaires_page()
+
+    with step("Open the created questionnaire"):
+        app.filling_questionnaire.open_create_questionnaire()
+
         with step("List of Questionnaire Chapters"):
             with step("Create Questionnaire Chapter"):
                 with step("Added a Question"):
@@ -154,6 +247,19 @@ def test_filling_the_questionnaire(setup_browser):
                 with step("Checking the number of created questions"):
                     app.filling_questionnaire.checking_the_number_of_created_questions_third_block('Questions count '
                                                                                                    '- 3')
+
+
+@tag("Web UI")
+@title("Adding title to questionnaire chapters")
+def test_adding_title_to_questionnaire_and_delete_chapters(setup_browser):
+    with step("Authorization on the admin panel"):
+        authorization_on_admin_panel()
+
+    with step("Going to the Questionnaires page"):
+        app.filling_questionnaire.open_questionnaires_page()
+
+    with step("Open the created questionnaire"):
+        app.filling_questionnaire.open_create_questionnaire()
 
         with step("Add title Questionnaire Chapters"):
             with step("Add title Questionnaire Chapters #1"):
@@ -175,13 +281,20 @@ def test_filling_the_questionnaire(setup_browser):
             with step("Delete Chapters #2"):
                 app.filling_questionnaire.delete_second_chapters()
 
-@tag("Web UI")
-@title("Filling in the created questionnaire")
-def test_filling_the_questionnaire(setup_browser):
-    with step("Deleting a created questionnaires"):
-        with step("Go to the page with all the questionnaires"):
-            app.filling_questionnaire.open_all_questionnaires_page('Questionnaires')
+        with step("Checking the removal of chapters"):
+            app.filling_questionnaire.checking_the_removal_of_chapters()
 
+
+@tag("Web UI")
+@title("Deleting created questionnaire")
+def test_deleting_questionnaire(setup_browser):
+    with step("Authorization on the admin panel"):
+        authorization_on_admin_panel()
+
+    with step("Going to the Questionnaires page"):
+        app.filling_questionnaire.open_questionnaires_page()
+
+    with step("Deleting a created questionnaires"):
         with step("Search for a created questionnaire and delete it"):
             app.filling_questionnaire.search_created_questionnaires_and_delete()
 

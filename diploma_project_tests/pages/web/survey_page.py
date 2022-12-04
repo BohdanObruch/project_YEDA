@@ -252,3 +252,5 @@ class SurveyPage:
     def checking_the_display_push_message(self, value):
         s('[data-notify="message"]').with_(timeout=3).should(have.text(value))
         return self
+
+
