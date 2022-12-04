@@ -373,8 +373,8 @@ bundle = Schema(
                 "image": Any(None, str),
                 "category_name": str,
                 "short_description": Any(None, str),
-                "price": Any(None, str),
-                "discount_price": Any(None, str),
+                "price": Any(None, str, int),
+                "discount_price": Any(None, str, int),
                 "begin_date": Any(None, str),
                 "has_access": bool,
                 "status_purchase": None
