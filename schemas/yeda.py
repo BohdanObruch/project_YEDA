@@ -67,8 +67,8 @@ bundles = Schema({
             "status": Any(None, int),
             "start": Any(None, str),
             "end": Any(None, str),
-            "price": Any(None, int, str),
-            "discount_price": Any(None, int, str),
+            "price": Any(None, int, str, float),
+            "discount_price": Any(None, int, str, float),
             "courses_count": int,
             "categories": [
                 {
@@ -358,8 +358,8 @@ bundle = Schema(
         "status": None,
         "start": Any(None, str),
         "end": Any(None, str),
-        "price": Any(None, str),
-        "discount_price": Any(None, str),
+        "price": Any(None, str, int),
+        "discount_price": Any(None, str, int),
         "video": Any(None, str),
         "vimeo_id": Any(None, int),
         "courses": [
