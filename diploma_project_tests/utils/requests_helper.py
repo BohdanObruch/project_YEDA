@@ -1,9 +1,14 @@
 import json
 import logging
+import calendar
+import time
+import datetime as DT
+import os
 
 import curlify as curlify
 from requests import Session
 import allure
+from dotenv import load_dotenv
 
 
 def allure_request_logger(function):
@@ -32,6 +37,7 @@ def allure_request_logger(function):
                 extension='json'
             )
         return response
+
     return wrapper
 
 
@@ -45,3 +51,32 @@ class BaseSession(Session):
         with allure.step(f'{method} {url}'):
             response = super().request(method, url=f'{self.base_url}{url}', **kwargs)
         return response
+
+
+class UserApi:
+    def create_user(self):
+        id_college = os.getenv('ID_COLLEGE')
+
+        now = DT.datetime.now(DT.timezone.utc).astimezone()
+        time_format = "%Y-%m-%d %H:%M:%S"
+        now_time = f"{now:{time_format}}"
+
+        current_GMT = time.gmtime()
+        ts = calendar.timegm(current_GMT)
+
+        name = ('anna' + str(ts))
+        email = (name + '@gmail.com')
+        password = ts
+
+        user = {
+            "email": f"{email}",
+            "password": f"{password}",
+            "lang": "en",
+            "college_id": id_college,
+            "signed": f"{now_time}"
+        }
+
+        return user
+
+
+user_api = UserApi()

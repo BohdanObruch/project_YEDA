@@ -18,6 +18,7 @@ from dotenv import load_dotenv
 from diploma_project_tests.controls import attach
 from diploma_project_tests.controls.utils import resource
 from selene import support
+from diploma_project_tests.utils.requests_helper import user_api
 
 
 @pytest.fixture(scope='session', autouse=True)
@@ -94,30 +95,12 @@ def setup_browser(request):
 
 @pytest.fixture()
 def register_user():
-    now = DT.datetime.now(DT.timezone.utc).astimezone()
-    time_format = "%Y-%m-%d %H:%M:%S"
-    now_time = f"{now:{time_format}}"
-
-    current_GMT = time.gmtime()
-    ts = calendar.timegm(current_GMT)
-
-    name = ('anna' + str(ts))
-    email = (name + '@gmail.com')
-    password = ts
-
-    user = {
-        "email": f"{email}",
-        "password": f"{password}",
-        "lang": "en",
-        "college_id": id_college,
-        "signed": f"{now_time}"
-    }
-
+    data = user_api.create_user()
     current_college_id = f'current_college_id={id_college}'
 
     response = yeda().post('/auth/register',
                            params=current_college_id,
-                           data=user
+                           data=data
                            )
 
     response_parse = json.loads(str(response.text))
@@ -125,7 +108,7 @@ def register_user():
     token = response_parse['auth']['access_token']
     user_name = response_parse["user"]["name"]
     user_email = response_parse["user"]["email"]
-    user_pass = ts
+    user_pass = data["password"]
     id = response_parse["user"]["id"]
 
     return token, user_name, user_email, user_pass, id
