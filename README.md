@@ -51,27 +51,26 @@
 
 ## The project was implemented using
 
-<p  align="left">
-<code>
-  <img src="resources/images/logo/python.svg" width="50" height="50"  alt="Python"/>
-  <img src="resources/images/logo/selene.png" width="50" height="50"  alt="Selene"/>
-  <img src="resources/images/logo/pytest.png" width="50" height="50"  alt="Pytest"/>
-  <img src="resources/images/logo/pycharm.png" width="50" height="50"  alt="PyCharm"/>
-  <img src="resources/images/logo/request.png" width="50" height="50"  alt="Requests"/>
-  <img src="resources/images/logo/appium.svg" width="50" height="50"  alt="Appium"/>
-  <img src="resources/images/logo/jenkins.png" width="50" height="50"  alt="Jenkins"/>
-  <img src="resources/images/logo/selenoid.png" width="50" height="50"  alt="Selenoid"/>
-  <img src="resources/images/logo/Allure.svg" width="50" height="50"  alt="Allure"/>
-  <img src="resources/images/logo/GitHub.svg" width="50" height="50"  alt="Github"/>
-  <img src="resources/images/logo/docker.svg" width="50" height="50"  alt="Docker"/>
-  <img src="resources/images/logo/Allure_TO.svg" width="50" height="50"  alt="Allure TestOps"/>
-  <img src="resources/images/logo/browserstack.svg" width="50" height="50"  alt="Browserstack"/>
-  <img src="resources/images/logo/slack.svg" width="50" height="50"  alt="Slack"/>
-  <img src="resources/images/logo/telegram.svg" width="50" height="50"  alt="Telegram"/>
-  <img src="resources/images/logo/postman.png" width="50" height="50"  alt="Postman"/>
-  <img src="resources/images/logo/jira.svg" width="50" height="50"  alt="Jira"/>
-</code>
+<p  align="center">
+  <code><img width="7%" title="Python" src="resources/images/logo/python.svg"></code>
+  <code><img width="7%" title="Selene" src="resources/images/logo/selene.png"></code>
+  <code><img width="7%" title="Pytest" src="resources/images/logo/pytest.png"></code>
+  <code><img width="7%" title="PyCharm" src="resources/images/logo/pycharm.png"></code>
+  <code><img width="7%" title="Requests" src="resources/images/logo/request.png"></code>
+  <code><img width="7%" title="Appium" src="resources/images/logo/appium.svg"></code>
+  <code><img width="7%" title="Jenkins" src="resources/images/logo/jenkins.png"></code>
+  <code><img width="7%" title="Selenoid" src="resources/images/logo/selenoid.png"></code>
+  <code><img width="7%" title="Allure" src="resources/images/logo/Allure.svg"></code>
+  <code><img width="7%" title="GitHub" src="resources/images/logo/GitHub.svg"></code>
+  <code><img width="7%" title="Docker" src="resources/images/logo/docker.svg"></code>
+  <code><img width="7%" title="Allure TestOps" src="resources/images/logo/Allure_TO.svg"></code>
+  <code><img width="7%" title="Browserstack" src="resources/images/logo/browserstack.svg"></code>
+  <code><img width="7%" title="Slack" src="resources/images/logo/slack.svg"></code>
+  <code><img width="7%" title="Telegram" src="resources/images/logo/telegram.svg"></code>
+  <code><img width="7%" title="Jira" src="resources/images/logo/jira.svg"></code>
+  <code><img width="7%" title="Postman" src="resources/images/logo/postman.png"></code>
 </p>
+<br>
 
 <br>
 
