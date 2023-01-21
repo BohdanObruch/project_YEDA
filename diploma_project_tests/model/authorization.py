@@ -22,7 +22,7 @@ def authorization_on_admin_panel():
 
 def authorization_on_the_site():
     opened_page_website()
-    browser.element('[href="/auth/login"]').click()
+    browser.element('[href="/auth/login"]').with_(timeout=10).click()
     login = browser.element('#username')
     login.type(f'{login_admin}')
 

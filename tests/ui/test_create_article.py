@@ -63,3 +63,6 @@ def test_add_article(setup_browser):
 
         with step("Search and delete the created article"):
             app.create_article.search_created_article_and_delete()
+
+        with step("Checking for article deletion"):
+            app.create_article.checking_for_article_deletion()

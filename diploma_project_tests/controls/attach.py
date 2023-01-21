@@ -2,9 +2,7 @@ import allure
 import requests
 import os
 from allure_commons.types import AttachmentType
-from selene.support.shared import browser
 from dotenv import load_dotenv
-
 
 
 def add_screenshot(browser):
@@ -45,8 +43,6 @@ def add_video_selenoid(browser):
            + video_url \
            + "' type='video/mp4'></video></body></html>"
     allure.attach(html, 'video_' + browser.driver.session_id, AttachmentType.HTML, '.html')
-#
-#
 
 
 def screen_xml_dump(*, name=None):

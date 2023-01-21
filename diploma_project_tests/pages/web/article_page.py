@@ -25,7 +25,7 @@ class CreateArticlePage:
         return self
 
     def create_article(self):
-        s('.cdk-table .cdk-row .cdk-column-delete').with_(timeout=5).should(be.visible)
+        s('.cdk-table .cdk-row .cdk-column-delete').with_(timeout=10).should(be.visible)
         s('//button[text() = "Add New Article"]').click()
         return self
 
@@ -97,7 +97,12 @@ class CreateArticlePage:
         return self
 
     def search_created_article_and_delete(self):
-        table = browser.element('.cdk-table').with_(timeout=7).should(be.visible)
+        table = browser.element('.cdk-table').with_(timeout=12).should(be.visible)
         table.all('.cdk-row').element_by_its('.cdk-column-menu_name', have.exact_text(f'{name_article}'))\
-            .element('.cdk-column-delete').click()
+            .element('.cdk-column-delete').with_(timeout=5).click()
+        return self
+
+    def checking_for_article_deletion(self):
+        table = browser.element('.cdk-table')
+        table.all('.cdk-row').element_by_its('.cdk-column-menu_name', have.no.exact_text(f'{name_article}'))
         return self

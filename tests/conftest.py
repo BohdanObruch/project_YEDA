@@ -52,13 +52,13 @@ def browser_management():
     browser.config.window_height = 1080
 
 
-DEFAULT_BROWSER_VERSION = "106.0"
+DEFAULT_BROWSER_VERSION = "108.0"
 
 
 def pytest_addoption(parser):
     parser.addoption(
         '--browser_version',
-        default='106.0'
+        default='108.0'
     )
 
 
