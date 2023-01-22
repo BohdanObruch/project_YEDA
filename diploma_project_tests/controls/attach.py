@@ -3,6 +3,7 @@ import requests
 import os
 from allure_commons.types import AttachmentType
 from dotenv import load_dotenv
+from selene.support.shared import browser
 
 
 def add_screenshot(browser):

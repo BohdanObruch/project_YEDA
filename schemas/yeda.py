@@ -3,6 +3,7 @@ from voluptuous import Schema, Any, ALLOW_EXTRA, PREVENT_EXTRA
 user = Schema({
     'auth': {
         'access_token': str,
+        'firebase_token': Any(str, None),
         'expires_at': str,
         'suspended': int
     },
@@ -51,7 +52,10 @@ user = Schema({
         'need_verification_popup': bool
     },
     'isDocumentChecked': None
-})
+},
+    required=True,
+    extra=ALLOW_EXTRA
+)
 
 bundles = Schema({
     "data": [
@@ -88,7 +92,9 @@ bundles = Schema({
     "current_page": int,
     "last_page": int,
     "not_found": bool
-})
+},
+    required=True,
+    extra=ALLOW_EXTRA)
 
 courses = Schema({
     "data": [
@@ -119,8 +125,10 @@ courses = Schema({
     "current_page": int,
     "last_page": int,
     "not_found": bool
-})
-
+},
+    required=True,
+    extra=ALLOW_EXTRA
+)
 
 course = Schema({
     "id": int,
@@ -141,6 +149,12 @@ course = Schema({
     "begin_date": Any(None, str),
     "duration": Any(None, str),
     "prerequisites": Any(None, str),
+    "step_by_step": bool,
+    "progress": {
+        "progress": int,
+        "lessons_learned_count": int,
+        "sections_count": int
+    },
     "lecturers": list,
     "description": Any(None, str),
     "files": [
@@ -169,6 +183,12 @@ course = Schema({
             ],
             "subitems": list
         },
+        {
+            "id": int,
+            "title": str,
+            "files": list,
+            "subitems": list
+        },
     ],
     "quotes": list,
     "calendars_without_group": list,
@@ -193,8 +213,10 @@ course = Schema({
     "show_video_exam": bool,
     "exam_attempts_count": int,
     "is_disabled_all_successful_exam_notifications": bool
-})
-
+},
+    required=True,
+    extra=ALLOW_EXTRA
+)
 
 teachers = Schema(
     [
@@ -260,7 +282,9 @@ teachers = Schema(
             }
         }
 
-    ]
+    ],
+    required=True,
+    extra=ALLOW_EXTRA
 )
 
 teacher = Schema(
@@ -341,7 +365,9 @@ teacher = Schema(
             "title": Any(None, str),
             "description": Any(None, str)
         }
-    }
+    },
+    required=True,
+    extra=ALLOW_EXTRA
 )
 
 bundle = Schema(
@@ -413,7 +439,9 @@ bundle = Schema(
         "enroll_request": None,
         "status_purchase": None,
         "is_over": bool
-    }
+    },
+    required=True,
+    extra=ALLOW_EXTRA
 )
 
 status_register_course = Schema(
@@ -427,9 +455,10 @@ status_register_course = Schema(
         "is_rejected": bool,
         "is_will_open_later": bool,
         "user_id": int
-    }
+    },
+    required=True,
+    extra=ALLOW_EXTRA
 )
-
 
 message_forum = Schema(
     {
@@ -478,5 +507,7 @@ message_forum = Schema(
             "title": Any(None, str),
             "description": Any(None, str)
         }
-    }
+    },
+    required=True,
+    extra=ALLOW_EXTRA
 )

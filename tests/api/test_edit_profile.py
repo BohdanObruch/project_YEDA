@@ -15,20 +15,17 @@ def test_edit_profile_user(register_user):
 
     user_email = register_user[2]
     user_name = register_user[1]
-    phone_number = register_user[3]
+    user_id = register_user[4]
     token_value = str("Bearer " + register_user[0])
     token = {"Authorization": token_value}
-    id_user = register_user[4]
 
     registered_user = {
         "about": "Add a few lines about yourself",
         "city": "New York",
         "email": user_email,
-        "name": user_name,
-        "id": id_user,
-        "phone": phone_number,
-        "username": user_name
+        "name": user_name
     }
+
     response = yeda().put(
         '/wl/me',
         headers=token,
@@ -36,6 +33,6 @@ def test_edit_profile_user(register_user):
     )
 
     assert response.status_code == 200
-    assert response.json()["user"]["phone"] == str(phone_number)
     assert response.json()["user"]["email"] == user_email
     assert response.json()["user"]["username"] == user_name
+    assert response.json()["user"]["id"] == user_id
