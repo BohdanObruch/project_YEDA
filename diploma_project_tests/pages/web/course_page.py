@@ -1,6 +1,6 @@
 import time
 
-from diploma_project_tests import command
+from selene import command
 from selene import have
 from selene.support.shared.jquery_style import s
 from diploma_project_tests.controls.utils import resource

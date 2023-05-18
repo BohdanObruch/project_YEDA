@@ -1,5 +1,4 @@
-from selene import have
-from diploma_project_tests import command
+from selene import have, command
 from selene.support.shared.jquery_style import s
 
 

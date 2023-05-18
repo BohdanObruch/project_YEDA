@@ -1,6 +1,4 @@
-from diploma_project_tests import command
-
-from selene import have, be
+from selene import have, be, command
 from selene.support.shared.jquery_style import s
 from diploma_project_tests.controls.utils import resource
 from tests.conftest import dotenv

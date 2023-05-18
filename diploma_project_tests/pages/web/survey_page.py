@@ -1,8 +1,7 @@
 import time
 import lorem
 
-from diploma_project_tests import command
-from selene import have
+from selene import have, command
 from selene.support.shared.jquery_style import s
 
 content_survey = lorem.paragraph()
