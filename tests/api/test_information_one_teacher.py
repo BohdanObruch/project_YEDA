@@ -1,11 +1,12 @@
 import requests
 import os
-import pytest
 
 from schemas.yeda import *
 from pytest_voluptuous import S
 from diploma_project_tests.utils.sessions import yeda
 from allure import tag, title
+from bs4 import BeautifulSoup
+import json
 
 
 @tag('API')
@@ -20,7 +21,11 @@ def test_display_teacher_information():
         '/website/college/teacher',
         params=params
     )
+
+    soup = BeautifulSoup(response.text, 'html.parser')
+    json_data = json.loads(soup.text)
+
     assert response.status_code == 200
-    assert S(teacher) == response.json()
-    assert response.json()["access_level"] == 3
-    assert response.json()["id"] == int(id_teacher)
+    assert S(teacher) == json_data
+    assert json_data["access_level"] == 3
+    assert json_data["id"] == int(id_teacher)

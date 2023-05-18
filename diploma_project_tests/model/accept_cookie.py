@@ -1,7 +1,7 @@
 from appium.webdriver.common.appiumby import AppiumBy
 from selene import have
 from allure import step
-from selene.support.shared.jquery_style import s, ss
+from selene.support.shared.jquery_style import s
 
 
 def accept_cookie_settings():

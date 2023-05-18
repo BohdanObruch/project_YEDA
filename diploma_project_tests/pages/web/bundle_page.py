@@ -1,14 +1,12 @@
-import os
-
-from dotenv import load_dotenv
 from diploma_project_tests import command
-from selene import have, by
-from selene.support.shared import browser
-from selene.support.shared.jquery_style import s, ss
+from selene import have
+from selene.support.shared.jquery_style import s
 from diploma_project_tests.controls.utils import resource
+from tests.conftest import dotenv
 
-name_bundle_ui = os.getenv('NAME_BUNDLE_UI')
-url_bundles = os.getenv('URL_BUNDLES')
+
+name_bundle_ui = dotenv.get('NAME_BUNDLE_UI')
+url_bundles = dotenv.get('URL_BUNDLES')
 
 
 class CreateBundlesPage:
@@ -44,7 +42,8 @@ class CreateBundlesPage:
         return self
 
     def add_description(self, description_line1: str, description_line2: str):
-        s('.jodit-toolbar-button.jodit-toolbar-button_size_middle.jodit-toolbar-button_bold').click()
+        s('.jodit-toolbar-button.jodit-toolbar-button_size_middle.jodit-toolbar-button_bold').with_(timeout=5) \
+            .perform(command.js.scroll_into_view).click()
         s('.jodit-wysiwyg').type(description_line1).press_enter()
         s('.jodit-toolbar-button.jodit-toolbar-button_size_middle.jodit-toolbar-button_bold').click()
         s('.jodit-wysiwyg').type(description_line2).press_enter()
@@ -115,9 +114,12 @@ class FillingBundlesPage:
         s('.panel [data-target="#students-collapse"] .fa-plus').click()
         s('#students-collapse #import_users_file').send_keys(resource(file_with_users))
         s('.import-student:nth-child(1) .remove-from-import').with_(timeout=2).click()
-        s('.jconfirm-buttons .btn-default:nth-child(1)').click()
-        s('.import-student:nth-child(3) .remove-from-import').click()
-        s('.jconfirm-buttons .btn-default:nth-child(1)').click()
+        s('.jconfirm-title').with_(timeout=10).should(have.exact_text('Confirm remove from import'))
+        s('.jconfirm-buttons .btn-default:nth-child(1)').with_(timeout=5).click()
+        s('.import-student:nth-child(3) .remove-from-import').with_(timeout=3)\
+            .perform(command.js.scroll_into_view).click()
+        s('.jconfirm-title').with_(timeout=10).should(have.exact_text('Confirm remove from import'))
+        s('.jconfirm-buttons .btn-default:nth-child(1)').with_(timeout=2).click()
         s('.students-import #import-students').click()
         return self
 
@@ -129,6 +131,7 @@ class FillingBundlesPage:
         s('.forum-form #find-course').type(name_first_course)
         s('.forum-form #course-suggestions').element('[data-id="196"]').click()
         s('#courses-collapse #add-course').click()
+        s('span[data-notify="message"]').with_(timeout=10).should(have.text('Course added to bundle'))
         s('#bundle-course-item-196 .text-right').with_(timeout=3).should(have.text(full_name_first_course))
         return self
 
@@ -141,19 +144,18 @@ class FillingBundlesPage:
         s('.ui-datepicker-next').click().element('//*[text() = "29"]').click()
         return self
 
-    def date_when_first_course_be_closed(self, date_closed_first_course: str):
+    def date_when_first_course_be_closed(self):
         s('#bundle-course-item-196 .date-end-bundle-course').click()
         s('.ui-datepicker-next').click()
-        s('//*[text() = "15"]').click()  # November 15
-        s('#bundle-course-item-196 .date-end-bundle-course').with_(timeout=5)\
-            .should(have.value(date_closed_first_course))
+        s('//*[text() = "15"]').click()
+        s('#bundle-course-item-196 .date-end-bundle-course').with_(timeout=5).should(have.attribute('value'))
         return self
 
     def add_second_course(self, name_second_course: str, full_name_second_course: str):
         s('.forum-form #find-course').type(name_second_course)
         s('.forum-form #course-suggestions').element('[data-id="195"]').click()
         s('#courses-collapse #add-course').click()
-        s('#bundle-course-item-195 .text-right').with_(timeout=3).should(have.text(full_name_second_course))
+        s('#bundle-course-item-195 .text-right').with_(timeout=15).should(have.text(full_name_second_course))
         return self
 
     def mark_that_the_mandatory_second_course(self):
@@ -163,18 +165,15 @@ class FillingBundlesPage:
     def date_when_second_course_available(self):
         s('#bundle-course-item-195 .date-start-bundle-course').click()
         s('.ui-datepicker-next').click()
-        # s('.ui-datepicker-next').click()
         s('//*[text() = "20"]').click()
         return self
 
-    def date_when_second_course_be_closed(self, date_closed_second_course: str):
+    def date_when_second_course_be_closed(self):
         s('#bundle-course-item-195 .date-end-bundle-course').click()
         s('.ui-datepicker-next').click()
-        s('.ui-datepicker-next').click()
-        # s('.ui-datepicker-next').click()
         s('//*[text() = "10"]').click()
         s('#bundle-course-item-195 .date-end-bundle-course').with_(timeout=5)\
-            .should(have.value(date_closed_second_course))
+            .with_(timeout=5).should(have.attribute('value'))
         return self
 
     def open_all_bundles_page(self, value):

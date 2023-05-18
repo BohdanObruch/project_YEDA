@@ -21,10 +21,8 @@ class Bundles:
     file_with_users = 'template-courses.xlsx'
     name_first_course = 'קורס מאקרו כלכלה'
     full_name_first_course = 'קורס מאקרו כלכלה קורס מאקרו כלכלה'
-    date_closed_first_course = '2023-01-15'
     name_second_course = 'קורס מאקרו כלכלה'
     full_name_second_course = 'קורס מאקרו כלכלה'
-    date_closed_second_course = '2023-02-10'
 
 
 class Lessons:
@@ -51,7 +49,7 @@ class Users:
     ts = calendar.timegm(current_GMT)
     name_user = ('Anna' + str(ts))
     email = (name_user + '@gmail.com')
-    phone_number = ts
+    phone_number = f'0{ts//10}'
     city = 'Krakow'
     password = ts
 
@@ -61,7 +59,7 @@ class Teacher:
     ts = calendar.timegm(current_GMT)
     name_teacher = ('Pavel' + str(ts))
     email = (name_teacher + '@gmail.com')
-    phone_number = ts
+    phone_number = f'0{ts//10}'
     picture = 'Albert_Einstein.jpg'
     seo_title = 'SEO Title'
     seo_description = 'SEO Description'
@@ -113,6 +111,14 @@ class Questionnaire:
     first_questionnaire_title = 'Questionnaire Chapter #1'
     second_questionnaire_title = 'Questionnaire Chapter #2'
     third_questionnaire_title = 'Questionnaire Chapter #3'
+    push_message_about_saved = 'Data has been successfully saved'
+    push_message_about_deleted = 'questionnaire has been deleted'
+    list_of_chapters = 'List of Questionnaire Chapters'
+    title_page = 'Questionnaires'
+    title_editing_questionnaire = 'Editing Questionnaire'
+    count_of_questions_added = 'Questions count - 2'
+    new_count_of_questions = 'Questions count - 1'
+    final_count_of_questions = 'Questions count - 3'
 
 
 class Course:
@@ -135,6 +141,7 @@ class Course:
 
 
 class Article:
+
     video_link = 'https://vimeo.com/53801675'
     picture = 'circle.png'
     seo_author = 'QA'
@@ -142,6 +149,7 @@ class Article:
 
 
 class Survey:
+    name_survey = 'Survey - an investigation lesson'
     final_text = 'Thanks!'
     message_notification = 'question data has been saved'
     first_question_type = 'Text. Question 1'

@@ -1,34 +1,24 @@
-import time
-
+from selene import be
 from tests.conftest import *
-from selene.core.entity import Element
-from selene.support.shared import browser
-from dotenv import load_dotenv
+from selene.support.shared.jquery_style import s
 
-login_admin = os.getenv('LOGIN_ADMIN')
-admin_password = os.getenv('ADMIN_PASSWORD')
+login_admin = dotenv.get('LOGIN_ADMIN')
+admin_password = dotenv.get('ADMIN_PASSWORD')
 
 
 def authorization_on_admin_panel():
     opened_page_admin_panel()
-    login = browser.element('#username')
-    login.type(f'{login_admin}')
-
-    password = browser.element('#password')
-    password.type(f'{admin_password}')
-
-    browser.element('[type="submit"]').click()
+    s('#username').type(f'{login_admin}')
+    s('#password').type(f'{admin_password}')
+    s('[type="submit"]').click()
 
 
 def authorization_on_the_site():
     opened_page_website()
-    browser.element('[href="/auth/login"]').with_(timeout=10).click()
-    login = browser.element('#username')
-    login.type(f'{login_admin}')
+    s('[href="/auth/login"]').with_(timeout=10).click()
+    s('#username').type(f'{login_admin}')
 
-    password = browser.element('#password')
-    password.type(f'{admin_password}')
-
-    browser.element('.center .air-h1').click()
-    browser.element('[airloadwhen="login"]').click()
-    browser.element('#to-admin-button').with_(timeout=8).click()
+    s('#password').type(f'{admin_password}')
+    s('[airloadwhen="login"]').click()
+    s('[href="/my-studies/my-courses/all"]').with_(timeout=10).should(be.visible)
+    s('#to-admin-button').should(be.visible).double_click()

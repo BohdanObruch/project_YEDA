@@ -1,8 +1,7 @@
 from appium.webdriver.common.appiumby import AppiumBy
 from selene import have, be
-from selene.support.shared import browser
 from allure import step
-from selene.support.shared.jquery_style import s, ss
+from selene.support.shared.jquery_style import s
 
 
 def verify_showing_welcome_message():

@@ -1,10 +1,11 @@
-import requests
 import os
-
+import requests
 from schemas.yeda import *
 from pytest_voluptuous import S
 from diploma_project_tests.utils.sessions import yeda
 from allure import tag, title
+from bs4 import BeautifulSoup
+import json
 
 
 @tag('API')
@@ -12,11 +13,16 @@ from allure import tag, title
 def test_display_all_teachers():
     id_college = os.getenv('ID_COLLEGE')
 
-    number_college = f'id={id_college}'
+    params = {
+        'id': id_college,
+        'current_college_id': id_college
+    }
 
     response = yeda().get(
-        '/website/college/teachers', params=number_college
+        '/website/college/teachers', params=params
     )
-    assert response.status_code == 200
-    assert S(teachers) == response.json()
+    soup = BeautifulSoup(response.text, 'html.parser')
+    json_data = json.loads(soup.text)
 
+    assert response.status_code == 200
+    assert S(teachers) == json_data

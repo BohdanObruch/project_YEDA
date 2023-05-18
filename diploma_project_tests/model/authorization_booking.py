@@ -1,13 +1,14 @@
-import os
+
 
 from allure import step
-from dotenv import load_dotenv
 from appium.webdriver.common.appiumby import AppiumBy
 from selene import have
-from selene.support.shared.jquery_style import s, ss
+from selene.support.shared.jquery_style import s
 
-email_booking = os.getenv('EMAIL_BOOKING')
-password_booking = os.getenv('PASSWORD_BOOKING')
+from tests.conftest import dotenv
+
+email_booking = dotenv.get('EMAIL_BOOKING')
+password_booking = dotenv.get('PASSWORD_BOOKING')
 
 
 def authorization():

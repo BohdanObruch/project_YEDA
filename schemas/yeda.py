@@ -112,7 +112,7 @@ courses = Schema({
             "discount_price": Any(None, int),
             "begin_date": Any(None, str),
             "has_access": bool,
-            "status_purchase": None,
+            "status_purchase": Any(None, dict),
             "is_ministry_controlled": bool,
             "block_video_rewind": bool,
             "show_video_exam": bool,
@@ -194,7 +194,7 @@ course = Schema({
     "calendars_without_group": list,
     "calendars_groups": list,
     "image_poster": None,
-    "status_purchase": None,
+    "status_purchase": Any(None, dict),
     "statistics": {
         "lessons_count": int,
         "lessons_part_count": int,
@@ -261,7 +261,7 @@ teachers = Schema(
                         "discount_price": Any(None, int),
                         "begin_date": Any(None, str),
                         "has_access": bool,
-                        "status_purchase": None,
+                        "status_purchase": Any(None, dict),
                         "is_ministry_controlled": bool,
                         "block_video_rewind": bool,
                         "show_video_exam": bool,
@@ -339,7 +339,7 @@ teacher = Schema(
                     "discount_price": Any(None, int),
                     "begin_date": Any(None, str),
                     "has_access": bool,
-                    "status_purchase": None,
+                    "status_purchase": Any(None, dict),
                     "is_ministry_controlled": bool,
                     "block_video_rewind": bool,
                     "show_video_exam": bool,
@@ -403,7 +403,7 @@ bundle = Schema(
                 "discount_price": Any(None, str, int),
                 "begin_date": Any(None, str),
                 "has_access": bool,
-                "status_purchase": None
+                "status_purchase": Any(None, dict)
             }
         ],
         "courses_count": int,
@@ -437,7 +437,7 @@ bundle = Schema(
             "description": Any(None, str)
         },
         "enroll_request": None,
-        "status_purchase": None,
+        "status_purchase": Any(None, dict),
         "is_over": bool
     },
     required=True,

@@ -1,8 +1,6 @@
-from dotenv import load_dotenv
-from selene import have, by
+from selene import have
 from diploma_project_tests import command
-from selene.support.shared import browser
-from selene.support.shared.jquery_style import s, ss
+from selene.support.shared.jquery_style import s
 from diploma_project_tests.controls.utils import resource
 
 

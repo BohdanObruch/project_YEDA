@@ -1,4 +1,3 @@
-from selene.core.command import *
 import selene
 from selene.core.wait import Command
 from selenium.webdriver import ActionChains
@@ -23,7 +22,7 @@ class SwipeHelper:
         return self
 
     def swipe_to_right(self):
-        browser.driver.swipe(913, 319, 141, 319, 400)
+        browser.driver.swipe(1020, 319, 141, 319, 400)
         return self
 
     def swipe_to_down_one_block(self):

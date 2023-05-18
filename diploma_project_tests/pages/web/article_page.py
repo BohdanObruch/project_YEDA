@@ -1,13 +1,13 @@
 import lorem
-import os
 
-from dotenv import load_dotenv
-from selene import have, by, be
+from selene import have,  be
 from selene.support.shared import browser
-from selene.support.shared.jquery_style import s, ss
+from selene.support.shared.jquery_style import s
 from diploma_project_tests.controls.utils import resource
+from tests.conftest import dotenv
 
-name_article = os.getenv('NAME_ARTICLE')
+
+name_article = dotenv.get('NAME_ARTICLE')
 
 
 class CreateArticlePage:
@@ -17,7 +17,7 @@ class CreateArticlePage:
         return self
 
     def going_to_articles_page(self):
-        s('[href="/admin/articles/main"').click()
+        s('[href="/admin/articles/main"]').click()
         return self
 
     def checking_the_display_of_the_articles_page(self, value):
@@ -26,12 +26,12 @@ class CreateArticlePage:
 
     def create_article(self):
         s('.cdk-table .cdk-row .cdk-column-delete').with_(timeout=10).should(be.visible)
-        s('//button[text() = "Add New Article"]').click()
+        s("// button[contains(text(), 'Add New Article')]").click()
         return self
 
     def checking_new_article_page(self, value):
         s('//div[text() = "New Article"]').with_(timeout=10).should(have.text(value))
-        s('.air-h1.center.title').click()
+        s('//h1[text() = "New Article"]').click()
         return self
 
     def add_title(self):
@@ -93,16 +93,16 @@ class CreateArticlePage:
         return self
 
     def refreshing_the_page(self):
-        browser.driver().refresh()
+        browser.driver.refresh()
         return self
 
     def search_created_article_and_delete(self):
-        table = browser.element('.cdk-table').with_(timeout=12).should(be.visible)
+        table = s('.cdk-table').with_(timeout=12).should(be.visible)
         table.all('.cdk-row').element_by_its('.cdk-column-menu_name', have.exact_text(f'{name_article}'))\
             .element('.cdk-column-delete').with_(timeout=5).click()
         return self
 
     def checking_for_article_deletion(self):
-        table = browser.element('.cdk-table')
+        table = s('.cdk-table').with_(timeout=10).should(be.visible)
         table.all('.cdk-row').element_by_its('.cdk-column-menu_name', have.no.exact_text(f'{name_article}'))
         return self

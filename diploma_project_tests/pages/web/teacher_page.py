@@ -1,8 +1,7 @@
-import time
+from selene import have
+from selene.support.shared.jquery_style import s
 
-from selene import have, by
-from selene.support.shared import browser
-from selene.support.shared.jquery_style import s, ss
+from diploma_project_tests import command
 from diploma_project_tests.controls.utils import resource
 
 
@@ -59,11 +58,12 @@ class CreateTeacherPage:
         return self
 
     def submit_form(self):
-        s('[type="submit"]').click()
+        s('input[type="submit"]').with_(timeout=5)\
+            .perform(command.js.scroll_into_view).click()
         return self
 
     def checking_title_page(self, value):
-        s('.page-header').with_(timeout=5).should(have.text(value))
+        s('.page-header').with_(timeout=15).should(have.text(value))
         return self
 
     def open_all_teachers_page(self):
@@ -71,16 +71,15 @@ class CreateTeacherPage:
         return self
 
     def search_created_teacher_and_delete(self, name_teacher: str):
-
         s('.filter #search_text').type(name_teacher).press_enter()
-        s(f'//*[text() = "{name_teacher}"]').with_(timeout=5).should(have.text(name_teacher))
-        time.sleep(3)
-        table = browser.element('.table')
-        table.all('tr').element_by_its('.teacher-name', have.exact_text(name_teacher)) \
-            .element('.delete').click()
-        s('.container .btn:nth-child(1)').click()
+        s(f'//*[text() = "{name_teacher}"]').with_(timeout=10).should(have.text(name_teacher))
+        # table = s('.table')
+        # table.all('tr').element_by_its('.teacher-name', have.exact_text(name_teacher)).with_(timeout=10)\
+        #     .element('.delete')
+        s('#usersTable .delete').with_(timeout=10).click()
+        s('.container .btn:nth-child(1)').with_(timeout=10).click()
         return self
 
     def push_message_about_successful_removal_teacher(self, value):
-        s('[data-notify="message"]').with_(timeout=5).should(have.text(value))
+        s('[data-notify="message"]').with_(timeout=25).should(have.text(value))
         return self

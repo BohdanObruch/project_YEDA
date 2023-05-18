@@ -1,12 +1,6 @@
 import os
 import pytest
 import json
-import calendar
-import time
-import datetime as DT
-import allure_commons
-import config
-import requests
 
 from datetime import date
 from diploma_project_tests.utils.sessions import yeda
@@ -14,10 +8,8 @@ from appium import webdriver
 from selene.support.shared import browser
 from selenium import webdriver as webdriver_selenium
 from selenium.webdriver.chrome.options import Options
-from dotenv import load_dotenv
+from dotenv import dotenv_values, load_dotenv
 from diploma_project_tests.controls import attach
-from diploma_project_tests.controls.utils import resource
-from selene import support
 from diploma_project_tests.utils.requests_helper import user_api
 
 
@@ -26,9 +18,11 @@ def env():
     load_dotenv()
 
 
-web_url = os.getenv('WEB_URL')
-admin_panel_url = os.getenv('ADMIN_PANEL_URL')
-id_college = os.getenv('ID_COLLEGE')
+dotenv = dotenv_values()
+
+web_url = dotenv.get('WEB_URL')
+admin_panel_url = dotenv.get('ADMIN_PANEL_URL')
+id_college = dotenv.get('ID_COLLEGE')
 
 
 def opened_page_website():
@@ -52,13 +46,13 @@ def browser_management():
     browser.config.window_height = 1080
 
 
-DEFAULT_BROWSER_VERSION = "108.0"
+DEFAULT_BROWSER_VERSION = "110.0"
 
 
 def pytest_addoption(parser):
     parser.addoption(
         '--browser_version',
-        default='108.0'
+        default='110.0'
     )
 
 
@@ -116,7 +110,7 @@ def register_user():
 
 @pytest.fixture(scope='function')
 def setup():
-    linkApp = os.getenv('LINK_APP')
+    linkApp = dotenv.get('LINK_APP')
 
     desired_capabilities = ({
         "platformName": "android",
@@ -131,9 +125,9 @@ def setup():
         }
     })
 
-    userName = os.getenv('LOGIN')
-    accessKey = os.getenv('KEY')
-    remoteUrl = os.getenv('APPIUM_BROWSERSTACK')
+    userName = dotenv.get('LOGIN')
+    accessKey = dotenv.get('KEY')
+    remoteUrl = dotenv.get('APPIUM_BROWSERSTACK')
     browser.config.driver = webdriver.Remote(f"http://{userName}:{accessKey}@{remoteUrl}/wd/hub", desired_capabilities)
     browser.config.timeout = 4
     session_id = browser.config.driver.session_id

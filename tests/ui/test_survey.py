@@ -24,7 +24,7 @@ def test_create_survey(setup_browser):
 
         with step("General block"):
             with step("Filling in the title"):
-                app.survey_page.add_title()
+                app.survey_page.add_title(Survey.name_survey)
 
             with step("Filling in the opening text"):
                 app.survey_page.add_opening_text()
@@ -52,7 +52,10 @@ def test_filling_survey(setup_browser):
         app.survey_page.open_surveys_page()
 
     with step("Open created survey"):
-        app.survey_page.open_created_survey()
+        app.survey_page.open_created_survey(Survey.name_survey)
+
+    with step("Open Questions block"):
+        app.survey_page.open_questions_block()
 
     with step("Questions block"):
         with step("Checking the 'Editing Survey' page display"):
@@ -142,7 +145,10 @@ def test_duplication_of_the_question(setup_browser):
         app.survey_page.open_surveys_page()
 
     with step("Open created survey"):
-        app.survey_page.open_created_survey()
+        app.survey_page.open_created_survey(Survey.name_survey)
+
+    with step("Open Questions block"):
+        app.survey_page.open_questions_block()
 
     with step("Question replication"):
         app.survey_page.adding_question_replication(Survey.seventh_question_type)
@@ -161,7 +167,10 @@ def test_import_questions(setup_browser):
         app.survey_page.open_surveys_page()
 
     with step("Open created survey"):
-        app.survey_page.open_created_survey()
+        app.survey_page.open_created_survey(Survey.name_survey)
+
+    with step("Open Questions block"):
+        app.survey_page.open_questions_block()
 
     with step("Import questions from another survey"):
         app.survey_page.import_first_questions_from_another_survey(Survey.import_question_text)
@@ -189,10 +198,32 @@ def test_deleting_question(setup_browser):
         app.survey_page.open_surveys_page()
 
     with step("Open created survey"):
-        app.survey_page.open_created_survey()
+        app.survey_page.open_created_survey(Survey.name_survey)
+
+    with step("Open Questions block"):
+        app.survey_page.open_questions_block()
 
     with step("Delete one question"):
         app.survey_page.delete_one_question()
 
     with step("Check the display of a push message about the removal of the question"):
         app.survey_page.checking_the_display_push_message('question has been deleted')
+
+
+@tag("Web UI")
+@title("Changing the name of the survey")
+def test_change_name_survey(setup_browser):
+    with step("Authorization on the admin panel"):
+        authorization_on_admin_panel()
+
+    with step("Going to the Surveys page"):
+        app.survey_page.open_surveys_page()
+
+    with step("Open created survey"):
+        app.survey_page.open_created_survey(Survey.name_survey)
+
+    with step("Changing the title"):
+        app.survey_page.change_survey_name()
+
+        with step("Submit the form"):
+            app.survey_page.submit_form()

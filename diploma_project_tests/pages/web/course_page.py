@@ -1,14 +1,13 @@
-import os
+import time
 
 from diploma_project_tests import command
-from dotenv import load_dotenv
-from selene import have, by
-from selene.support.shared import browser
-from selene.support.shared.jquery_style import s, ss
+from selene import have
+from selene.support.shared.jquery_style import s
 from diploma_project_tests.controls.utils import resource
+from tests.conftest import dotenv
 
-name_course = os.getenv('NAME_COURSE')
-url_courses = os.getenv('URL_COURSES')
+name_course = dotenv.get('NAME_COURSE')
+url_courses = dotenv.get('URL_COURSES')
 
 
 class CreateCoursePage:
@@ -28,7 +27,8 @@ class CreateCoursePage:
 
     def add_category(self):
         s('#dropdown-category').click()
-        s('[data-category-id="115"]').click()
+        s('[data-category-id="115"]').with_(timeout=3) \
+            .perform(command.js.scroll_into_view).click()
         return self
 
     def add_title(self):
@@ -66,14 +66,14 @@ class CreateCoursePage:
     def add_about_course(self, description_line1: str, description_line2: str):
         s('.jodit-wysiwyg').type(description_line1).press_enter()
         s('.jodit-wysiwyg').type(description_line2).press_enter()
-        s('.panel-body .jodit-status-bar__item .jodit-toolbar-button__button').click()
-        s('.jodit-toolbar-button.jodit-toolbar-button_size_middle.jodit-toolbar-button_bold').click()
+        s('.jodit-status-bar button[type="button"]').perform(command.js.scroll_into_view).click()
+        s('.jodit-toolbar-button_bold button[type="button"]').click()
         return self
 
     def add_associated_files(self, file: str, table: str):
         s('[name="show_files_to_students"]').click()
         s('#files_input').send_keys(resource(table))
-        s('#files_input').send_keys(resource(file))
+        s('#files_input').with_(timeout=10).send_keys(resource(file))
         return self
 
     def add_seo(self, seo_title: str, seo_description: str, seo_author: str):
@@ -109,15 +109,16 @@ class CreateCoursePage:
         return self
 
     def search_created_course_and_delete(self):
-        table = browser.element('#cdk-drop-list-0')
-        table.all('.air-list-item').element_by_its('[airtablelikecell="course-name"]',
-                                                   have.exact_text(f'{name_course}')) \
-            .element('.color-danger.clear').click()
+        table = s('#cdk-drop-list-0').with_(timeout=10)
+        table.all('.air-list-item').with_(timeout=10).element_by_its('[airtablelikecell="course-name"]',
+                                                                     have.exact_text(f'{name_course}')).element(
+            '.color-danger.clear').click()
         s('// *[text() = "Confirm delete"]').click()
         return self
 
     def checking_that_the_course_has_been_deleted(self):
-        table = browser.element('#cdk-drop-list-0').with_(timeout=5)
-        table.all('.air-list-item').element_by_its('[airtablelikecell="course-name"',
-                                                   not have.exact_text(f'{name_course}'))
+        table = s('#cdk-drop-list-0').with_(timeout=10)
+        table.all('.air-list-item').with_(timeout=30).element_by_its('[airtablelikecell="course-name"]',
+                                                                     have.no.value(f'{name_course}'))
+        time.sleep(3)
         return self

@@ -1,5 +1,5 @@
 from diploma_project_tests.model.authorization import authorization_on_admin_panel
-from allure import title, tag, step
+from allure import step
 from diploma_project_tests.helpers import app
 from diploma_project_tests.data.data import *
 

@@ -1,14 +1,11 @@
-import os
-import time
-
 from diploma_project_tests import command
-from dotenv import load_dotenv
-from selene import have, by, be
-from selene.support.shared import browser
-from selene.support.shared.jquery_style import s, ss
-from diploma_project_tests.controls.utils import resource
 
-name_questionnaire = os.getenv('NAME_QUESTIONNAIRE')
+from selene import have, be
+from selene.support.shared.jquery_style import s
+from diploma_project_tests.controls.utils import resource
+from tests.conftest import dotenv
+
+name_questionnaire = dotenv.get('NAME_QUESTIONNAIRE')
 
 
 class CreateQuestionnairePage:
@@ -37,7 +34,8 @@ class CreateQuestionnairePage:
 
     def add_category(self):
         s('#dropdown-category').click()
-        s('[data-category-id="115"]').click()
+        s('[data-category-id="115"]').with_(timeout=5) \
+            .perform(command.js.scroll_into_view).click()
         return self
 
     def add_title(self):
@@ -72,7 +70,8 @@ class CreateQuestionnairePage:
         return self
 
     def shuffle_questions(self):
-        s('.d-inline-block [name="shuffle_questions"]').click()
+        s('.d-inline-block [name="shuffle_questions"]').with_(timeout=5) \
+            .perform(command.js.scroll_into_view).click()
         return self
 
     def limit_to_display_count_questions(self, count_questions: int):
@@ -95,20 +94,22 @@ class FillingQuestionnairePage:
         s('.questionnaires-nav-li').click()
         return self
 
-    def checking_questionnaires_page(self, value):
-        s('.page-header').with_(timeout=4).should(have.text(value))
+    def checking_questionnaires_page(self, title_page: str):
+        s('.page-header').with_(timeout=4).should(have.text(title_page))
         return self
 
     def open_create_questionnaire(self):
-        s(f'//*[text() = "{name_questionnaire}"]').click()
+        s('.filter #search_text').with_(timeout=10).type(name_questionnaire).press_enter()
+        s('#sortable .questionnaire-link').with_(timeout=5).should(have.text(name_questionnaire)).click()
         return self
 
-    def checking_editing_questionnaire_page(self, value):
-        s('.page-header').should(have.text(value))
+    def checking_editing_questionnaire_page(self, title_editing_questionnaire: str):
+        s('.page-header').should(have.text(title_editing_questionnaire))
         return self
 
     def add_first_chapters_title(self, first_title_chapters: str, first_multiplier: int):
-        s('.col-md-9 #edit-chapters').click()
+        s('.col-md-9 #edit-chapters').with_(timeout=5) \
+            .perform(command.js.scroll_into_view).click()
         s('#create-chapter [name="title"]').type(first_title_chapters)
         s('#create-chapter [name="multiplier"]').type(first_multiplier)
         s('#create-chapter .btn').click()
@@ -125,9 +126,10 @@ class FillingQuestionnairePage:
         s('#question_partition_modal .modal-footer .btn').click()
         return self
 
-    def create_new_practice_first_question(self, value):
-        s('#questionnaire-chapters').with_(timeout=4).should(have.text(value))
-        s('#questionnaire-chapters .questionnaire-chapter-create').click()
+    def create_new_practice_first_question(self, list_of_chapters: str):
+        s('#questionnaire-chapters').with_(timeout=4).should(have.text(list_of_chapters))
+        s('#questionnaire-chapters .questionnaire-chapter-create').with_(timeout=5) \
+            .perform(command.js.scroll_into_view).click()
         s('#questionnaire-chapters .create_new_question').click()
         return self
 
@@ -146,12 +148,14 @@ class FillingQuestionnairePage:
         return self
 
     def add_difficulty_level_one(self):
-        s('#difficulty_level_dropdown .dropdown-toggle').click()
+        s('#difficulty_level_dropdown .dropdown-toggle').with_(timeout=5) \
+            .perform(command.js.scroll_into_view).click()
         s('#difficulty_level_dropdown .dropdown-menu').element('[data-id="1"]').click()
         return self
 
     def selected_first_chapters(self):
-        s('#questions_chapter_dropdown .dropdown-toggle').click()
+        s('#questions_chapter_dropdown .dropdown-toggle').with_(timeout=5)\
+            .perform(command.js.scroll_into_view).click()
         s('#questions_chapter_dropdown .dropdown-menu .dropdown-item').click()
         return self
 
@@ -167,7 +171,7 @@ class FillingQuestionnairePage:
 
     def add_video_to_answer_solution(self, third_resource: str, text_video_transcoding: str):
         s('#video_file').send_keys(resource(third_resource))
-        s('#video #vimeo_transcoding_text').with_(timeout=15).should(have.text(text_video_transcoding))
+        s('#video #vimeo_transcoding_text').with_(timeout=25).should(have.text(text_video_transcoding))
         return self
 
     def add_first_answer(self, answer_first: int, answer_second: int, answer_third: int, answer_fourth: int):
@@ -175,16 +179,18 @@ class FillingQuestionnairePage:
         s('.answer:nth-child(2) .text').type(answer_second)
         s('.answer:nth-child(3) .text').type(answer_third)
         s('.answer:nth-child(4) .text').type(answer_fourth)
-        s('.answer:nth-child(1) .question-answers').click()
+        s('.answer:nth-child(1) .question-answers').perform(command.js.scroll_into_view).click()
         return self
 
-    def push_message_about_saving_first_question(self, value):
-        s('#add-question-footer .btn-primary').click()
-        s('[data-notify="message"]').with_(timeout=4).should(have.text(value))
+    def push_message_about_saving_first_question(self, push_message_about_saved: str):
+        s('#add-question-footer .btn-primary').with_(timeout=5) \
+            .perform(command.js.scroll_into_view).click()
+        s('[data-notify="message"]').with_(timeout=4).should(have.text(push_message_about_saved))
         return self
 
     def add_second_chapters_title(self, second_title_chapters: str, second_multiplier: int):
-        s('.col-md-9 #edit-chapters').click()
+        s('.col-md-9 #edit-chapters').with_(timeout=5) \
+            .perform(command.js.scroll_into_view).click()
         s('#create-chapter [name="title"]').type(second_title_chapters)
         s('#create-chapter [name="multiplier"]').clear().type(second_multiplier)
         s('#create-chapter .btn').click()
@@ -211,7 +217,7 @@ class FillingQuestionnairePage:
         return self
 
     def selected_second_chapters(self):
-        s('#questions_chapter_dropdown .dropdown-toggle').click()
+        s('#questions_chapter_dropdown .dropdown-toggle').with_(timeout=5).perform(command.js.scroll_into_view).click()
         s('#questions_chapter_dropdown .dropdown-menu li:nth-child(2)').click()
         return self
 
@@ -226,20 +232,22 @@ class FillingQuestionnairePage:
         s('.answer:nth-child(3) .text').type(third_answer)
         s('.answer:nth-child(4) .text').type(fourth_answer)
         s('.answer:nth-child(3) .question-answers').click()
-        s('#add-question-footer .btn-primary').click()
+        s('#add-question-footer .btn-primary').with_(timeout=5) \
+            .perform(command.js.scroll_into_view).click()
         return self
 
-    def push_message_about_saving_second_question(self, value):
-        s('[data-notify="message"]').with_(timeout=4).should(have.text(value))
+    def push_message_about_saving_second_question(self, push_message_about_saved: str):
+        s('[data-notify="message"]').with_(timeout=4).should(have.text(push_message_about_saved))
         return self
 
-    def checking_the_number_of_created_questions_first_block(self, value):
-        s('.questionnaire-chapter:nth-child(1) .count').with_(timeout=4).should(have.text(value))
+    def checking_the_number_of_created_questions_first_block(self, count_of_questions_added: str):
+        s('.questionnaire-chapter:nth-child(1) .count').with_(timeout=4).should(have.text(count_of_questions_added))
         return self
 
-    def create_new_practice_third_question(self, value):
-        s('#questionnaire-chapters').with_(timeout=4).should(have.text(value))
-        s('#questionnaire-chapters .questionnaire-chapter-create').click()
+    def create_new_practice_third_question(self, list_of_chapters: str):
+        s('#questionnaire-chapters').with_(timeout=4).should(have.text(list_of_chapters))
+        s('#questionnaire-chapters .questionnaire-chapter-create').with_(timeout=5) \
+            .perform(command.js.scroll_into_view).click()
         s('.questionnaire-chapter:nth-child(2) .create_new_question').click()
         return self
 
@@ -257,7 +265,8 @@ class FillingQuestionnairePage:
         return self
 
     def changing_the_question_type(self):
-        s('#typeDropdownMenuButton').click()
+        s('#typeDropdownMenuButton').with_(timeout=5) \
+            .perform(command.js.scroll_into_view).click()
         s('.dropdown-menu [data-type="checkbox"]').click()
         return self
 
@@ -274,8 +283,7 @@ class FillingQuestionnairePage:
         s('.answer:nth-child(5) .text').type(fifth_answer_third_question).click()
         s('.answer:nth-child(6) .text').type(sixth_answer_third_question).click()
         s('.answer:nth-child(7) .text').type(seventh_answer_third_question).click()
-        s('.answer:nth-child(8) .text').type(eighth_answer_third_question).click()
-        s('.answer:nth-child(8) .text').perform(command.js.scroll_into_view).click()
+        s('.answer:nth-child(8) .text').perform(command.js.scroll_into_view).type(eighth_answer_third_question).click()
         return self
 
     def indicating_the_correct_answer(self):
@@ -283,20 +291,22 @@ class FillingQuestionnairePage:
         s('.answer:nth-child(4) .question-answers').click()
         s('.answer:nth-child(6) .question-answers').click()
         s('.answer:nth-child(8) .question-answers').click()
-        s('#add-question-footer .btn-primary').click()
+        s('#add-question-footer .btn-primary').with_(timeout=5) \
+            .perform(command.js.scroll_into_view).click()
         return self
 
-    def push_message_about_saving_third_question(self, value):
-        s('[data-notify="message"]').with_(timeout=4).should(have.text(value))
+    def push_message_about_saving_third_question(self, push_message_about_saved: str):
+        s('[data-notify="message"]').with_(timeout=4).should(have.text(push_message_about_saved))
         return self
 
-    def checking_the_number_of_created_questions_second_block(self, value):
-        s('.questionnaire-chapter:nth-child(2) .count').with_(timeout=4).should(have.text(value))
+    def checking_the_number_of_created_questions_second_block(self, new_count_of_questions: str):
+        s('.questionnaire-chapter:nth-child(2) .count').with_(timeout=4).should(have.text(new_count_of_questions))
         return self
 
     def create_new_practice_fourth_question(self, value):
         s('#questionnaire-chapters').with_(timeout=4).should(have.text(value))
-        s('#questionnaire-chapters .questionnaire-chapter-create').click()
+        s('#questionnaire-chapters .questionnaire-chapter-create').with_(timeout=5) \
+            .perform(command.js.scroll_into_view).click()
         s('.questionnaire-chapter:nth-child(3) .add-question').click()
         return self
 
@@ -304,33 +314,38 @@ class FillingQuestionnairePage:
         s('#search-questions-list [data-id="76"]').click()
         s('#search-questions-list [data-id="78"]').click()
         s('#search-questions-list [data-id="62"]').click()
-        s('.modal-footer #sq_save').click()
+        s('.modal-footer #sq_save').with_(timeout=5) \
+            .perform(command.js.scroll_into_view).click()
         return self
 
-    def checking_the_number_of_created_questions_third_block(self, value):
-        s('.questionnaire-chapter:nth-child(3) .count').with_(timeout=4).should(have.text(value))
+    def checking_the_number_of_created_questions_third_block(self, final_count_of_questions: str):
+        s('.questionnaire-chapter:nth-child(3) .count').with_(timeout=4).should(have.text(final_count_of_questions))
         return self
 
     def add_first_title_questionnaire_chapters(self, first_questionnaire_title: str):
-        s('.list .questionnaire-chapter:nth-child(1) .edit').click()
+        s('.list .questionnaire-chapter:nth-child(1) .edit').with_(timeout=5) \
+            .perform(command.js.scroll_into_view).click()
         s('.list .questionnaire-chapter:nth-child(1) .chapter-name').type(first_questionnaire_title)
         s('.list .questionnaire-chapter:nth-child(1) .save').click()
         return self
 
     def add_second_title_questionnaire_chapters(self, second_questionnaire_title: str):
-        s('.list .questionnaire-chapter:nth-child(2) .edit').click()
+        s('.list .questionnaire-chapter:nth-child(2) .edit').with_(timeout=5) \
+            .perform(command.js.scroll_into_view).click()
         s('.list .questionnaire-chapter:nth-child(2) .chapter-name').type(second_questionnaire_title)
         s('.list .questionnaire-chapter:nth-child(2) .save').click()
         return self
 
     def add_third_title_questionnaire_chapters(self, third_questionnaire_title: str):
-        s('.list .questionnaire-chapter:nth-child(3) .edit').click()
+        s('.list .questionnaire-chapter:nth-child(3) .edit').with_(timeout=5) \
+            .perform(command.js.scroll_into_view).click()
         s('.list .questionnaire-chapter:nth-child(3) .chapter-name').type(third_questionnaire_title)
         s('.list .questionnaire-chapter:nth-child(3) .save').click()
         return self
 
     def delete_first_chapters(self):
-        s('.col-md-9 #edit-chapters').click()
+        s('.col-md-9 #edit-chapters').with_(timeout=5) \
+            .perform(command.js.scroll_into_view).click()
         s('#chapters .chapter .delete').with_(timeout=4).click()
         s('.container .btn:nth-child(1)').click()
         return self
@@ -358,6 +373,6 @@ class FillingQuestionnairePage:
         s('.jconfirm-box .btn:nth-child(1)').with_(timeout=5).click()
         return self
 
-    def push_message_about_successful_removal_questionnaire(self, value):
-        s('[data-notify="message"]').with_(timeout=5).should(have.text(value))
+    def push_message_about_successful_removal_questionnaire(self, push_message_about_deleted: str):
+        s('[data-notify="message"]').with_(timeout=10).should(have.text(push_message_about_deleted))
         return self

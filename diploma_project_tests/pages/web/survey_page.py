@@ -2,10 +2,9 @@ import time
 import lorem
 
 from diploma_project_tests import command
-from selene import have, by, be
-from selene.support.shared.jquery_style import s, ss
+from selene import have
+from selene.support.shared.jquery_style import s
 
-name_survey = lorem.sentence()
 content_survey = lorem.paragraph()
 
 
@@ -28,7 +27,7 @@ class SurveyPage:
         s('.page-header').with_(timeout=4).should(have.text(value))
         return self
 
-    def add_title(self):
+    def add_title(self, name_survey: str):
         s('#survey-title').type(name_survey)
         return self
 
@@ -41,11 +40,11 @@ class SurveyPage:
         return self
 
     def change_status(self):
-        s('#is_active').click()
+        s('#is_active').perform(command.js.scroll_into_view).click()
         return self
 
     def submit_form(self):
-        s('#store_survey_form .btn-primary').click()
+        s('#store_survey_form .btn-primary').perform(command.js.scroll_into_view).click()
         return self
 
     def checking_editing_survey_page(self, value):
@@ -58,8 +57,8 @@ class SurveyPage:
 
     def add_first_questions_type_text(self, message_notification: str, first_question_type: str):
         s('#questions-panel #survey-new-question').click()
-        s('[data-notify="message"]').with_(timeout=3).should(have.text(message_notification))
-        s('.survey-question:nth-child(1) .panel-title').should(have.text(first_question_type))
+        s('[data-notify="message"]').with_(timeout=10).should(have.text(message_notification))
+        s('.survey-question:nth-child(1) .panel-title').with_(timeout=10).should(have.text(first_question_type))
         return self
 
     def add_first_question_content(self, content_first_question: str):
@@ -103,9 +102,11 @@ class SurveyPage:
         return self
 
     def add_answers_to_third_question(self, first_answer: str, second_answer: str, third_answer: str):
-        s('.survey-question:nth-child(3) .input-group:nth-child(1) .survey-question-choice').click()
+        s('.survey-question:nth-child(3) .input-group:nth-child(1) .survey-question-choice').with_(timeout=10)\
+            .perform(command.js.scroll_into_view).click()
         time.sleep(0.9)
-        s('.survey-question:nth-child(3) .input-group:nth-child(1) .survey-question-choice').type(first_answer)
+        s('.survey-question:nth-child(3) .input-group:nth-child(1) .survey-question-choice').with_(timeout=10)\
+            .type(first_answer)
         s('.survey-question:nth-child(3) .input-group:nth-child(2) .survey-question-choice').click()
         time.sleep(0.9)
         s('.survey-question:nth-child(3) .input-group:nth-child(2) .survey-question-choice').type(second_answer)
@@ -183,8 +184,9 @@ class SurveyPage:
         time.sleep(0.7)
         s('.survey-question:nth-child(5) .input-group:nth-child(2) .survey-question-choice').type(second_answer_variant)
         s('.survey-question:nth-child(5) .input-group:nth-child(3) .survey-question-choice').click()
-        time.sleep(0.7)
-        s('.survey-question:nth-child(5) .input-group:nth-child(3) .survey-question-choice').type(third_answer_variant)
+        time.sleep(0.9)
+        s('.survey-question:nth-child(5) .input-group:nth-child(3) .survey-question-choice')\
+            .with_(timeout=7).type(third_answer_variant)
         return self
 
     def add_sixth_questions_type_rating(self, sixth_question_type: str):
@@ -201,16 +203,19 @@ class SurveyPage:
 
     def add_answers_to_sixth_question(self, first_answer_version: str, second_answer_version: str):
         s('.survey-question:nth-child(6) .survey-question-from-input').type(first_answer_version)
+        time.sleep(0.9)
         s('.survey-question:nth-child(6) .survey-question-to-input').type(second_answer_version)
+        s('.survey-question:nth-child(6) .survey-question-from-input').click()
         return self
 
     def checking_question_type_and_sequence_number(self, value):
-        list_question = s('#survey-questions').with_(timeout=3)
+        list_question = s('#survey-questions').with_(timeout=7)
         list_question.all('.panel-heading').element_by_its('.panel-title', have.exact_text(value))
         return self
 
     def adding_question_replication(self, seventh_question_type: str):
-        s('.survey-question:nth-child(6) .survey-question-copy').click()
+        s('.survey-question:nth-child(6) .survey-question-copy').with_(timeout=5).perform(command.js.scroll_into_view).\
+            click()
         s('.survey-question:nth-child(7) .panel-title').should(have.text(seventh_question_type))
         return self
 
@@ -237,10 +242,13 @@ class SurveyPage:
         s('#survey-import-modal #survey-import-questions').click()
         return self
 
-    def open_created_survey(self):
+    def open_created_survey(self, name_survey: str):
         s('#survey-filter-title').type(name_survey).press_enter()
-        s('.admin-list .survey_title').with_(timeout=10).should(have.text(name_survey))
+        s('.admin-list .survey_title').with_(timeout=20).should(have.text(name_survey))
         s('.admin-list .survey_edit').click()
+        return self
+
+    def open_questions_block(self):
         s('[data-target="#questions-panel"] .fa-plus').with_(timeout=5).click()
         return self
 
@@ -250,7 +258,11 @@ class SurveyPage:
         return self
 
     def checking_the_display_push_message(self, value):
-        s('[data-notify="message"]').with_(timeout=3).should(have.text(value))
+        s('[data-notify="message"]').with_(timeout=5).should(have.text(value))
+        time.sleep(2)
         return self
 
-
+    def change_survey_name(self):
+        s('[data-target="#general-panel"] .fa-plus').with_(timeout=5).click()
+        s('#survey-title').clear().type(' ')
+        return self

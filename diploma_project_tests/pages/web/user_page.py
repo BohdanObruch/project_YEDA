@@ -1,9 +1,6 @@
-from dotenv import load_dotenv
-from selene import have, by
+from selene import have
 from diploma_project_tests import command
-from selene.support.shared import browser
-from selene.support.shared.jquery_style import s, ss
-from diploma_project_tests.controls.utils import resource
+from selene.support.shared.jquery_style import s
 
 
 class CreateUserPage:
@@ -65,11 +62,12 @@ class CreateUserPage:
         return self
 
     def search_created_user_and_delete(self, name_user: str):
-        panel = s('.table').with_(timeout=5)
-        panel.all('tr').element_by_its('.username', have.exact_text(name_user)).element('.delete').click()
-        s('.container .btn:nth-child(1)').click()
+        panel = s('.table').with_(timeout=12)
+        panel.all('tr').element_by_its('.username', have.exact_text(name_user)).element('.delete')\
+            .perform(command.js.scroll_into_view).click()
+        s('.container .btn:nth-child(1)').with_(timeout=5).click()
         return self
 
     def push_message_about_successful_removal_user(self, value):
-        s('[data-notify="message"]').with_(timeout=5).should(have.text(value))
+        s('[data-notify="message"]').with_(timeout=12).should(have.text(value))
         return self

@@ -36,7 +36,7 @@ def test_filling_the_bundle(setup_browser):
                 app.filling_bundles.date_when_first_course_available()
 
             with step("Specify the date when access to the course will be closed"):
-                app.filling_bundles.date_when_first_course_be_closed(Bundles.date_closed_first_course)
+                app.filling_bundles.date_when_first_course_be_closed()
 
             with step("Adding course #2"):
                 app.filling_bundles.add_second_course(Bundles.name_second_course, Bundles.full_name_second_course)
@@ -48,7 +48,7 @@ def test_filling_the_bundle(setup_browser):
                 app.filling_bundles.date_when_second_course_available()
 
             with step("Specify the date when access to the course will be closed"):
-                app.filling_bundles.date_when_second_course_be_closed(Bundles.date_closed_second_course)
+                app.filling_bundles.date_when_second_course_be_closed()
 
     with step("Deleting a created bundle"):
         with step("Go to the page with all the bundles"):

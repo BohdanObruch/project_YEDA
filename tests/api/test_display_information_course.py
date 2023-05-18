@@ -16,9 +16,12 @@ def test_display_course(register_user):
     token_value = str("Bearer " + register_user[0])
     token = {"Authorization": token_value}
 
+    current_college_id = f'current_college_id={id_college}'
+
     response = yeda().get(
         f'/wl/colleges/{id_college}/courses/' + name_course_api,
-        headers=token)
+        headers=token,
+        params=current_college_id)
 
     assert response.status_code == 200
     assert S(course) == response.json()
