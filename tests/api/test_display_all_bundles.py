@@ -15,6 +15,5 @@ def test_display_all_bundles():
     response = yeda().get(f'/wl/colleges/{id_college}/bundles')
 
     assert response.status_code == 200
-    print(response.json())
     assert S(bundles) == response.json()
 
