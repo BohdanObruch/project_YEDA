@@ -87,25 +87,25 @@ def setup_browser(request):
     browser.quit()
 
 
-@pytest.fixture()
-def register_user():
-    data = user_api.create_user()
-    current_college_id = f'current_college_id={id_college}'
-
-    response = yeda().post('/auth/register',
-                           params=current_college_id,
-                           data=data
-                           )
-
-    response_parse = json.loads(str(response.text))
-
-    token = response_parse['auth']['access_token']
-    user_name = response_parse["user"]["name"]
-    user_email = response_parse["user"]["email"]
-    user_pass = data["password"]
-    id = response_parse["user"]["id"]
-
-    return token, user_name, user_email, user_pass, id
+# @pytest.fixture()
+# def register_user():
+#     data = user_api.create_user()
+#     current_college_id = f'current_college_id={id_college}'
+#
+#     response = yeda().post('/auth/register',
+#                            params=current_college_id,
+#                            data=data
+#                            )
+#
+#     response_parse = json.loads(str(response.text))
+#
+#     token = response_parse['auth']['access_token']
+#     user_name = response_parse["user"]["name"]
+#     user_email = response_parse["user"]["email"]
+#     user_pass = data["password"]
+#     id = response_parse["user"]["id"]
+#
+#     return token, user_name, user_email, user_pass, id
 
 
 @pytest.fixture(scope='function')
