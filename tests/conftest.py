@@ -25,9 +25,9 @@ def setup():
     linkApp = os.getenv('LINK_APP')
 
     desired_capabilities = ({
-        "platformName": "ios",
-        "platformVersion": "13.1",
-        "deviceName": "iPhone 11 Pro Max",
+        "platformName": "android",
+        "platformVersion": "9.0",
+        "deviceName": "Google Pixel 3",
         "app": f'{linkApp}',
         "build": "browserstack-build-" + str(date.today()),
         'bstack:options': {
