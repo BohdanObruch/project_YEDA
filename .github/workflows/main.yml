@@ -37,5 +37,17 @@ jobs:
           echo "FIRST_DATE_BOOKING=${{ secrets.FIRST_DATE_BOOKING }}" >> $GITHUB_ENV
           echo "LAST_DATE_BOOKING=${{ secrets.LAST_DATE_BOOKING }}" >> $GITHUB_ENV
 
+      - name: Display environment variables
+        run: |
+          echo "API_BROWSERSTACK: $API_BROWSERSTACK"
+          echo "LOGIN: $LOGIN"
+          echo "KEY: $KEY"
+          echo "LINK_APP: $LINK_APP"
+          echo "APPIUM_BROWSERSTACK: $APPIUM_BROWSERSTACK"
+          echo "EMAIL_BOOKING: $EMAIL_BOOKING"
+          echo "PASSWORD_BOOKING: $PASSWORD_BOOKING"
+          echo "FIRST_DATE_BOOKING: $FIRST_DATE_BOOKING"
+          echo "LAST_DATE_BOOKING: $LAST_DATE_BOOKING"
+
       - name: Run tests
         run: pytest
