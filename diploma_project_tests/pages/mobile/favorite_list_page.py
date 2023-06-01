@@ -2,10 +2,11 @@ from appium.webdriver.common.appiumby import AppiumBy
 from selene import have, be
 from selene.support.shared.jquery_style import s
 from diploma_project_tests.command import swipe_helper
-from tests.conftest import dotenv
+import os
 
-first_date = dotenv.get('FIRST_DATE_BOOKING')
-last_date = dotenv.get('LAST_DATE_BOOKING')
+
+first_date = os.environ.get('FIRST_DATE_BOOKING')
+last_date = os.environ.get('LAST_DATE_BOOKING')
 
 
 class CreateListPage:
@@ -41,7 +42,7 @@ class AddingToFavoriteListPage:
 
     def destination_options(self, value):
         list_search_result = s((AppiumBy.ID, 'facet_with_bui_free_search_booking_header_content'))
-        list_search_result.element((AppiumBy.CLASS_NAME, 'android.view.ViewGroup'))\
+        list_search_result.element((AppiumBy.CLASS_NAME, 'android.view.ViewGroup')) \
             .element((AppiumBy.ID, 'com.booking:id/view_disambiguation_destination_subtitle')).should(have.text(value))
         return self
 

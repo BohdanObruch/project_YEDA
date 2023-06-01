@@ -55,7 +55,7 @@ class BaseSession(Session):
 
 class UserApi:
     def create_user(self):
-        id_college = os.getenv('ID_COLLEGE')
+        id_college = os.environ.get('ID_COLLEGE')
 
         now = DT.datetime.now(DT.timezone.utc).astimezone()
         time_format = "%Y-%m-%d %H:%M:%S"

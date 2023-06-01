@@ -24,20 +24,6 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
-        env:
-          API_BROWSERSTACK: ${{ secrets.API_BROWSERSTACK }}
-          LOGIN: ${{ secrets.LOGIN }}
-          KEY: ${{ secrets.KEY }}
-          LINK_APP: ${{ secrets.LINK_APP }}
-          APPIUM_BROWSERSTACK: ${{ secrets.APPIUM_BROWSERSTACK }}
-          EMAIL_BOOKING: ${{ secrets.EMAIL_BOOKING }}
-          PASSWORD_BOOKING: ${{ secrets.PASSWORD_BOOKING }}
-          FIRST_DATE_BOOKING: ${{ secrets.FIRST_DATE_BOOKING }}
-          LAST_DATE_BOOKING: ${{ secrets.LAST_DATE_BOOKING }}
 
-      - name: run tests on BrowserStack
-        run: |
-          python3 -m venv .venv
-          source .venv/bin/activate
-          pip install -r requirements.txt
-          pytest
+      - name: Run tests
+        run: pytest
