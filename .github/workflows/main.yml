@@ -25,8 +25,11 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Set up BrowserStack environment variables
+      - name: Install dependencies and run tests on BrowserStack
         run: |
+          python3 -m venv .venv
+          source .venv/bin/activate
+          pip install -r requirements.txt
           echo "API_BROWSERSTACK=${{ secrets.API_BROWSERSTACK }}" >> $GITHUB_ENV
           echo "LOGIN=${{ secrets.LOGIN }}" >> $GITHUB_ENV
           echo "LINK_APP=${{ secrets.LINK_APP }}" >> $GITHUB_ENV
@@ -34,10 +37,5 @@ jobs:
           echo "EMAIL_BOOKING=${{ secrets.EMAIL_BOOKING }}" >> $GITHUB_ENV
           echo "PASSWORD_BOOKING=${{ secrets.PASSWORD_BOOKING }}" >> $GITHUB_ENV
           echo "FIRST_DATE_BOOKING=${{ secrets.FIRST_DATE_BOOKING }}" >> $GITHUB_ENV
-          echo "LAST_DATE_BOOKING=${{ secrets.LAST_DATE_BOOKING }}" >> $GITHUB_ENV  
-
-      - name: Run tests on BrowserStack
-        run: |
-          python3 -m venv .venv
-          source .venv/bin/activate
+          echo "LAST_DATE_BOOKING=${{ secrets.LAST_DATE_BOOKING }}" >> $GITHUB_ENV
           pytest
