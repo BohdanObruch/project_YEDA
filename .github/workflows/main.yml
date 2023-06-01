@@ -37,15 +37,15 @@ jobs:
           FIRST_DATE_BOOKING: ${{ secrets.FIRST_DATE_BOOKING }}
           LAST_DATE_BOOKING: ${{ secrets.LAST_DATE_BOOKING }}
         run: |
-          echo "API_BROWSERSTACK=${API_BROWSERSTACK}" >> .env
-          echo "LOGIN=${LOGIN}" >> .env
-          echo "KEY=${KEY}" >> .env
-          echo "LINK_APP=${LINK_APP}" >> .env
-          echo "APPIUM_BROWSERSTACK=${APPIUM_BROWSERSTACK}" >> .env
-          echo "EMAIL_BOOKING=${EMAIL_BOOKING}" >> .env
-          echo "PASSWORD_BOOKING=${PASSWORD_BOOKING}" >> .env
-          echo "FIRST_DATE_BOOKING=${FIRST_DATE_BOOKING}" >> .env
-          echo "LAST_DATE_BOOKING=${LAST_DATE_BOOKING}" >> .env
+          echo "API_BROWSERSTACK=${{ secrets.API_BROWSERSTACK }}" >> .env
+          echo "LOGIN=${{ secrets.LOGIN }}" >> .env
+          echo "KEY=${{ secrets.KEY }}" >> .env
+          echo "LINK_APP=${{ secrets.LINK_APP }}" >> .env
+          echo "APPIUM_BROWSERSTACK=${{ secrets.APPIUM_BROWSERSTACK }}" >> .env
+          echo "EMAIL_BOOKING=${{ secrets.EMAIL_BOOKING }}" >> .env
+          echo "PASSWORD_BOOKING=${{ secrets.PASSWORD_BOOKING }}" >> .env
+          echo "FIRST_DATE_BOOKING=${{ secrets.FIRST_DATE_BOOKING }}" >> .env
+          echo "LAST_DATE_BOOKING=${{ secrets.LAST_DATE_BOOKING }}" >> .env
 
       - name: Display environment variables
         run: |
@@ -63,3 +63,4 @@ jobs:
         run: |
           source .env
           pytest
+
