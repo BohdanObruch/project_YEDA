@@ -1,0 +1,43 @@
+name: Python Tests
+
+on:
+  push:
+    branches:
+      - browserstack
+  schedule:
+    - cron: "0 0 * * *"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Set up BrowserStack environment variables
+        run: |
+          echo "export API_BROWSERSTACK=$API_BROWSERSTACK" >> $GITHUB_ENV
+          echo "export LOGIN=$LOGIN" >> $GITHUB_ENV
+          echo "export LINK_APP=$LINK_APP" >> $GITHUB_ENV
+          echo "export APPIUM_BROWSERSTACK=$APPIUM_BROWSERSTACK" >> $GITHUB_ENV
+          echo "export EMAIL_BOOKING=$EMAIL_BOOKING" >> $GITHUB_ENV
+          echo "export PASSWORD_BOOKING=$PASSWORD_BOOKING" >> $GITHUB_ENV
+          echo "export FIRST_DATE_BOOKING=$FIRST_DATE_BOOKING" >> $GITHUB_ENV
+          echo "export LAST_DATE_BOOKING=$LAST_DATE_BOOKING" >> $GITHUB_ENV  
+
+      - name: Run tests on BrowserStack
+        run: |
+          python3 -m venv .venv
+          source .venv/bin/activate
+          pytest

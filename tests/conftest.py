@@ -1,16 +1,11 @@
 import os
 import pytest
-import json
 
 from datetime import date
-from diploma_project_tests.utils.sessions import yeda
 from appium import webdriver
 from selene.support.shared import browser
-from selenium import webdriver as webdriver_selenium
-from selenium.webdriver.chrome.options import Options
 from dotenv import dotenv_values, load_dotenv
 from diploma_project_tests.controls import attach
-from diploma_project_tests.utils.requests_helper import user_api
 
 
 @pytest.fixture(scope='session', autouse=True)
@@ -19,6 +14,7 @@ def env():
 
 
 dotenv = dotenv_values()
+
 
 @pytest.fixture(scope='function')
 def setup():
@@ -30,13 +26,12 @@ def setup():
         "deviceName": "Samsung Galaxy S21",
         "app": f'{linkApp}',
         "build": "browserstack-build-" + str(date.today()),
+
         'bstack:options': {
             "sessionName": "Booking test_mobile",
             "projectName": "Booking dev",
         }
     })
-
-
 
     userName = os.getenv('LOGIN')
     accessKey = os.getenv('KEY')
