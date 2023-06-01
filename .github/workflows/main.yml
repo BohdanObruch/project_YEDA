@@ -25,40 +25,17 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Set environment variables
-        env:
-          API_BROWSERSTACK: ${{ secrets.API_BROWSERSTACK }}
-          LOGIN: ${{ secrets.LOGIN }}
-          KEY: ${{ secrets.KEY }}
-          LINK_APP: ${{ secrets.LINK_APP }}
-          APPIUM_BROWSERSTACK: ${{ secrets.APPIUM_BROWSERSTACK }}
-          EMAIL_BOOKING: ${{ secrets.EMAIL_BOOKING }}
-          PASSWORD_BOOKING: ${{ secrets.PASSWORD_BOOKING }}
-          FIRST_DATE_BOOKING: ${{ secrets.FIRST_DATE_BOOKING }}
-          LAST_DATE_BOOKING: ${{ secrets.LAST_DATE_BOOKING }}
-        run: |
-          echo "API_BROWSERSTACK=${{ secrets.API_BROWSERSTACK }}" >> $GITHUB_ENV
-          echo "LOGIN=${{ secrets.LOGIN }}" >> $GITHUB_ENV
-          echo "KEY=${{ secrets.KEY }}" >> $GITHUB_ENV
-          echo "LINK_APP=${{ secrets.LINK_APP }}" >> $GITHUB_ENV
-          echo "APPIUM_BROWSERSTACK=${{ secrets.APPIUM_BROWSERSTACK }}" >> $GITHUB_ENV
-          echo "EMAIL_BOOKING=${{ secrets.EMAIL_BOOKING }}" >> $GITHUB_ENV
-          echo "PASSWORD_BOOKING=${{ secrets.PASSWORD_BOOKING }}" >> $GITHUB_ENV
-          echo "FIRST_DATE_BOOKING=${{ secrets.FIRST_DATE_BOOKING }}" >> $GITHUB_ENV
-          echo "LAST_DATE_BOOKING=${{ secrets.LAST_DATE_BOOKING }}" >> $GITHUB_ENV
-
       - name: Display environment variables
         run: |
-          echo "API_BROWSERSTACK: ${{ secrets.API_BROWSERSTACK }}"
-          echo "LOGIN: ${{ secrets.LOGIN }}"
-          echo "KEY: ${{ secrets.KEY }}"
-          echo "LINK_APP: ${{ secrets.LINK_APP }}"
-          echo "APPIUM_BROWSERSTACK: ${{ secrets.APPIUM_BROWSERSTACK }}"
-          echo "EMAIL_BOOKING: ${{ secrets.EMAIL_BOOKING }}"
-          echo "PASSWORD_BOOKING: ${{ secrets.PASSWORD_BOOKING }}"
-          echo "FIRST_DATE_BOOKING: ${{ secrets.FIRST_DATE_BOOKING }}"
-          echo "LAST_DATE_BOOKING: ${{ secrets.LAST_DATE_BOOKING }}"
+          echo "API_BROWSERSTACK: ${{ env.API_BROWSERSTACK }}"
+          echo "LOGIN: ${{ env.LOGIN }}"
+          echo "KEY: ${{ env.KEY }}"
+          echo "LINK_APP: ${{ env.LINK_APP }}"
+          echo "APPIUM_BROWSERSTACK: ${{ env.APPIUM_BROWSERSTACK }}"
+          echo "EMAIL_BOOKING: ${{ env.EMAIL_BOOKING }}"
+          echo "PASSWORD_BOOKING: ${{ env.PASSWORD_BOOKING }}"
+          echo "FIRST_DATE_BOOKING: ${{ env.FIRST_DATE_BOOKING }}"
+          echo "LAST_DATE_BOOKING: ${{ env.LAST_DATE_BOOKING }}"
 
       - name: Run tests
-        run: |
-          pytest
+        run: pytest
