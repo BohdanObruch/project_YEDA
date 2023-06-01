@@ -33,13 +33,13 @@ jobs:
 
       - name: Run tests
         env:
-          api_browserstack: ${{ vars.API_BROWSERSTACK }}
-          userName: ${{ vars.LOGIN }}
-          accessKey: ${{ vars.KEY }}
-          linkApp: ${{ vars.LINK_APP }}
-          remoteUrl: ${{ vars.APPIUM_BROWSERSTACK }}
-          email_booking: ${{ vars.EMAIL_BOOKING }}
-          password_booking: ${{ vars.PASSWORD_BOOKING }}
-          first_date: ${{ vars.FIRST_DATE_BOOKING }}
-          last_date: ${{ vars.LAST_DATE_BOOKING }}
+          API_BROWSERSTACK: ${{ vars.API_BROWSERSTACK }}
+          LOGIN: ${{ vars.LOGIN }}
+          KEY: ${{ vars.KEY }}
+          LINK_APP: ${{ vars.LINK_APP }}
+          APPIUM_BROWSERSTACK: ${{ vars.APPIUM_BROWSERSTACK }}
+          EMAIL_BOOKING: ${{ vars.EMAIL_BOOKING }}
+          PASSWORD_BOOKING: ${{ vars.PASSWORD_BOOKING }}
+          FIRST_DATE_BOOKING: ${{ vars.FIRST_DATE_BOOKING }}
+          LAST_DATE_BOOKING: ${{ vars.LAST_DATE_BOOKING }}
         run: pytest .
