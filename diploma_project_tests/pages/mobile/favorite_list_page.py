@@ -5,8 +5,8 @@ from diploma_project_tests.command import swipe_helper
 import os
 
 
-first_date = os.environ.get('FIRST_DATE_BOOKING')
-last_date = os.environ.get('LAST_DATE_BOOKING')
+first_date = os.getenv('FIRST_DATE_BOOKING')
+last_date = os.getenv('LAST_DATE_BOOKING')
 
 
 class CreateListPage:

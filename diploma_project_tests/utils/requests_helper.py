@@ -53,30 +53,3 @@ class BaseSession(Session):
         return response
 
 
-class UserApi:
-    def create_user(self):
-        id_college = os.environ.get('ID_COLLEGE')
-
-        now = DT.datetime.now(DT.timezone.utc).astimezone()
-        time_format = "%Y-%m-%d %H:%M:%S"
-        now_time = f"{now:{time_format}}"
-
-        current_GMT = time.gmtime()
-        ts = calendar.timegm(current_GMT)
-
-        name = ('anna' + str(ts))
-        email = (name + '@gmail.com')
-        password = ts
-
-        user = {
-            "email": f"{email}",
-            "password": f"{password}",
-            "lang": "en",
-            "college_id": id_college,
-            "signed": f"{now_time}"
-        }
-
-        return user
-
-
-user_api = UserApi()
