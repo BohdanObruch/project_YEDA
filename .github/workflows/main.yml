@@ -37,15 +37,15 @@ jobs:
           FIRST_DATE_BOOKING: ${{ secrets.FIRST_DATE_BOOKING }}
           LAST_DATE_BOOKING: ${{ secrets.LAST_DATE_BOOKING }}
         run: |
-          echo "API_BROWSERSTACK=$API_BROWSERSTACK" >> $GITHUB_ENV
-          echo "LOGIN=$LOGIN" >> $GITHUB_ENV
-          echo "KEY=$KEY" >> $GITHUB_ENV
-          echo "LINK_APP=$LINK_APP" >> $GITHUB_ENV
-          echo "APPIUM_BROWSERSTACK=$APPIUM_BROWSERSTACK" >> $GITHUB_ENV
-          echo "EMAIL_BOOKING=$EMAIL_BOOKING" >> $GITHUB_ENV
-          echo "PASSWORD_BOOKING=$PASSWORD_BOOKING" >> $GITHUB_ENV
-          echo "FIRST_DATE_BOOKING=$FIRST_DATE_BOOKING" >> $GITHUB_ENV
-          echo "LAST_DATE_BOOKING=$LAST_DATE_BOOKING" >> $GITHUB_ENV
+          echo "API_BROWSERSTACK=${API_BROWSERSTACK}" >> .env
+          echo "LOGIN=${LOGIN}" >> .env
+          echo "KEY=${KEY}" >> .env
+          echo "LINK_APP=${LINK_APP}" >> .env
+          echo "APPIUM_BROWSERSTACK=${APPIUM_BROWSERSTACK}" >> .env
+          echo "EMAIL_BOOKING=${EMAIL_BOOKING}" >> .env
+          echo "PASSWORD_BOOKING=${PASSWORD_BOOKING}" >> .env
+          echo "FIRST_DATE_BOOKING=${FIRST_DATE_BOOKING}" >> .env
+          echo "LAST_DATE_BOOKING=${LAST_DATE_BOOKING}" >> .env
 
       - name: Display environment variables
         run: |
@@ -60,4 +60,6 @@ jobs:
           echo "LAST_DATE_BOOKING: $LAST_DATE_BOOKING"
 
       - name: Run tests
-        run: pytest
+        run: |
+          source .env
+          pytest
