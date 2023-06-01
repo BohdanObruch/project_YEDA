@@ -52,6 +52,18 @@ on:
   schedule:
     - cron: "0 */1 * * *"
 
+env:
+  API_BROWSERSTACK: ${{ secrets.API_BROWSERSTACK }}
+  LOGIN: ${{ secrets.LOGIN }}
+  KEY: ${{ secrets.KEY }}
+  LINK_APP: ${{ secrets.LINK_APP }}
+  APPIUM_BROWSERSTACK: ${{ secrets.APPIUM_BROWSERSTACK }}
+  EMAIL_BOOKING: ${{ secrets.EMAIL_BOOKING }}
+  PASSWORD_BOOKING: ${{ secrets.PASSWORD_BOOKING }}
+  FIRST_DATE_BOOKING: ${{ secrets.FIRST_DATE_BOOKING }}
+  LAST_DATE_BOOKING: ${{ secrets.LAST_DATE_BOOKING }}
+
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -69,30 +81,6 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
-
-      - name: Display environment variables
-        run: |
-          echo "API_BROWSERSTACK: ${{ vars.API_BROWSERSTACK }}"
-          echo "LOGIN: ${{ vars.LOGIN }}"
-          echo "KEY: ${{ vars.KEY }}"
-          echo "LINK_APP: ${{ vars.LINK_APP }}"
-          echo "APPIUM_BROWSERSTACK: ${{ vars.APPIUM_BROWSERSTACK }}"
-          echo "EMAIL_BOOKING: ${{ vars.EMAIL_BOOKING }}"
-          echo "PASSWORD_BOOKING: ${{ vars.PASSWORD_BOOKING }}"
-          echo "FIRST_DATE_BOOKING: ${{ vars.FIRST_DATE_BOOKING }}"
-          echo "LAST_DATE_BOOKING: ${{ vars.LAST_DATE_BOOKING }}"
-
-      - name: Set environment variables for tests
-        run: |
-          echo "export API_BROWSERSTACK=${{ vars.API_BROWSERSTACK }}" >> $GITHUB_ENV
-          echo "export LOGIN=${{ vars.LOGIN }}" >> $GITHUB_ENV
-          echo "export KEY=${{ vars.KEY }}" >> $GITHUB_ENV
-          echo "export LINK_APP=${{ vars.LINK_APP }}" >> $GITHUB_ENV
-          echo "export APPIUM_BROWSERSTACK=${{ vars.APPIUM_BROWSERSTACK }}" >> $GITHUB_ENV
-          echo "export EMAIL_BOOKING=${{ vars.EMAIL_BOOKING }}" >> $GITHUB_ENV
-          echo "export PASSWORD_BOOKING=${{ vars.PASSWORD_BOOKING }}" >> $GITHUB_ENV
-          echo "export FIRST_DATE_BOOKING=${{ vars.FIRST_DATE_BOOKING }}" >> $GITHUB_ENV
-          echo "export LAST_DATE_BOOKING=${{ vars.LAST_DATE_BOOKING }}" >> $GITHUB_ENV
 
       - name: Run tests
         run: |
