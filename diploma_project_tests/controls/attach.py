@@ -4,8 +4,6 @@ import os
 from allure_commons.types import AttachmentType
 from selene.support.shared import browser
 
-from tests.conftest import dotenv
-
 
 def add_screenshot(browser):
     png = browser.driver.get_screenshot_as_png()
@@ -23,9 +21,9 @@ def add_html(browser):
 
 
 def get_url_video(session_id: str):
-    api_browserstack = dotenv.get('API_BROWSERSTACK')
+    api_browserstack = os.getenv('API_BROWSERSTACK')
     session = requests.Session()
-    session.auth = (dotenv.get('LOGIN'), dotenv.get('KEY'))
+    session.auth = (os.getenv('LOGIN'), os.getenv('KEY'))
     response = session.get(
         f'{api_browserstack}/sessions/{session_id}.json')
     return response.json().get('automation_session').get('video_url')
@@ -39,7 +37,7 @@ def add_video(session_id: str, name: str):
 
 
 def add_video_selenoid(browser):
-    url_selenoid = dotenv.get('URL_SELENOID')
+    url_selenoid = os.getenv('URL_SELENOID')
     video_url = f'{url_selenoid}' + browser.driver.session_id + ".mp4"
     html = "<html><body><video width='100%' height='100%' controls autoplay><source src='" \
            + video_url \

@@ -4,11 +4,8 @@ from selene import have
 from selene.support.shared.jquery_style import s
 import os
 
-from tests.conftest import dotenv
-
-
-email_booking = dotenv.get('EMAIL_BOOKING')
-password_booking = dotenv.get('PASSWORD_BOOKING')
+email_booking = os.getenv('EMAIL_BOOKING')
+password_booking = os.getenv('PASSWORD_BOOKING')
 
 
 def authorization():

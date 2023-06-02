@@ -18,7 +18,7 @@ dotenv = dotenv_values()
 
 @pytest.fixture(scope='function')
 def setup():
-    linkApp = dotenv.get('LINK_APP')
+    linkApp = os.getenv('LINK_APP')
 
     desired_capabilities = ({
         "platformName": "android",
@@ -33,9 +33,9 @@ def setup():
         }
     })
 
-    userName = dotenv.get('LOGIN')
-    accessKey = dotenv.get('KEY')
-    remoteUrl = dotenv.get('APPIUM_BROWSERSTACK')
+    userName = os.getenv('LOGIN')
+    accessKey = os.getenv('KEY')
+    remoteUrl = os.getenv('APPIUM_BROWSERSTACK')
 
     print(userName, accessKey, remoteUrl)
     browser.config.driver = webdriver.Remote(f"http://{userName}:{accessKey}@{remoteUrl}/wd/hub", desired_capabilities)
