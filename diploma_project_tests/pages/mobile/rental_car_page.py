@@ -3,9 +3,11 @@ from selene import have
 from selene.support.shared.jquery_style import s
 from diploma_project_tests.command import swipe_helper
 import os
+from tests.conftest import dotenv
 
-first_date = os.getenv('FIRST_DATE_BOOKING')
-last_date = os.getenv('LAST_DATE_BOOKING')
+
+first_date = dotenv.get('FIRST_DATE_BOOKING')
+last_date = dotenv.get('LAST_DATE_BOOKING')
 
 
 class RentalCarPage:
