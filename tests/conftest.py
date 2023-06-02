@@ -37,7 +37,6 @@ def setup():
     accessKey = dotenv.get('KEY')
     remoteUrl = dotenv.get('APPIUM_BROWSERSTACK')
 
-    print(userName, accessKey, remoteUrl)
     browser.config.driver = webdriver.Remote(f"http://{userName}:{accessKey}@{remoteUrl}/wd/hub", desired_capabilities)
     browser.config.timeout = 4
     session_id = browser.config.driver.session_id
