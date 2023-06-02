@@ -4,8 +4,8 @@ from selene import have
 from selene.support.shared.jquery_style import s
 import os
 
-email_booking = os.environ['EMAIL_BOOKING']
-password_booking = os.environ['PASSWORD_BOOKING']
+email_booking = os.getenv('EMAIL_BOOKING')
+password_booking = os.getenv('PASSWORD_BOOKING')
 
 
 def authorization():

@@ -3,8 +3,8 @@ from selene import have, be
 from selene.support.shared.jquery_style import s
 import os
 
-first_date = os.environ['FIRST_DATE_BOOKING']
-last_date = os.environ['LAST_DATE_BOOKING']
+first_date = os.getenv('FIRST_DATE_BOOKING')
+last_date = os.getenv('LAST_DATE_BOOKING')
 
 
 class SearchDestinationPage:

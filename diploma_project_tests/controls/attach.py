@@ -21,9 +21,9 @@ def add_html(browser):
 
 
 def get_url_video(session_id: str):
-    api_browserstack = os.environ['API_BROWSERSTACK']
+    api_browserstack = os.getenv('API_BROWSERSTACK')
     session = requests.Session()
-    session.auth = (os.environ['LOGIN'], os.environ['KEY'])
+    session.auth = (os.getenv('LOGIN'), os.getenv('KEY'))
     response = session.get(
         f'{api_browserstack}/sessions/{session_id}.json')
     return response.json().get('automation_session').get('video_url')
@@ -37,7 +37,7 @@ def add_video(session_id: str, name: str):
 
 
 def add_video_selenoid(browser):
-    url_selenoid = os.environ['URL_SELENOID']
+    url_selenoid = os.getenv('URL_SELENOID')
     video_url = f'{url_selenoid}' + browser.driver.session_id + ".mp4"
     html = "<html><body><video width='100%' height='100%' controls autoplay><source src='" \
            + video_url \
